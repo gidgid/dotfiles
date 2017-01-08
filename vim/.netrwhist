@@ -1,0 +1,11 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =9
+let g:netrw_dirhist_1='/Users/gideon/Development/ruby/sample_app'
+let g:netrw_dirhist_2='/Users/gideon/Development/ruby/sample_app/app'
+let g:netrw_dirhist_3='/Users/gideon/Development/ruby/sample_app/app/views'
+let g:netrw_dirhist_4='/Users/gideon/Development/ruby/sample_app/app/views/static_pages'
+let g:netrw_dirhist_5='/Users/gideon/Development/ruby/sample_app/spec/requests'
+let g:netrw_dirhist_6='/Users/gideon/Development/ruby/sample_app/spec'
+let g:netrw_dirhist_7='/Users/gideon/Development/ruby/sample_app'
+let g:netrw_dirhist_8='/Users/gideon/Development/ruby/sample_app/spec'
+let g:netrw_dirhist_9='/Users/gideon/Development/ruby/sample_app/spec/requests'
