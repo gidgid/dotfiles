@@ -1,9 +1,15 @@
-" Lets use vim instead of vi
+"Lets use vim instead of vi
 set nocompatible
 
 " This is the plugins pathogen file. Installations instructions at
 " https://github.com/tpope/vim-pathogen
 execute pathogen#infect()
+" color dracula
+syntax enable
+set background=dark
+se t_Co=16
+let g:solarized_termcolors=256
+colorscheme solarized
 
 " ========================= global config ============================
 set relativenumber
@@ -14,6 +20,9 @@ set visualbell             " Please don't make sounds when trying to delete some
 set autoread               " Reload files changed outside of vim
 set cursorline             " Put a line showing the line you're currently at
 set background=dark        " Black, obviously
+set backspace=indent,eol,start " Go up a line when deleting
+set guifont=Menlo:h15
+
 
 syntax on                  " Turn on syntax highlighting
 
@@ -54,6 +63,8 @@ set statusline+=\ -\
 set statusline+=%y
 set statusline+=\ 
 set statusline+=l:%l/%L
+set statusline+=\ c:\ %c
+set statusline+=\ %m
 
 " ======================= Search =======================================
 set incsearch   " Highlight searches while we're still typing
@@ -78,30 +89,70 @@ set list listchars=tab:\ \ ,trail:·
 set nowrap		" Dont wrap lines
 set linebreak		" Wrap lines at convient points
 
-" Use ack instead of grep
-set grepprg=ack
-
 " ================ Custom Settings ========================
 " automatically closes html tags
 inoremap ><Tab> ><Esc>?<[a-z]<CR>lyiwo</<C-r>"><Esc>O
-" Enables us to replace all words under the cursor
-nnoremap <Leader>rpa :%s/\<<C-r><C-w>\>//g<Left><Left>
+" Enables us to replace all words under the cursor in the current file
+nnoremap <Leader>rpf :%s/\<<C-r><C-w>\>//g<Left><Left>
+" Enables us to replace all words under the cursor in all visible windows
+nnoremap <Leader>rpa :windo %s/\<<C-r><C-w>\>//ge<Left><Left>
+nnoremap <Leader>fix :<Up>
+nnoremap <Leader>sch :vsp db/schema.rb<CR>
+nnoremap <Leader>deb $x
+nnoremap <Leader>ref :edit!<cr>
+
+
 " Allows us to create new line while still in insert mode
-imap <Leader>oo <Esc>o
-imap <Leader><S-O> <Esc>O
+inoremap <Leader>o <Esc>o
+inoremap <Leader><S-O> <Esc>O
 " Skips one char while in insert mode and then throws us back to insert mode
-imap <Leader>sk <Esc>la
+inoremap <Leader>j <Esc>la
+inoremap <Leader>a <Esc>A
+inoremap <Leader>d <C-w>
+nnoremap <Leader>nh :noh<CR>
+nnoremap <Leader>finde /\<<C-r><C-w>\><cr>
+inoremap <Leader>end <esc>:w<cr>
+
+" =============== Wrapping Settings =======================
+nnoremap <Leader>" viw<esc>a"<esc>hbi"<esc>lel
+nnoremap <Leader>f" viW<esc>a"<esc>hBi"<esc>lEl
+
+nnoremap <Leader>' viw<esc>a'<esc>hbi'<esc>lel
+nnoremap <Leader>f' viW<esc>a'<esc>hBi'<esc>lEl
+
+nnoremap <Leader>( viw<esc>a)<esc>hbi(<esc>lel
+nnoremap <Leader>f( viW<esc>a)<esc>hBi(<esc>lEl
+nnoremap <Leader>[ viw<esc>a]<esc>hbi[<esc>lel
+nnoremap <Leader>f[ viW<esc>a]<esc>hBi[<esc>lEl
+nnoremap <Leader>{ viw<esc>a}<esc>hbi{<esc>lel
+nnoremap <Leader>f{ viW<esc>a}<esc>hBi{<esc>lEl
+
+" surrounds text with single quotes instead of double quotes
+nnoremap <Leader>ct' F"r'lf"r'
+" surrounds text with double quotes instead of single quotes
+nnoremap <Leader>ct" F'r"lf'r"
+
 
 " ================ CtrlP Settings ========================
+" in order to tweak these settings you can also use this link: https://github.com/kien/ctrlp.vim/issues/187
+let g:ctrlp_follow_symlinks=1
+let g:ctrlp_max_files=0
+let g:ctrlp_max_depth=40
+let g:ctrlp_match_window = 'results:100,min:4,max:45'
 nnoremap <Leader>gv :CtrlP app/views/<CR>
 nnoremap <Leader>gc :CtrlP app/controllers/<CR>
 nnoremap <Leader>gm :CtrlP app/models/<CR>
 nnoremap <Leader>gh :CtrlP app/helpers/<CR>
 nnoremap <Leader>gmr :CtrlPMRU<CR>
+nnoremap <Leader>gl :CtrlP lib/<CR>
+nnoremap <Leader>gs :CtrlP spec/<CR>
+nnoremap <Leader>gdb :CtrlP db/migrate<CR>
 
 " ================ General Navigation Settings ===========
-nmap <Leader>gg :topleft 100 :split Gemfile<CR>
-nmap <Leader>gr :topleft :split config/routes.rb<CR>
+nnoremap <Leader>gg :topleft 100 :split Gemfile<CR>
+nnoremap <Leader>gr :topleft :split config/routes.rb<CR>
+nnoremap <Leader>erc :vsplit $MYVIMRC<CR>
+nnoremap <Leader>exp :Sexplore<CR>
 
 " ================ Pane Settings ===========================
 " maximize pane horizontally
@@ -116,6 +167,10 @@ nmap <Leader>- <C-w>5-
 nmap <Leader>= <C-w>=
 " resize current pane
 nmap <Leader>M <Leader>\| <Leader>_
+nnoremap <C-h> <C-w>h
+nnoremap <C-l> <C-w>l
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
 
 
 " ===== Seeing Is Believing =====
@@ -140,3 +195,42 @@ map <Leader>a :call RunAllSpecs()<CR>
 " ========== UtilsSnips Settings ===============
 let g:UltiSnipsSnippetsDir = '~/.vim/bundle/ultisnips/vim-snippets'
 let g:UltiSnipsSnippetDirectories = ['vim-snippets']
+
+" The Silver Searcher
+if executable('ag')
+  " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+endif
+" searches for the word under the cursor
+nnoremap <Leader>fu :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+" this mapping invokes Ag to allow us to actually search
+nnoremap <Leader>fag :Ag<SPACE>
+
+" allow basic mouse scroll
+set mouse=a
+map <ScrollWheelUp> <C-Y>
+map <ScrollWheelDown> <C-E>
+
+" ========= Ruby specific settings ================
+" shows all methods in file
+nnoremap <Leader>sam :silent lvim def %<cr>:lopen<cr>
+nnoremap <Leader>fuif :silent lvim <c-r><c-w> %<cr>:lopen<cr>
+" easily creates a block in ruby
+inoremap <Leader>bl \|\|<esc>ha
+
+" extracts a variable at the beginning of the line at the first non blank char
+nnoremap <Leader># _i#<space><esc>j
+
+iabbrev pcm private_class_method
+iabbrev pr private
+iabbrev befea before(:each)
+
+nnoremap <Leader>rrb :! rubocop %<cr>
+nnoremap <Leader>self biself.<esc>
+

@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/gideon/.oh-my-zsh
+export ZSH=~/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -107,3 +107,52 @@ fpath=(/usr/local/share/zsh-completions $fpath)
 
 PATH=$PATH:$HOME/.rvm/bin
 
+function execute-on-revisions {
+  if [ $# -eq 0 ]; then
+    echo "Missing <start-rev-exclusive> and <end-rev-inclusive>"
+    exit 1
+  fi
+
+  startbranch=$(git name-rev --name-only HEAD)
+  echo "Invoked from branch: $startbranch. When done executing on all revisions will return to the start branch"
+
+  start_rev_exclusive=$1
+  end_rev_inclusive=$2
+  git rev-list $start_rev_exclusive...$end_rev_inclusive --reverse | while read rev; do set -e && git co $rev && eval $3; done
+
+  echo "Finished execution on all revisions. Returning to $startbranch"
+  git co $startbranch
+}
+
+function equal-line-count {
+  if [ $# -eq 0 ]; then
+    echo "Missing <file1> and <file2> to compare lines"
+    exit 1
+  fi
+
+  file1_lines_count=$(wc -l "$1" | awk '{ print $1 }')
+  file2_lines_count=$(wc -l "$2" | awk '{ print $1 }')
+  if [ "$file1_lines_count" -eq "$file2_lines_count" ]; then
+    echo "Both files have the same number of lines";
+  else
+    echo "Files don't have the same line number. First file has #$file1_lines_count lines while second file has #$file2_lines_count lines";
+  fi
+}
+
+function run-on-modified-files {
+  if [ $# -eq 0 ]; then
+    echo "Expecting <branch-name> and <command-to-execute>"
+    exit 1
+  fi
+
+  branch_to_run_on="$1"
+  command_to_run="$2"
+
+  echo "Finding modified files on branch: $branch_to_run_on from master"
+  git checkout $branch_to_run_on
+
+  $(git dfnames master) | while read in_file; do echo "on file: $in_file"; done
+
+  echo "Done"
+  exit 0
+}
