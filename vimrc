@@ -173,29 +173,6 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 
 
-" ===== Seeing Is Believing =====
-" " Assumes you have a Ruby with SiB available in the PATH
-" " Annotate every line
-nmap <leader>sb :%!seeing_is_believing --timeout 12 --line-length 500 --number-of-captures 300 --alignment-strategy chunk<CR>;
-"  " Annotate marked lines
-nmap <leader>sn :%.!seeing_is_believing --timeout 12 --line-length 500 --number-of-captures 300 --alignment-strategy chunk --xmpfilter-style<CR>;
-"  " Remove annotations
-nmap <leader>sc :%.!seeing_is_believing --clean<CR>;
-"  " Mark the current line for annotation
-nmap <leader>sm A # => <Esc>
-"  " Mark the highlighted lines for annotation
-vmap <leader>m :norm A # => <Esc>
-
-" ========== Vim RSpec Settings ================
-map <Leader>t :call RunCurrentSpecFile()<CR>
-map <Leader>s :call RunNearestSpec()<CR>
-map <Leader>l :call RunLastSpec()<CR>
-map <Leader>a :call RunAllSpecs()<CR>
-
-" ========== UtilsSnips Settings ===============
-let g:UltiSnipsSnippetsDir = '~/.vim/bundle/ultisnips/vim-snippets'
-let g:UltiSnipsSnippetDirectories = ['vim-snippets']
-
 " The Silver Searcher
 if executable('ag')
   " Use ag over grep
@@ -216,21 +193,4 @@ nnoremap <Leader>fag :Ag<SPACE>
 set mouse=a
 map <ScrollWheelUp> <C-Y>
 map <ScrollWheelDown> <C-E>
-
-" ========= Ruby specific settings ================
-" shows all methods in file
-nnoremap <Leader>sam :silent lvim def %<cr>:lopen<cr>
-nnoremap <Leader>fuif :silent lvim <c-r><c-w> %<cr>:lopen<cr>
-" easily creates a block in ruby
-inoremap <Leader>bl \|\|<esc>ha
-
-" extracts a variable at the beginning of the line at the first non blank char
-nnoremap <Leader># _i#<space><esc>j
-
-iabbrev pcm private_class_method
-iabbrev pr private
-iabbrev befea before(:each)
-
-nnoremap <Leader>rrb :! rubocop %<cr>
-nnoremap <Leader>self biself.<esc>
 

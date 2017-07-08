@@ -33,6 +33,7 @@ alias s="sbt"
 alias seca="set -e && sbt clean && sbt assembly"
 alias refzsh="source ~/.zshenv"
 alias rc="rubocop"
+alias rs="rspec -c"
 
 git_aliases() {
   git config --get-regexp '^alias\.'
