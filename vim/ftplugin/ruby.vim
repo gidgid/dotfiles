@@ -19,3 +19,6 @@ iabbrev befea before(:each)
 
 " ========= some inspection utils
 nnoremap <Leader>rrb :! rubocop %<cr>
+
+
+autocmd FileType ruby map <F9> :w<CR>:!ruby -c %<CR>
