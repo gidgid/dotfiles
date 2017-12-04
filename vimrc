@@ -89,48 +89,33 @@ set list listchars=tab:\ \ ,trail:·
 set nowrap		" Dont wrap lines
 set linebreak		" Wrap lines at convient points
 
-" ================ Custom Settings ========================
-" automatically closes html tags
-inoremap ><Tab> ><Esc>?<[a-z]<CR>lyiwo</<C-r>"><Esc>O
-" Enables us to replace all words under the cursor in the current file
-nnoremap <Leader>rpf :%s/\<<C-r><C-w>\>//g<Left><Left>
-" Enables us to replace all words under the cursor in all visible windows
-nnoremap <Leader>rpa :windo %s/\<<C-r><C-w>\>//ge<Left><Left>
-nnoremap <Leader>fix :<Up>
-nnoremap <Leader>sch :vsp db/schema.rb<CR>
-nnoremap <Leader>deb $x
-nnoremap <Leader>ref :edit!<cr>
-
-
 " Allows us to create new line while still in insert mode
-inoremap <Leader>o <Esc>o
-inoremap <Leader><S-O> <Esc>O
+inoremap <leader>o <Esc>o
+inoremap <leader><S-O> <Esc>O
 " Skips one char while in insert mode and then throws us back to insert mode
-inoremap <Leader>j <Esc>la
-inoremap <Leader>a <Esc>A
-inoremap <Leader>d <C-w>
-nnoremap <Leader>nh :noh<CR>
-nnoremap <Leader>finde /\<<C-r><C-w>\><cr>
-inoremap <Leader>end <esc>:w<cr>
+inoremap <leader>j <Esc>la
+inoremap <leader>a <Esc>A
+inoremap <leader>d <C-w>
+nnoremap <leader>nh :noh<CR>
 
 " =============== Wrapping Settings =======================
-nnoremap <Leader>" viw<esc>a"<esc>hbi"<esc>lel
-nnoremap <Leader>f" viW<esc>a"<esc>hBi"<esc>lEl
+nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
+nnoremap <leader>f" viW<esc>a"<esc>hBi"<esc>lEl
 
-nnoremap <Leader>' viw<esc>a'<esc>hbi'<esc>lel
-nnoremap <Leader>f' viW<esc>a'<esc>hBi'<esc>lEl
+nnoremap <leader>' viw<esc>a'<esc>hbi'<esc>lel
+nnoremap <leader>f' viW<esc>a'<esc>hBi'<esc>lEl
 
-nnoremap <Leader>( viw<esc>a)<esc>hbi(<esc>lel
-nnoremap <Leader>f( viW<esc>a)<esc>hBi(<esc>lEl
-nnoremap <Leader>[ viw<esc>a]<esc>hbi[<esc>lel
-nnoremap <Leader>f[ viW<esc>a]<esc>hBi[<esc>lEl
-nnoremap <Leader>{ viw<esc>a}<esc>hbi{<esc>lel
-nnoremap <Leader>f{ viW<esc>a}<esc>hBi{<esc>lEl
+nnoremap <leader>( viw<esc>a)<esc>hbi(<esc>lel
+nnoremap <leader>f( viW<esc>a)<esc>hBi(<esc>lEl
+nnoremap <leader>[ viw<esc>a]<esc>hbi[<esc>lel
+nnoremap <leader>f[ viW<esc>a]<esc>hBi[<esc>lEl
+nnoremap <leader>{ viw<esc>a}<esc>hbi{<esc>lel
+nnoremap <leader>f{ viW<esc>a}<esc>hBi{<esc>lEl
 
 " surrounds text with single quotes instead of double quotes
-nnoremap <Leader>ct' F"r'lf"r'
+nnoremap <leader>ct' F"r'lf"r'
 " surrounds text with double quotes instead of single quotes
-nnoremap <Leader>ct" F'r"lf'r"
+nnoremap <leader>ct" F'r"lf'r"
 
 
 " ================ CtrlP Settings ========================
@@ -139,55 +124,28 @@ let g:ctrlp_follow_symlinks=1
 let g:ctrlp_max_files=0
 let g:ctrlp_max_depth=40
 let g:ctrlp_match_window = 'results:100,min:4,max:45'
-nnoremap <Leader>gv :CtrlP app/views/<CR>
-nnoremap <Leader>gc :CtrlP app/controllers/<CR>
-nnoremap <Leader>gm :CtrlP app/models/<CR>
-nnoremap <Leader>gh :CtrlP app/helpers/<CR>
-nnoremap <Leader>gmr :CtrlPMRU<CR>
-nnoremap <Leader>gl :CtrlP lib/<CR>
-nnoremap <Leader>gs :CtrlP spec/<CR>
-nnoremap <Leader>gdb :CtrlP db/migrate<CR>
 
 " ================ General Navigation Settings ===========
-nnoremap <Leader>gg :topleft 100 :split Gemfile<CR>
-nnoremap <Leader>gr :topleft :split config/routes.rb<CR>
-nnoremap <Leader>erc :vsplit $MYVIMRC<CR>
-nnoremap <Leader>exp :Sexplore<CR>
+nnoremap <leader>erc :vsplit $MYVIMRC<CR>
+nnoremap <leader>exp :Sexplore<CR>
 
 " ================ Pane Settings ===========================
 " maximize pane horizontally
-nmap <Leader>\| <C-w>\|
+nmap <leader>\| <C-w>\|
 " maximize pane vertically
-nmap <Leader>_ <C-w>_
+nmap <leader>_ <C-w>_
 " increase size by 5
-nmap <Leader>+ <C-w>5+
+nmap <leader>+ <C-w>5+
 " decrease size by 5
-nmap <Leader>- <C-w>5-
+nmap <leader>- <C-w>5-
 " all panes are in the same size mapping
-nmap <Leader>= <C-w>=
+nmap <leader>= <C-w>=
 " resize current pane
-nmap <Leader>M <Leader>\| <Leader>_
+nmap <leader>M <leader>\| <leader>_
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
-
-
-" The Silver Searcher
-if executable('ag')
-  " Use ag over grep
-  set grepprg=ag\ --nogroup\ --nocolor
-
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-
-  " ag is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching = 0
-endif
-" searches for the word under the cursor
-nnoremap <Leader>fu :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
-" this mapping invokes Ag to allow us to actually search
-nnoremap <Leader>fag :Ag<SPACE>
 
 " allow basic mouse scroll
 set mouse=a
