@@ -89,19 +89,6 @@ set list listchars=tab:\ \ ,trail:·
 set nowrap		" Dont wrap lines
 set linebreak		" Wrap lines at convient points
 
-" ================ Custom Settings ========================
-" automatically closes html tags
-inoremap ><Tab> ><Esc>?<[a-z]<CR>lyiwo</<C-r>"><Esc>O
-" Enables us to replace all words under the cursor in the current file
-nnoremap <Leader>rpf :%s/\<<C-r><C-w>\>//g<Left><Left>
-" Enables us to replace all words under the cursor in all visible windows
-nnoremap <Leader>rpa :windo %s/\<<C-r><C-w>\>//ge<Left><Left>
-nnoremap <Leader>fix :<Up>
-nnoremap <Leader>sch :vsp db/schema.rb<CR>
-nnoremap <Leader>deb $x
-nnoremap <Leader>ref :edit!<cr>
-
-
 " Allows us to create new line while still in insert mode
 inoremap <Leader>o <Esc>o
 inoremap <Leader><S-O> <Esc>O
@@ -109,8 +96,6 @@ inoremap <Leader><S-O> <Esc>O
 inoremap <Leader>j <Esc>la
 inoremap <Leader>a <Esc>A
 nnoremap <Leader>nh :noh<CR>
-nnoremap <Leader>finde /\<<C-r><C-w>\><cr>
-inoremap <Leader>end <esc>:w<cr>
 
 " =============== Wrapping Settings =======================
 nnoremap <Leader>" viw<esc>a"<esc>hbi"<esc>lel
@@ -138,14 +123,6 @@ let g:ctrlp_follow_symlinks=1
 let g:ctrlp_max_files=0
 let g:ctrlp_max_depth=40
 let g:ctrlp_match_window = 'results:100,min:4,max:45'
-nnoremap <Leader>gv :CtrlP app/views/<CR>
-nnoremap <Leader>gc :CtrlP app/controllers/<CR>
-nnoremap <Leader>gm :CtrlP app/models/<CR>
-nnoremap <Leader>gh :CtrlP app/helpers/<CR>
-nnoremap <Leader>gmr :CtrlPMRU<CR>
-nnoremap <Leader>gl :CtrlP lib/<CR>
-nnoremap <Leader>gs :CtrlP spec/<CR>
-nnoremap <Leader>gdb :CtrlP db/migrate<CR>
 
 " ================ General Navigation Settings ===========
 nnoremap <Leader>gg :topleft 100 :split Gemfile<CR>
@@ -172,31 +149,10 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 
 
-" ========== Vim RSpec Settings ================
-map <Leader>t :call RunCurrentSpecFile()<CR>
-map <Leader>s :call RunNearestSpec()<CR>
-map <Leader>l :call RunLastSpec()<CR>
-map <Leader>a :call RunAllSpecs()<CR>
 
 " ========== UtilsSnips Settings ===============
 let g:UltiSnipsSnippetsDir = '~/.vim/bundle/ultisnips/vim-snippets'
 let g:UltiSnipsSnippetDirectories = ['vim-snippets']
-
-" The Silver Searcher
-if executable('ag')
-  " Use ag over grep
-  set grepprg=ag\ --nogroup\ --nocolor
-
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-
-  " ag is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching = 0
-endif
-" searches for the word under the cursor
-nnoremap <Leader>fu :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
-" this mapping invokes Ag to allow us to actually search
-nnoremap <Leader>fag :Ag<SPACE>
 
 " allow basic mouse scroll
 set mouse=a
@@ -207,25 +163,6 @@ nnoremap <leader>d "_d
 
 " make vimdiff display diffs vertically
 set diffopt+=vertical
-
-" ========= Ruby specific settings ================
-" shows all methods in file
-nnoremap <Leader>sam :silent lvim def %<cr>:lopen<cr>
-nnoremap <Leader>fuif :silent lvim <c-r><c-w> %<cr>:lopen<cr>
-" easily creates a block in ruby
-inoremap <Leader>bl \|\|<esc>ha
-
-" wraps an argument with a let
-nnoremap <Leader>let A }<esc>Ilet(:<esc>Ea) {<esc>lx
-" extracts a variable at the beginning of the line at the first non blank char
-nnoremap <Leader># _i#<space><esc>j
-
-iabbrev pcm private_class_method
-iabbrev pr private
-iabbrev befea before(:each)
-
-nnoremap <Leader>rrb :! rubocop %<cr>
-nnoremap <Leader>self biself.<esc>
 
 nmap <F8> :TagbarToggle<CR>
 
