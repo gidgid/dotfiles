@@ -43,7 +43,7 @@ set sidescrolloff=15
 set sidescroll=1
 
 " Allows us to switch between the last two used files
-noremap <leader><leader> <c-^>
+noremap <leader><leader><leader> <c-^>
 
 " Increase the line number by a tiny bit
 set colorcolumn=160
@@ -108,7 +108,6 @@ inoremap <Leader><S-O> <Esc>O
 " Skips one char while in insert mode and then throws us back to insert mode
 inoremap <Leader>j <Esc>la
 inoremap <Leader>a <Esc>A
-inoremap <Leader>d <C-w>
 nnoremap <Leader>nh :noh<CR>
 nnoremap <Leader>finde /\<<C-r><C-w>\><cr>
 inoremap <Leader>end <esc>:w<cr>
@@ -173,19 +172,6 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 
 
-" ===== Seeing Is Believing =====
-" " Assumes you have a Ruby with SiB available in the PATH
-" " Annotate every line
-nmap <leader>sb :%!seeing_is_believing --timeout 12 --line-length 500 --number-of-captures 300 --alignment-strategy chunk<CR>;
-"  " Annotate marked lines
-nmap <leader>sn :%.!seeing_is_believing --timeout 12 --line-length 500 --number-of-captures 300 --alignment-strategy chunk --xmpfilter-style<CR>;
-"  " Remove annotations
-nmap <leader>sc :%.!seeing_is_believing --clean<CR>;
-"  " Mark the current line for annotation
-nmap <leader>sm A # => <Esc>
-"  " Mark the highlighted lines for annotation
-vmap <leader>m :norm A # => <Esc>
-
 " ========== Vim RSpec Settings ================
 map <Leader>t :call RunCurrentSpecFile()<CR>
 map <Leader>s :call RunNearestSpec()<CR>
@@ -217,6 +203,11 @@ set mouse=a
 map <ScrollWheelUp> <C-Y>
 map <ScrollWheelDown> <C-E>
 
+nnoremap <leader>d "_d
+
+" make vimdiff display diffs vertically
+set diffopt+=vertical
+
 " ========= Ruby specific settings ================
 " shows all methods in file
 nnoremap <Leader>sam :silent lvim def %<cr>:lopen<cr>
@@ -224,6 +215,8 @@ nnoremap <Leader>fuif :silent lvim <c-r><c-w> %<cr>:lopen<cr>
 " easily creates a block in ruby
 inoremap <Leader>bl \|\|<esc>ha
 
+" wraps an argument with a let
+nnoremap <Leader>let A }<esc>Ilet(:<esc>Ea) {<esc>lx
 " extracts a variable at the beginning of the line at the first non blank char
 nnoremap <Leader># _i#<space><esc>j
 
@@ -234,3 +227,6 @@ iabbrev befea before(:each)
 nnoremap <Leader>rrb :! rubocop %<cr>
 nnoremap <Leader>self biself.<esc>
 
+nmap <F8> :TagbarToggle<CR>
+
+nnoremap <leader>v /\u<cr>:noh<cr>

@@ -51,9 +51,11 @@ ZSH_THEME="steeef"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git-noalias rvm z colored-man brew)
+plugins=(git-noalias rvm z colored-man brew zsh-syntax-highlighting vi-mode)
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+PATH=$PATH:/usr/local/sbin
+
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -98,6 +100,8 @@ setopt interactivecomments
 #
 # # Zsh has a spelling corrector
 setopt CORRECT
+
+bindkey 'jk' vi-cmd-mode
 
 export EDITOR="vim"
 export VISUAL="vim"
@@ -156,3 +160,29 @@ function run-on-modified-files {
   echo "Done"
   exit 0
 }
+
+
+export WORKON_HOME=$HOME/.virtualenvs   # optional
+export PROJECT_HOME=$HOME/projects      # optional
+source /usr/local/bin/virtualenvwrapper.sh
+
+function zle-keymap-select zle-line-init
+{
+    # change cursor shape in iTerm2
+    case $KEYMAP in
+        vicmd)      print -n -- "\E]50;CursorShape=0\C-G";;  # block cursor
+        viins|main) print -n -- "\E]50;CursorShape=1\C-G";;  # line cursor
+    esac
+
+    zle reset-prompt
+    zle -R
+}
+
+function zle-line-finish
+{
+    print -n -- "\E]50;CursorShape=0\C-G"  # block cursor
+}
+
+zle -N zle-line-init
+zle -N zle-line-finish
+zle -N zle-keymap-select
