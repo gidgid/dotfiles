@@ -43,7 +43,7 @@ set sidescrolloff=15
 set sidescroll=1
 
 " Allows us to switch between the last two used files
-noremap <leader><leader> <c-^>
+noremap <leader><leader><leader> <c-^>
 
 " Increase the line number by a tiny bit
 set colorcolumn=160
@@ -93,10 +93,9 @@ set linebreak		" Wrap lines at convient points
 inoremap <leader>o <Esc>o
 inoremap <leader><S-O> <Esc>O
 " Skips one char while in insert mode and then throws us back to insert mode
-inoremap <leader>j <Esc>la
-inoremap <leader>a <Esc>A
-inoremap <leader>d <C-w>
-nnoremap <leader>nh :noh<CR>
+inoremap <Leader>j <Esc>la
+inoremap <Leader>a <Esc>A
+nnoremap <Leader>nh :noh<CR>
 
 " =============== Wrapping Settings =======================
 nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
@@ -147,8 +146,22 @@ nnoremap <C-l> <C-w>l
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 
+
+
+" ========== UtilsSnips Settings ===============
+let g:UltiSnipsSnippetsDir = '~/.vim/bundle/ultisnips/vim-snippets'
+let g:UltiSnipsSnippetDirectories = ['vim-snippets']
+
 " allow basic mouse scroll
 set mouse=a
 map <ScrollWheelUp> <C-Y>
 map <ScrollWheelDown> <C-E>
 
+nnoremap <leader>d "_d
+
+" make vimdiff display diffs vertically
+set diffopt+=vertical
+
+nmap <F8> :TagbarToggle<CR>
+
+nnoremap <leader>v /\u<cr>:noh<cr>

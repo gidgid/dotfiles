@@ -30,10 +30,9 @@ alias rmt="rake_prepare_and_migrate"
 alias rs="rspec spec"
 alias rsff="rspec spec --fail-fast"
 alias s="sbt"
-alias seca="set -e && sbt clean && sbt assembly"
-alias refzsh="source ~/.zshenv"
-alias rc="rubocop"
-alias rs="rspec -c"
+alias br="brew"
+alias cen="tput cup 20 0"
+alias ctop="tput cup 10 0"
 
 git_aliases() {
   git config --get-regexp '^alias\.'

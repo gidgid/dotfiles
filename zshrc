@@ -51,9 +51,11 @@ ZSH_THEME="steeef"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git-noalias rvm z colored-man brew)
+plugins=(git-noalias rvm z colored-man brew zsh-syntax-highlighting vi-mode)
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+PATH=$PATH:/usr/local/sbin
+
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -99,6 +101,8 @@ setopt interactivecomments
 # # Zsh has a spelling corrector
 setopt CORRECT
 
+bindkey 'jk' vi-cmd-mode
+
 export EDITOR="vim"
 export VISUAL="vim"
 export USE_EDITOR="vim"
@@ -107,54 +111,27 @@ fpath=(/usr/local/share/zsh-completions $fpath)
 
 PATH=$PATH:$HOME/.rvm/bin
 
-function execute-on-revisions {
-  if [ $# -eq 0 ]; then
-    echo "Missing <start-rev-exclusive> and <end-rev-inclusive>"
-    exit 1
-  fi
+export WORKON_HOME=$HOME/.virtualenvs   # optional
+export PROJECT_HOME=$HOME/projects      # optional
+source /usr/local/bin/virtualenvwrapper.sh
 
-  startbranch=$(git name-rev --name-only HEAD)
-  echo "Invoked from branch: $startbranch. When done executing on all revisions will return to the start branch"
+function zle-keymap-select zle-line-init
+{
+    # change cursor shape in iTerm2
+    case $KEYMAP in
+        vicmd)      print -n -- "\E]50;CursorShape=0\C-G";;  # block cursor
+        viins|main) print -n -- "\E]50;CursorShape=1\C-G";;  # line cursor
+    esac
 
-  start_rev_exclusive=$1
-  end_rev_inclusive=$2
-  git rev-list $start_rev_exclusive...$end_rev_inclusive --reverse | while read rev; do set -e && git co $rev && eval $3; done
-
-  echo "Finished execution on all revisions. Returning to $startbranch"
-  git co $startbranch
+    zle reset-prompt
+    zle -R
 }
 
-function equal-line-count {
-  if [ $# -eq 0 ]; then
-    echo "Missing <file1> and <file2> to compare lines"
-    exit 1
-  fi
-
-  file1_lines_count=$(wc -l "$1" | awk '{ print $1 }')
-  file2_lines_count=$(wc -l "$2" | awk '{ print $1 }')
-  if [ "$file1_lines_count" -eq "$file2_lines_count" ]; then
-    echo "Both files have the same number of lines";
-  else
-    echo "Files don't have the same line number. First file has #$file1_lines_count lines while second file has #$file2_lines_count lines";
-  fi
+function zle-line-finish
+{
+    print -n -- "\E]50;CursorShape=0\C-G"  # block cursor
 }
 
-function run-on-modified-files {
-  if [ $# -eq 0 ]; then
-    echo "Expecting <branch-name> and <command-to-execute>"
-    exit 1
-  fi
-
-  branch_to_run_on="$1"
-  command_to_run="$2"
-
-  echo "Finding modified files on branch: $branch_to_run_on from master"
-  git checkout $branch_to_run_on
-
-  $(git dfnames master) | while read in_file; do echo "on file: $in_file"; done
-
-  echo "Done"
-  exit 0
-}
-
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+zle -N zle-line-init
+zle -N zle-line-finish
+zle -N zle-keymap-select
