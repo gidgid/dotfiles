@@ -51,9 +51,8 @@ ZSH_THEME="steeef"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git-noalias rvm z colored-man brew zsh-syntax-highlighting vi-mode)
+plugins=(rvm z brew vi-mode)
 
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 PATH=$PATH:/usr/local/sbin
 
 source $ZSH/oh-my-zsh.sh
@@ -109,12 +108,6 @@ export USE_EDITOR="vim"
 
 fpath=(/usr/local/share/zsh-completions $fpath)
 
-PATH=$PATH:$HOME/.rvm/bin
-
-export WORKON_HOME=$HOME/.virtualenvs   # optional
-export PROJECT_HOME=$HOME/projects      # optional
-source /usr/local/bin/virtualenvwrapper.sh
-
 function zle-keymap-select zle-line-init
 {
     # change cursor shape in iTerm2
@@ -135,3 +128,19 @@ function zle-line-finish
 zle -N zle-line-init
 zle -N zle-line-finish
 zle -N zle-keymap-select
+
+# aliases
+alias grep="grep -irn --color"
+alias loh="ls -ld .?*"
+alias trl="tree -L"
+alias vimrc="vim ~/.vimrc"
+alias zshenv="vim ~/.zshenv"
+alias galias="git_aliases | separate_alias_to_key_value | format_and_color_alias_output"
+alias zalias="zsh_aliases | remove_alias_prefix_and_convert_equals_to_spaces | format_and_color_alias_output"
+alias g="git"
+alias v="vim"
+alias zshrc="vim ~/.zshrc"
+alias rs="rspec spec"
+alias rsff="rspec spec --fail-fast"
+alias s="sbt"
+alias br="brew"

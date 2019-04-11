@@ -21,8 +21,10 @@ set autoread               " Reload files changed outside of vim
 set cursorline             " Put a line showing the line you're currently at
 set background=dark        " Black, obviously
 set backspace=indent,eol,start " Go up a line when deleting
-set guifont=Menlo:h15
-
+set guifont=Roboto_Mono:h22
+set complete+=kspell "enable autocomplete for spelling if enabled
+set path+=**               " Enables recursive dir searching inside project dir
+set wildmenu               " Displays options when using tabs
 
 syntax on                  " Turn on syntax highlighting
 
@@ -45,8 +47,10 @@ set sidescroll=1
 " Allows us to switch between the last two used files
 noremap <leader><leader><leader> <c-^>
 
-" Increase the line number by a tiny bit
-set colorcolumn=160
+" use magenta to indicate a limit violation
+highlight ColorColumn ctermbg=magenta 
+" only display the violation line if there was an actual violation
+call matchadd('ColorColumn', '\%81v.', 100)
 
 " allow us to exit insert mode faster
 inoremap jk <esc>l
@@ -84,7 +88,8 @@ set expandtab		" When in insert mode pressing TAB will produce the correct amoun
 filetype plugin on
 filetype indent on
 
-set list listchars=tab:\ \ ,trail:·
+set listchars=tab:\ \ ,trail:·
+set list
 
 set nowrap		" Dont wrap lines
 set linebreak		" Wrap lines at convient points
