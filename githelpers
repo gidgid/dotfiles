@@ -1,0 +1,18 @@
+#!/bin/bash
+
+FORMAT_SEP="{"
+
+HASH="%C(yellow)%h%C(reset)"
+RELATIVE_TIME="%C(green)%ar%C(reset)"
+AUTHOR="%C(bold blue)%an%C(reset)"
+REFS="%C(red)%d%C(reset)"
+SUBJECT="%s"
+
+FORMAT="$HASH$FORMAT_SEP$RELATIVE_TIME$FORMAT_SEP$AUTHOR$FORMAT_SEP$REFS $SUBJECT"
+
+function pretty_git_log() {
+	git log --decorate --graph --pretty="tformat:$FORMAT" $* | 
+	column -t -s $FORMAT_SEP |
+	less -FXRS
+}
+

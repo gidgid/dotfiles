@@ -144,3 +144,5 @@ alias rs="rspec spec"
 alias rsff="rspec spec --fail-fast"
 alias s="sbt"
 alias br="brew"
+
+source ~/.aliases
