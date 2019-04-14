@@ -98,16 +98,16 @@ set statusline+=\ %m
 set incsearch   " Highlight searches while we're still typing
 set hlsearch    " Highlight search results
 set ignorecase	" Ignore case when searching
-set smartcase	" Unless we use a captial
+set smartcase	  " Unless we use a captial
 
 " ======================= Indentation ==================================
 set autoindent		
 set smartindent		" Figures out when it should use indentation and when it should not 
-set smarttab		" Convert all tabs into whitespaces
+set smarttab		  " Convert all tabs into whitespaces
 set shiftwidth=2
 set softtabstop=2
 set tabstop=2
-set expandtab		" When in insert mode pressing TAB will produce the correct amount of spaces
+set expandtab		  " When in insert mode pressing TAB will produce the correct amount of spaces
 
 filetype plugin on
 filetype indent on
@@ -115,7 +115,7 @@ filetype indent on
 set listchars=tab:\ \ ,trail:·
 set list
 
-set nowrap		" Dont wrap lines
+set nowrap		  " Dont wrap lines
 set linebreak		" Wrap lines at convient points
 
 " Skips one char while in insert mode and then throws us back to insert mode
@@ -132,7 +132,10 @@ let g:ctrlp_match_window = 'results:100,min:4,max:45'
 
 " ================ General Navigation Settings ===========
 nnoremap <leader>erc :vsplit $MYVIMRC<CR>
-nnoremap <leader>exp :Sexplore<CR>
+" Quickly open an horizontal pane with the current dir
+nnoremap <leader>hexp :Sexplore<CR>
+" Quickly open a vertical pane with the current dir
+nnoremap <leader>vexp :Sexplore<CR>
 
 " ================ Pane Settings ===========================
 " maximize pane horizontally
@@ -147,27 +150,18 @@ nmap <leader>- <C-w>5-
 nmap <leader>= <C-w>=
 " resize current pane
 nmap <leader>M <leader>\| <leader>_
+
+" ===============  Moving between splits ==================
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
-
-
-
-" ========== UtilsSnips Settings ===============
-let g:UltiSnipsSnippetsDir = '~/.vim/bundle/ultisnips/vim-snippets'
-let g:UltiSnipsSnippetDirectories = ['vim-snippets']
 
 " allow basic mouse scroll
 set mouse=a
 map <ScrollWheelUp> <C-Y>
 map <ScrollWheelDown> <C-E>
 
-nnoremap <leader>d "_d
-
 " make vimdiff display diffs vertically
 set diffopt+=vertical
 
-nmap <F8> :TagbarToggle<CR>
-
-nnoremap <leader>v /\u<cr>:noh<cr>
