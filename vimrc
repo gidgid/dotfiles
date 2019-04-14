@@ -174,6 +174,9 @@ map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 " make vimdiff display diffs vertically
 set diffopt+=vertical
 
+" =================== ctags ===============================
+nmap <leader>tag :!ctags -R .<cr>
+
 " =================== syntastic ===========================
 let python_highlight_all=1
 syntax on
