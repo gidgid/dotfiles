@@ -9,4 +9,4 @@ alias g="git"
 alias v="vim"
 alias s="sbt"
 alias br="brew"
-alias rm=rm -i
+alias rm="rm -i"
