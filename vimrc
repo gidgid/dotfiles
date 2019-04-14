@@ -16,6 +16,9 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'fugitive.vim'
 Plugin 'airblade/vim-gitgutter'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'Syntastic'
+Plugin 'nvie/vim-flake8'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -162,6 +165,16 @@ set mouse=a
 map <ScrollWheelUp> <C-Y>
 map <ScrollWheelDown> <C-E>
 
+" ==================== YouCompleteMe Plugin ===============
+" auto complete window goes away when you're done with it
+let g:ycm_autoclose_preview_window_after_completion=1
+" shortcut for go to definition
+map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
 " make vimdiff display diffs vertically
 set diffopt+=vertical
+
+" =================== syntastic ===========================
+let python_highlight_all=1
+syntax on
 
