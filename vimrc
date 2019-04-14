@@ -1,15 +1,39 @@
-"Lets use vim instead of vi
-set nocompatible
+set nocompatible              " be iMproved, required
+filetype off                  " required
 
-" This is the plugins pathogen file. Installations instructions at
-" https://github.com/tpope/vim-pathogen
-execute pathogen#infect()
-" color dracula
-syntax enable
-set background=dark
-se t_Co=16
-let g:solarized_termcolors=256
-colorscheme solarized
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+Plugin 'ctrlp.vim'
+Plugin 'sheerun/dracula-theme'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'fugitive.vim'
+Plugin 'airblade/vim-gitgutter'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line"Lets use vim instead of vi
+set nocompatible              " be iMproved, required
+
+color dracula
 
 " ========================= global config ============================
 set relativenumber
@@ -94,33 +118,10 @@ set list
 set nowrap		" Dont wrap lines
 set linebreak		" Wrap lines at convient points
 
-" Allows us to create new line while still in insert mode
-inoremap <leader>o <Esc>o
-inoremap <leader><S-O> <Esc>O
 " Skips one char while in insert mode and then throws us back to insert mode
-inoremap <Leader>j <Esc>la
 inoremap <Leader>a <Esc>A
+" Quicly remove the search highlight
 nnoremap <Leader>nh :noh<CR>
-
-" =============== Wrapping Settings =======================
-nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
-nnoremap <leader>f" viW<esc>a"<esc>hBi"<esc>lEl
-
-nnoremap <leader>' viw<esc>a'<esc>hbi'<esc>lel
-nnoremap <leader>f' viW<esc>a'<esc>hBi'<esc>lEl
-
-nnoremap <leader>( viw<esc>a)<esc>hbi(<esc>lel
-nnoremap <leader>f( viW<esc>a)<esc>hBi(<esc>lEl
-nnoremap <leader>[ viw<esc>a]<esc>hbi[<esc>lel
-nnoremap <leader>f[ viW<esc>a]<esc>hBi[<esc>lEl
-nnoremap <leader>{ viw<esc>a}<esc>hbi{<esc>lel
-nnoremap <leader>f{ viW<esc>a}<esc>hBi{<esc>lEl
-
-" surrounds text with single quotes instead of double quotes
-nnoremap <leader>ct' F"r'lf"r'
-" surrounds text with double quotes instead of single quotes
-nnoremap <leader>ct" F'r"lf'r"
-
 
 " ================ CtrlP Settings ========================
 " in order to tweak these settings you can also use this link: https://github.com/kien/ctrlp.vim/issues/187
