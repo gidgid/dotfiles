@@ -1,1 +1,12 @@
 alias gitconfig="vim ~/.gitconfig"
+alias grep="grep -irn --color"
+alias vimrc="vim ~/.vimrc"
+alias zshenv="vim ~/.zshenv"
+alias zshrc="vim ~/.zshrc"
+alias galias="git_aliases | separate_alias_to_key_value | format_and_color_alias_output"
+alias zalias="zsh_aliases | remove_alias_prefix_and_convert_equals_to_spaces | format_and_color_alias_output"
+alias g="git"
+alias v="vim"
+alias s="sbt"
+alias br="brew"
+alias rm=rm -i

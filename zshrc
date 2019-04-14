@@ -130,19 +130,5 @@ zle -N zle-line-finish
 zle -N zle-keymap-select
 
 # aliases
-alias grep="grep -irn --color"
-alias loh="ls -ld .?*"
-alias trl="tree -L"
-alias vimrc="vim ~/.vimrc"
-alias zshenv="vim ~/.zshenv"
-alias galias="git_aliases | separate_alias_to_key_value | format_and_color_alias_output"
-alias zalias="zsh_aliases | remove_alias_prefix_and_convert_equals_to_spaces | format_and_color_alias_output"
-alias g="git"
-alias v="vim"
-alias zshrc="vim ~/.zshrc"
-alias rs="rspec spec"
-alias rsff="rspec spec --fail-fast"
-alias s="sbt"
-alias br="brew"
 
 source ~/.aliases
