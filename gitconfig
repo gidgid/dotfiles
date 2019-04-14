@@ -29,6 +29,7 @@
   ap = add -p
   ## add without untracked
   au = add -u
+  aac = !git add -A && git commit --verbose
 
   # diffs
   df = diff
@@ -79,3 +80,6 @@
 [core]
 	editor = vim
 	excludesfile = ~/.gitignore
+[user]
+	name = Gideon Caller
+	email = caller.gideon@gmail.com
