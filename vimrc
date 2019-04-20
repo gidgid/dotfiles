@@ -40,20 +40,22 @@ color dracula
 
 " ========================= global config ============================
 set relativenumber
-set number                 " show the absolute line number as well
-set history=1000           " store lots of :cmdline history
-set showcmd                " show partial command while they're being typed
-set visualbell             " Please don't make sounds when trying to delete something with backspace
-set autoread               " Reload files changed outside of vim
-set cursorline             " Put a line showing the line you're currently at
-set background=dark        " Black, obviously
-set backspace=indent,eol,start " Go up a line when deleting
+set number                      " show the absolute line number as well
+set history=1000                " store lots of :cmdline history
+set showcmd                     " show partial command while they're being typed
+set visualbell                  " Please don't make sounds when trying to delete something with backspace
+set autoread                    " Reload files changed outside of vim
+set cursorline                  " Put a line showing the line you're currently at
+set background=dark             " Black, obviously
+set backspace=indent,eol,start  " Go up a line when deleting
 set guifont=Roboto_Mono:h22
-set complete+=kspell "enable autocomplete for spelling if enabled
-set path+=**               " Enables recursive dir searching inside project dir
-set wildmenu               " Displays options when using tabs
+set complete+=kspell            "enable autocomplete for spelling if enabled
+set path+=**                    " Enables recursive dir searching inside project dir
+set wildmenu                    " Displays options when using tabs
+syntax on                       " Turn on syntax highlighting
 
-syntax on                  " Turn on syntax highlighting
+" Allow spell check toggling for the current file
+map <F6> :setlocal spell! spelllang=en_us<CR>
 
 " Set the leader to , because its much easier than \
 let mapleader=","
@@ -180,4 +182,6 @@ nmap <leader>tag :!ctags -R .<cr>
 " =================== syntastic ===========================
 let python_highlight_all=1
 syntax on
+
+cnoremap <leader>g Git
 
