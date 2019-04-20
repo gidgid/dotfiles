@@ -51,7 +51,7 @@ ZSH_THEME="steeef"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(rvm z brew vi-mode)
+plugins=(z brew vi-mode zsh-syntax-highlighting)
 
 PATH=$PATH:/usr/local/sbin
 
@@ -132,3 +132,7 @@ zle -N zle-keymap-select
 # aliases
 
 source ~/.aliases
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZE_DEFAULT_OPS="--extended" # enable us to use regex when matching on results like txt$
+
