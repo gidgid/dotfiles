@@ -142,7 +142,7 @@ nnoremap <leader>erc :vsplit $MYVIMRC<CR>
 " Quickly open an horizontal pane with the current dir
 nnoremap <leader>hexp :Sexplore<CR>
 " Quickly open a vertical pane with the current dir
-nnoremap <leader>vexp :Sexplore<CR>
+nnoremap <leader>vexp :Vexplore<CR>
 
 " ================ Pane Settings ===========================
 " maximize pane horizontally
@@ -186,4 +186,17 @@ let python_highlight_all=1
 syntax on
 
 cnoremap <leader>g Git
+
+" opens fzf with lines search accross all open buffers
+nnoremap <leader>bufl :Lines<CR>
+" opens fzf with lines search accross current buffer
+nnoremap <leader>lines :BLines<CR>
+" opens fzf with buffers search
+nnoremap <leader>buffers :Buffers<CR>
+" opens fzf with commits search for all buffers
+nnoremap <leader>commitsa :Commits<CR>
+" opens fzf with commits search for just this buffer
+nnoremap <leader>commits :BCommits<CR>
+" opens fzf with all the mappings
+nnoremap <leader>maps :Maps<CR>
 
