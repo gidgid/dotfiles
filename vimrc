@@ -21,6 +21,7 @@ Plug 'tpope/vim-surround'
 Plug 'crusoexia/vim-monokai'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'sirver/ultisnips'
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required
@@ -165,6 +166,17 @@ map <ScrollWheelDown> <C-E>
 let g:ycm_autoclose_preview_window_after_completion=1
 " shortcut for go to definition
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+" ==================== UltiSnips ==============================
+let g:UltiSnipsExpandTrigger="<c-u>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
+" Allows us to see the possible snippets
+let g:UltiSnipsListSnippets="<c-o>"
 
 " make vimdiff display diffs vertically
 set diffopt+=vertical
