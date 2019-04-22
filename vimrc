@@ -10,17 +10,19 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
-Plugin 'ctrlp.vim'
-Plugin 'sheerun/dracula-theme'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'fugitive.vim'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'Valloric/YouCompleteMe'
 Plugin 'Syntastic'
-Plugin 'nvie/vim-flake8'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'ctrlp.vim'
+Plugin 'fugitive.vim'
 Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
+Plugin 'nvie/vim-flake8'
+Plugin 'rking/ag.vim'
+Plugin 'sheerun/dracula-theme'
+Plugin 'tpope/vim-surround'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -185,7 +187,10 @@ nmap <leader>tag :!ctags -R .<cr>
 let python_highlight_all=1
 syntax on
 
+" Allows us to easily write Git (with capital)
 cnoremap <leader>g Git
+" Allows us to easily write Ag (with capital)
+cnoremap <leader>a Ag
 
 " opens fzf with lines search accross all open buffers
 nnoremap <leader>bufl :Lines<CR>
