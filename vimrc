@@ -61,7 +61,6 @@ syntax on                       " Turn on syntax highlighting
 " Allow spell check toggling for the current file
 map <F6> :setlocal spell! spelllang=en_us<CR>
 
-" Set the leader to , because its much easier than \
 let mapleader=","
 
 " How long it takes vim to decide if I typed a command or not
