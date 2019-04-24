@@ -3,7 +3,6 @@ alias grep="grep -irn --color"
 alias vimrc="vim ~/.vimrc"
 alias zshenv="vim ~/.zshenv"
 alias zshrc="vim ~/.zshrc"
-blabla
 alias g="git"
 alias v="vim"
 alias s="sbt"

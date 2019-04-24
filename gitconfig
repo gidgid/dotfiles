@@ -83,3 +83,5 @@
 [user]
 	name = Gideon Caller
 	email = caller.gideon@gmail.com
+[commit]
+	verbose = true
