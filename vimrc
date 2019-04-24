@@ -198,6 +198,9 @@ syntax on
 cnoremap <leader>g Git
 " Allows us to easily write Ag (with capital)
 cnoremap <leader>a Ag
+" Enables us to more easily type relative commands in command mode
+cnoremap <leader>p +
+cnoremap <leader>m -
 
 " opens fzf with lines search accross all open buffers
 nnoremap <leader>bufl :Lines<CR>
