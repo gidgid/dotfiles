@@ -172,6 +172,8 @@ map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 let g:SuperTabDefaultCompletionType = '<C-n>'
+" Enable youcompleteme to autocomplete from imports
+let g:ycm_semantic_triggers = {'python': ['re!from\s+\S+\s+import\s']}
 
 " better key bindings for UltiSnipsExpandTrigger
 let g:UltiSnipsExpandTrigger = "<tab>"
