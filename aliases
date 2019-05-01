@@ -8,3 +8,8 @@ alias v="vim"
 alias s="sbt"
 alias br="brew"
 alias rm="rm -i"
+alias zshrc="vim ~/.zshrc"
+alias vimrc="vim ~/.vimrc"
+alias zshenv="vim ~/.zshenv"
+alias gitconfig="vim ~/.gitconfig"
+
