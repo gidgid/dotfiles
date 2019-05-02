@@ -7,7 +7,8 @@
   cop = checkout -p # checkout with path
   ## checkout to branch by regex
   cor = "!checkout_by_regex() { git checkout $(git branch | grep -e \"$1\" | head -n1); }; checkout_by_regex"
-  cof = "!checkout_with_fzf() { git branch | fzf | xargs git checkout; }; checkout_with_fzf"
+  cof = "!checkout_fzf() { git branch | fzf | xargs git checkout; }; checkout_fzf"
+  colf = "!checkout_recent_fzf() { git reflog | grep -o \"checkout: moving from .* to \" | sed -e 's/checkout: moving from //' -e 's/ to $//' | head -10 | sort -u | fzf | xargs git checkout; }; checkout_recent_fzf"
 
   # branches
   br = branch
@@ -31,7 +32,7 @@
   ## add without untracked
   au = add -u
   aac = !git add -A && git commit --verbose
-  aaf = "!add_with_fzf() { git status -s | awk '{print $2}' | fzf -m | xargs git add; }; add_with_fzf"
+  aaf = "!add_fzf() { git status -s | awk '{print $2}' | fzf -m | xargs git add; }; add_fzf"
 
   # diffs
   df = diff
