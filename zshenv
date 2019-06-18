@@ -11,3 +11,10 @@ fi
 VISUAL="vim"
 EDITOR="vim"
 
+export WORKON_HOME=$HOME/.virtualenv
+export PROJECT_HOME=$HOME/development
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+source /home/gideon/.local/bin/virtualenvwrapper.sh
+
+
+

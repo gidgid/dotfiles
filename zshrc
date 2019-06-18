@@ -51,7 +51,7 @@ ZSH_THEME="spaceship"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(z vi-mode zsh-syntax-highlighting zsh-autosuggestions colored-man-pages)
+plugins=(z vi-mode zsh-syntax-highlighting zsh-autosuggestions colored-man-pages docker k)
 
 PATH=$PATH:/usr/local/sbin
 
@@ -108,6 +108,9 @@ export USE_EDITOR="vim"
 
 fpath=(/usr/local/share/zsh-completions $fpath)
 
+fpath+=($ZSH/plugins/docker)
+autoload -U compinit && compinit
+
 function zle-keymap-select zle-line-init
 {
     # change cursor shape in iTerm2
@@ -138,3 +141,18 @@ export FZE_DEFAULT_OPS="--extended" # enable us to use regex when matching on re
 
 SPACESHIP_BATTERY_SHOW=false
 
+export PATH="/home/gideon/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
+function add_prefix() {
+  ls | while read file; do mv $file "$1$file"; done;
+}
+
+function add_suffix() {
+  ls | while read file; do mv $file "$file$1"; done;
+}
+
+eval $(thefuck --alias)
+
+source <(kubectl completion zsh)

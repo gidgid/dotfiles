@@ -1,8 +1,8 @@
 [alias]
-	st = status
+  st = status
 
   # checkouts
-	co = checkout
+  co = checkout
   cob = checkout -b
   cop = checkout -p # checkout with path
   ## checkout to branch by regex
@@ -23,6 +23,8 @@
   cta = commit -a --verbose
   ctm = commit -m
   amend = commit --verbose --amend
+  # add all and then amend
+  aamend = !git add -A && git amend
 
   # adds
   ## stage ALL changes https://stackoverflow.com/questions/572549/difference-between-git-add-a-and-git-add?rq=1
@@ -48,7 +50,7 @@
   rbi = rebase -i
 
   # visualizing the commit history
-	l = "!source ~/.githelpers && pretty_git_log"
+  l = "!source ~/.githelpers && pretty_git_log"
   lgp = log --oneline --graph --decorate --pretty=format:\"%C(auto)%d%C(reset) %s %C(magenta)(%ar)%C(reset) %C(cyan)%h%C(reset) %C(red)[%cn]%C(reset)\"
 
   # stash
@@ -83,7 +85,9 @@
 	editor = vim
 	excludesfile = ~/.gitignore
 [user]
-	name = Gideon Caller
+	name = gideondonde
 	email = caller.gideon@gmail.com
 [commit]
 	verbose = true
+[credential]
+	helper = cache --timeout 60000

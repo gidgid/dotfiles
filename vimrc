@@ -24,6 +24,12 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'sirver/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'ervandew/supertab'
+Plug 'iamcco/mathjax-support-for-mkdp', { 'for': ['markdown'] }
+Plug 'tell-k/vim-autopep8', { 'for': ['python'] }
+Plug 'iamcco/markdown-preview.vim', { 'for': ['markdown'] }
+Plug 'Yggdroot/indentLine', { 'for': ['python'] }
+Plug 'majutsushi/tagbar'
+Plug 'scrooloose/nerdtree'
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required
@@ -44,9 +50,10 @@ set cursorline                  " Put a line showing the line you're currently a
 set background=dark             " Black, obviously
 set backspace=indent,eol,start  " Go up a line when deleting
 set guifont=Roboto_Mono:h22
-set complete+=kspell            "enable autocomplete for spelling if enabled
+set complete+=kspell            " Enable autocomplete for spelling if enabled
 set path+=**                    " Enables recursive dir searching inside project dir
 set wildmenu                    " Displays options when using tabs
+set textwidth=160               " Enables wrap line at the 110 column
 syntax on                       " Turn on syntax highlighting
 
 " Allow spell check toggling for the current file
@@ -56,6 +63,43 @@ let mapleader=","
 
 " How long it takes vim to decide if I typed a command or not
 set timeout timeoutlen=1500
+
+" CTags configurations
+" ======================================================================
+" Vim will search the tags file in parent directories as well
+set tags+=./tags;,./TAGS;,tags,TAGS,./.git/tags
+" Check .git/tags for ctags file.
+fun! FindTagsFileInGitDir(file)
+  let path = fnamemodify(a:file, ':p:h')
+  while path != '/'
+    let fname = path . '/.git/tags'
+    if filereadable(fname)
+      silent! exec 'set tags+=' . fname
+    endif
+    let path = fnamemodify(path, ':h')
+  endwhile
+endfun
+
+augroup CtagsGroup
+  autocmd!
+  autocmd BufRead * call FindTagsFileInGitDir(expand("<afile>"))
+augroup END
+
+
+nnoremap <F5>  :sp tags<CR>:%s/^\([^	:]*:\)\=\([^	]*\).*/syntax keyword Tag \2/<CR>:wq! tags.vim<CR>/^<CR><F12>
+
+" go to a tag if there's only one match, otherwise open a list that you can choose from
+nnoremap <c-]> g<c-]>
+vnoremap <c-]> g<c-]>
+
+" leave the previous ability possible, just a little more annoying to type
+nnoremap g<c-]> <c-]>
+vnoremap g<c-]> <c-]>
+
+" See all tags in the current file
+nmap <F8> :TagbarToggle<CR>
+
+map <F4> :NERDTreeToggle<CR>
 
 " ========================= disable swap files ======================== 
 set noswapfile
@@ -103,9 +147,6 @@ set smartcase	  " Unless we use a captial
 set autoindent		
 set smartindent		" Figures out when it should use indentation and when it should not 
 set smarttab		  " Convert all tabs into whitespaces
-set shiftwidth=2
-set softtabstop=2
-set tabstop=2
 set expandtab		  " When in insert mode pressing TAB will produce the correct amount of spaces
 
 filetype plugin on
@@ -117,10 +158,10 @@ set list
 set nowrap		  " Dont wrap lines
 set linebreak		" Wrap lines at convient points
 
-" Skips one char while in insert mode and then throws us back to insert mode
-inoremap <Leader>a <Esc>A
 " Quicly remove the search highlight
 nnoremap <Leader>nh :noh<CR>
+
+set clipboard=unnamedplus
 
 " ================ CtrlP Settings ========================
 " in order to tweak these settings you can also use this link: https://github.com/kien/ctrlp.vim/issues/187
@@ -128,6 +169,8 @@ let g:ctrlp_follow_symlinks=1
 let g:ctrlp_max_files=0
 let g:ctrlp_max_depth=40
 let g:ctrlp_match_window = 'results:100,min:4,max:45'
+" use ctrl p to navigate my tags
+nnoremap <leader>. :CtrlPTag<cr>
 
 " ================ General Navigation Settings ===========
 nnoremap <leader>erc :vsplit $MYVIMRC<CR>
@@ -141,13 +184,17 @@ nnoremap <leader>vexp :Vexplore<CR>
 nmap <leader>\| <C-w>\|
 " maximize pane vertically
 nmap <leader>_ <C-w>_
-" increase size by 5
-nmap <leader>+ <C-w>5+
-" decrease size by 5
-nmap <leader>- <C-w>5-
+" increase size vertically by 5
+nmap <leader>v+ <C-w>5+
+" decrease size vertically by 5
+nmap <leader>v- <C-w>5-
+" increase size horizontally by 5
+nmap <leader>h+ :vertical resize +10<cr>
+" decrease size horizontally by 5
+nmap <leader>h- :vertical resize -10<cr>
 " all panes are in the same size mapping
 nmap <leader>= <C-w>=
-" resize current pane
+" maximize current pane
 nmap <leader>M <leader>\| <leader>_
 
 " ===============  Moving between splits ==================
@@ -189,11 +236,12 @@ let g:UltiSnipsEditSplit="vertical"
 " make vimdiff display diffs vertically
 set diffopt+=vertical
 
-" =================== ctags ===============================
-nmap <leader>tag :!ctags -R .<cr>
 
 " =================== syntastic ===========================
 let python_highlight_all=1
+let g:syntastic_check_on_open=1
+let g:syntastic_python_checkers = ['pylint']
+autocmd VimEnter * SyntasticToggleMode " disable syntastic by default
 syntax on
 
 " Allows us to easily write Git (with capital)
@@ -217,3 +265,12 @@ nnoremap <leader>commits :BCommits<CR>
 " opens fzf with all the mappings
 nnoremap <leader>maps :Maps<CR>
 
+"==================== abbreviations ====================
+ab ctl complete the look
+ab fto forever21
+
+nnoremap <leader>rel :set rnu!<cr>
+nnoremap <leader>tojsonh 0dt{ <bar> :%s/'/"/g<cr>:%s/True/true/g<cr>:%s/False/false/g<cr>:%!python -m json.tool<cr>
+nnoremap <leader>tojson :%s/'/"/g<cr>:%s/True/true/g<cr>:%s/False/false/g<cr>:%!python -m json.tool<cr>
+nnoremap <leader>topython :%s/true/True/g<cr>:%s/false/False/g<cr>:%s/null/None/g<cr>
+nnoremap <F3> :%s/\s\+$//e<cr>
