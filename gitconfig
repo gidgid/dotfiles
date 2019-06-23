@@ -81,14 +81,14 @@
 #  lb = "!print_last_branches() { git reflog | grep -o \"checkout: moving from .* to \" | sed -e 's/checkout: moving from //' -e 's/ to $//' | head -$1 | nl; }; print_last_branches"
 
 [color]
-	ui = auto
+  ui = auto
 [core]
-	editor = vim
-	excludesfile = ~/.gitignore
+  editor = vim
+  excludesfile = ~/.gitignore
 [user]
-	name = gideondonde
-	email = caller.gideon@gmail.com
+  name = gideondonde
+  email = caller.gideon@gmail.com
 [commit]
-	verbose = true
+  verbose = true
 [credential]
-	helper = cache --timeout 60000
+  helper = cache --timeout 60000

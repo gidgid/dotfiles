@@ -53,7 +53,8 @@ set guifont=Roboto_Mono:h22
 set complete+=kspell            " Enable autocomplete for spelling if enabled
 set path+=**                    " Enables recursive dir searching inside project dir
 set wildmenu                    " Displays options when using tabs
-set textwidth=160               " Enables wrap line at the 110 column
+set textwidth=160               " Enables wrap line column
+set shiftwidth=4
 syntax on                       " Turn on syntax highlighting
 
 " Allow spell check toggling for the current file
@@ -62,7 +63,7 @@ map <F6> :setlocal spell! spelllang=en_us<CR>
 let mapleader=","
 
 " How long it takes vim to decide if I typed a command or not
-set timeout timeoutlen=1500
+set timeout timeoutlen=500
 
 " CTags configurations
 " ======================================================================
@@ -219,6 +220,8 @@ map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 let g:SuperTabDefaultCompletionType = '<C-n>'
+let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/UltiSnips']
+
 " Enable youcompleteme to autocomplete from imports
 let g:ycm_semantic_triggers = {'python': ['re!from\s+\S+\s+import\s']}
 
@@ -252,25 +255,73 @@ cnoremap <leader>a Ag
 cnoremap <leader>p +
 cnoremap <leader>m -
 
-" opens fzf with lines search accross all open buffers
-nnoremap <leader>bufl :Lines<CR>
-" opens fzf with lines search accross current buffer
-nnoremap <leader>lines :BLines<CR>
-" opens fzf with buffers search
-nnoremap <leader>buffers :Buffers<CR>
-" opens fzf with commits search for all buffers
-nnoremap <leader>commitsa :Commits<CR>
-" opens fzf with commits search for just this buffer
-nnoremap <leader>commits :BCommits<CR>
-" opens fzf with all the mappings
-nnoremap <leader>maps :Maps<CR>
+" FZF settings. Mainly inspired from: https://jesseleite.com/posts/2/its-dangerous-to-vim-alone-take-fzf
+" search for git tracked files
+nnoremap <leader>f :GFiles<CR>
+" search for all files
+nnoremap <leader>F :Files<CR>
+" search between buffers
+nnoremap <leader>b :Buffers<CR>
+" search through tags in the current file
+nnoremap <leader>t :BTags<CR>
+" search through all the tags in the project (slower)
+nnoremap <leader>T :Tags<CR>
+" search through lines in current buffer only
+nnoremap <leader>l :BLines<CR>
+" search through lines in all buffers
+nnoremap <leader>L :Lines<CR>
+" search through marked lines
+nnoremap <leader>m :Marks<CR>
+" search through vim help
+nnoremap <leader>H :Helptags!<CR>
+" search through all commands (user or plugins defined)
+nnoremap <leader>C :Commands<CR>
+" search through the : history
+nmap <Leader>: :History:<CR>
+" search through the / history
+nmap <Leader>/ :History/<CR>
+" we can define filetype syntax with fuzzy lookup
+nmap <Leader>s :Filetypes<CR>
+" Show all shortcuts defined (before creating new shortcuts)
+nmap <Leader>M :Maps<CR>
+" Allows us to use fuzzy on ultisnips snippets
+nmap <Leader>s :Snippets<CR>
+" Quickly switch windows
+nmap <Leader>w :Windows<CR>
 
-"==================== abbreviations ====================
-ab ctl complete the look
-ab fto forever21
+" the next FZF are useful to do completions with fzf
+" Mapping selecting mappings
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
+
+" Insert mode completion
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+imap <c-x><c-l> <plug>(fzf-complete-line)
+
+" Customize fzf colors to match your color scheme
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
+" end of FZF stuff
+
 
 nnoremap <leader>rel :set rnu!<cr>
-nnoremap <leader>tojsonh 0dt{ <bar> :%s/'/"/g<cr>:%s/True/true/g<cr>:%s/False/false/g<cr>:%!python -m json.tool<cr>
-nnoremap <leader>tojson :%s/'/"/g<cr>:%s/True/true/g<cr>:%s/False/false/g<cr>:%!python -m json.tool<cr>
-nnoremap <leader>topython :%s/true/True/g<cr>:%s/false/False/g<cr>:%s/null/None/g<cr>
+nnoremap <leader>asjsonh 0dt{ <bar> :%s/'/"/g<cr>:%s/True/true/g<cr>:%s/False/false/g<cr>:%!python -m json.tool<cr>
+nnoremap <leader>asjson :%s/'/"/g<cr>:%s/True/true/g<cr>:%s/False/false/g<cr>:%!python -m json.tool<cr>
+nnoremap <leader>aspython :%s/true/True/g<cr>:%s/false/False/g<cr>:%s/null/None/g<cr>
 nnoremap <F3> :%s/\s\+$//e<cr>
