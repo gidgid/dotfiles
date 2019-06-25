@@ -20,6 +20,15 @@ alias dkr="docker"
 alias dcompose="docker-compose"
 alias copy="xclip -sel clip"
 alias p="python"
+alias ip="ipython"
 
+alias cdf='f() { cd $(ls | fzf); }; f'
+zf() {
+    cd $(z | fzf | awk '{print $2}')
+}
+
+zfc() {
+    cd $(z -c | fzf | awk '{print $2}')
+}
 alias venvf='ls -d ~/.virtualenv/*/ | fzf | while read file; do source "$file/bin/activate"; done'
 
