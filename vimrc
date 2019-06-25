@@ -8,28 +8,24 @@ call plug#begin('~/.vim/plugged')
 "call plug#begin('~/some/path/here')
 Plug 'junegunn/vim-plug'
 
-Plug 'scrooloose/syntastic'
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+Plug 'Yggdroot/indentLine', { 'for': ['python'] }
 Plug 'airblade/vim-gitgutter'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'tpope/vim-fugitive'
+Plug 'crusoexia/vim-monokai'
+Plug 'ervandew/supertab'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
+Plug 'majutsushi/tagbar'
+Plug 'mbbill/undotree'
 Plug 'nvie/vim-flake8', { 'for': ['python'] }
-Plug 'rking/ag.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/syntastic'
+Plug 'sirver/ultisnips'
+Plug 'tell-k/vim-autopep8', { 'for': ['python'] }
+Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
-Plug 'crusoexia/vim-monokai'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'sirver/ultisnips'
-Plug 'honza/vim-snippets'
-Plug 'ervandew/supertab'
-Plug 'iamcco/mathjax-support-for-mkdp', { 'for': ['markdown'] }
-Plug 'tell-k/vim-autopep8', { 'for': ['python'] }
-Plug 'iamcco/markdown-preview.vim', { 'for': ['markdown'] }
-Plug 'Yggdroot/indentLine', { 'for': ['python'] }
-Plug 'majutsushi/tagbar'
-Plug 'scrooloose/nerdtree'
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required
@@ -100,7 +96,12 @@ vnoremap g<c-]> <c-]>
 " See all tags in the current file
 nmap <F8> :TagbarToggle<CR>
 
+" NERDTree stuff
 map <F4> :NERDTreeToggle<CR>
+" enable line numbers
+let NERDTreeShowLineNumbers=1
+" make sure relative line numbers are used
+autocmd FileType nerdtree setlocal relativenumber
 
 " ========================= disable swap files ======================== 
 set noswapfile
@@ -165,13 +166,13 @@ nnoremap <Leader>nh :noh<CR>
 set clipboard=unnamedplus
 
 " ================ CtrlP Settings ========================
-" in order to tweak these settings you can also use this link: https://github.com/kien/ctrlp.vim/issues/187
-let g:ctrlp_follow_symlinks=1
-let g:ctrlp_max_files=0
-let g:ctrlp_max_depth=40
-let g:ctrlp_match_window = 'results:100,min:4,max:45'
-" use ctrl p to navigate my tags
-nnoremap <leader>. :CtrlPTag<cr>
+" in order to tweak these settings you can also use this link: https://github.com/kien/ctrlp.vim/issues/187 - disabled temp
+" let g:ctrlp_follow_symlinks=1
+" let g:ctrlp_max_files=0
+" let g:ctrlp_max_depth=40
+" let g:ctrlp_match_window = 'results:100,min:4,max:45'
+" " use ctrl p to navigate my tags
+" nnoremap <leader>. :CtrlPTag<cr>
 
 " ================ General Navigation Settings ===========
 nnoremap <leader>erc :vsplit $MYVIMRC<CR>
@@ -277,17 +278,19 @@ nnoremap <leader>H :Helptags!<CR>
 " search through all commands (user or plugins defined)
 nnoremap <leader>C :Commands<CR>
 " search through the : history
-nmap <Leader>: :History:<CR>
+nnoremap <Leader>: :History:<CR>
 " search through the / history
-nmap <Leader>/ :History/<CR>
+nnoremap <Leader>/ :History/<CR>
 " we can define filetype syntax with fuzzy lookup
-nmap <Leader>s :Filetypes<CR>
+nnoremap <Leader>S :Filetypes<CR>
 " Show all shortcuts defined (before creating new shortcuts)
-nmap <Leader>M :Maps<CR>
+nnoremap <Leader>M :Maps<CR>
 " Allows us to use fuzzy on ultisnips snippets
-nmap <Leader>s :Snippets<CR>
+nnoremap <Leader>s :Snippets<CR>
 " Quickly switch windows
-nmap <Leader>w :Windows<CR>
+nnoremap <Leader>w :Windows<CR>
+" Use with Ag
+nnoremap <Leader>a :Ag<space>
 
 " the next FZF are useful to do completions with fzf
 " Mapping selecting mappings
@@ -324,4 +327,7 @@ nnoremap <leader>rel :set rnu!<cr>
 nnoremap <leader>asjsonh 0dt{ <bar> :%s/'/"/g<cr>:%s/True/true/g<cr>:%s/False/false/g<cr>:%!python -m json.tool<cr>
 nnoremap <leader>asjson :%s/'/"/g<cr>:%s/True/true/g<cr>:%s/False/false/g<cr>:%!python -m json.tool<cr>
 nnoremap <leader>aspython :%s/true/True/g<cr>:%s/false/False/g<cr>:%s/null/None/g<cr>
-nnoremap <F3> :%s/\s\+$//e<cr>
+
+nnoremap <F2> :UndotreeToggle<cr>
+nnoremap <F1> :SyntasticToggleMode<cr>
+
