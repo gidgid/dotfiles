@@ -18,6 +18,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'majutsushi/tagbar'
 Plug 'mbbill/undotree'
 Plug 'nvie/vim-flake8', { 'for': ['python'] }
+Plug 'pbogut/fzf-mru.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/syntastic'
 Plug 'sirver/ultisnips'
@@ -54,9 +55,9 @@ set shiftwidth=4
 syntax on                       " Turn on syntax highlighting
 
 " Allow spell check toggling for the current file
-nnoremap <F1> :TagbarToggle<CR>
+nnoremap <F1> :NERDTreeToggle<CR>
 nnoremap <F2> :UndotreeToggle<cr>
-nnoremap <F3> :NERDTreeToggle<CR>
+nnoremap <F3> :TagbarToggle<CR>
 nnoremap <F7> :SyntasticToggleMode<cr>
 nnoremap <F9> :setlocal spell! spelllang=en_us<CR>
 
@@ -291,6 +292,14 @@ nnoremap <Leader>s :Snippets<CR>
 nnoremap <Leader>w :Windows<CR>
 " Use with Ag
 nnoremap <Leader>a :Ag<space>
+" Navigate through all git commits
+nnoremap <Leader>ca :Commits<CR>
+" Navigate through git commits in buffer
+nnoremap <Leader>cb :BCommits<CR>
+" Search through mru files
+nnoremap <Leader>r :FZFMru<CR>
+" Search through sibling files
+nnoremap <leader>R :Files <C-r>=expand("%:h")<CR>/<CR>
 
 " the next FZF are useful to do completions with fzf
 " Mapping selecting mappings
