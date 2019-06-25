@@ -54,7 +54,12 @@ set shiftwidth=4
 syntax on                       " Turn on syntax highlighting
 
 " Allow spell check toggling for the current file
-map <F6> :setlocal spell! spelllang=en_us<CR>
+nnoremap <F1> :TagbarToggle<CR>
+nnoremap <F2> :UndotreeToggle<cr>
+nnoremap <F3> :NERDTreeToggle<CR>
+nnoremap <F7> :SyntasticToggleMode<cr>
+nnoremap <F9> :setlocal spell! spelllang=en_us<CR>
+
 
 let mapleader=","
 
@@ -83,7 +88,6 @@ augroup CtagsGroup
 augroup END
 
 
-nnoremap <F5>  :sp tags<CR>:%s/^\([^	:]*:\)\=\([^	]*\).*/syntax keyword Tag \2/<CR>:wq! tags.vim<CR>/^<CR><F12>
 
 " go to a tag if there's only one match, otherwise open a list that you can choose from
 nnoremap <c-]> g<c-]>
@@ -93,11 +97,7 @@ vnoremap <c-]> g<c-]>
 nnoremap g<c-]> <c-]>
 vnoremap g<c-]> <c-]>
 
-" See all tags in the current file
-nmap <F8> :TagbarToggle<CR>
 
-" NERDTree stuff
-map <F4> :NERDTreeToggle<CR>
 " enable line numbers
 let NERDTreeShowLineNumbers=1
 " make sure relative line numbers are used
@@ -328,6 +328,4 @@ nnoremap <leader>asjsonh 0dt{ <bar> :%s/'/"/g<cr>:%s/True/true/g<cr>:%s/False/fa
 nnoremap <leader>asjson :%s/'/"/g<cr>:%s/True/true/g<cr>:%s/False/false/g<cr>:%!python -m json.tool<cr>
 nnoremap <leader>aspython :%s/true/True/g<cr>:%s/false/False/g<cr>:%s/null/None/g<cr>
 
-nnoremap <F2> :UndotreeToggle<cr>
-nnoremap <F1> :SyntasticToggleMode<cr>
 
