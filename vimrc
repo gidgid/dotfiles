@@ -8,27 +8,27 @@ call plug#begin('~/.vim/plugged')
 "call plug#begin('~/some/path/here')
 Plug 'junegunn/vim-plug'
 
-"Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --system-libclang' }
-"Plug 'Yggdroot/indentLine', { 'for': ['python'] }
-"Plug 'airblade/vim-gitgutter'
-"Plug 'crusoexia/vim-monokai'
-"Plug 'ervandew/supertab'
-"Plug 'junegunn/fzf'
-"Plug 'junegunn/fzf.vim'
-"Plug 'junegunn/vim-peekaboo'
-"Plug 'junegunn/vim-slash'
-"Plug 'majutsushi/tagbar'
-"Plug 'pbogut/fzf-mru.vim'
-"Plug 'scrooloose/nerdtree'
-"Plug 'Xuyuanp/nerdtree-git-plugin'
-"Plug 'scrooloose/syntastic'
-"Plug 'sirver/ultisnips'
-"Plug 'tell-k/vim-autopep8', { 'for': ['python'] }
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --system-libclang' }
+Plug 'Yggdroot/indentLine', { 'for': ['python'] }
+Plug 'airblade/vim-gitgutter'
+Plug 'crusoexia/vim-monokai'
+Plug 'ervandew/supertab'
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
+Plug 'junegunn/vim-peekaboo'
+Plug 'junegunn/vim-slash'
+Plug 'majutsushi/tagbar'
+Plug 'pbogut/fzf-mru.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'scrooloose/syntastic'
+Plug 'sirver/ultisnips'
+Plug 'tell-k/vim-autopep8', { 'for': ['python'] }
 Plug 'tpope/vim-fugitive'
-"Plug 'tpope/vim-surround'
-"Plug 'vim-airline/vim-airline'
-"Plug 'vim-airline/vim-airline-themes'
-"Plug 'ekalinin/Dockerfile.vim', { 'for': ['dockerfile'] }
+Plug 'tpope/vim-surround'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'ekalinin/Dockerfile.vim', { 'for': ['dockerfile'] }
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required
@@ -78,29 +78,6 @@ let mapleader=","
 
 " How long it takes vim to decide if I typed a command or not
 set timeout timeoutlen=500
-
-" CTags configurations
-" ======================================================================
-" Vim will search the tags file in parent directories as well
-set tags+=./tags;,./TAGS;,tags,TAGS,./.git/tags
-" Check .git/tags for ctags file.
-fun! FindTagsFileInGitDir(file)
-  let path = fnamemodify(a:file, ':p:h')
-  while path != '/'
-    let fname = path . '/.git/tags'
-    if filereadable(fname)
-      silent! exec 'set tags+=' . fname
-    endif
-    let path = fnamemodify(path, ':h')
-  endwhile
-endfun
-
-augroup CtagsGroup
-  autocmd!
-  autocmd BufRead * call FindTagsFileInGitDir(expand("<afile>"))
-augroup END
-
-
 
 " go to a tag if there's only one match, otherwise open a list that you can choose from
 nnoremap <c-]> g<c-]>
@@ -378,8 +355,8 @@ nmap <leader>tabc :tabclose<CR>
 " Triger `autoread` when files changes on disk
 " https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
 " https://vi.stackexchange.com/questions/13692/prevent-focusgained-autocmd-running-in-command-line-editing-mode
- autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
+autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
 " Notification after file change
 " https://vi.stackexchange.com/questions/13091/autocmd-event-for-autoread
- autocmd FileChangedShellPost *
+autocmd FileChangedShellPost *
    \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
