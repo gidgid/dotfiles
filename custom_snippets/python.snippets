@@ -1,0 +1,154 @@
+snippet defm "Expands to a Python method"
+def ${1:name}(self$2):
+	${0:pass}
+endsnippet
+
+snippet deff "Expands to a Python function"
+def ${1:name}($2):
+	${0:pass}
+endsnippet
+
+snippet defmm "Creates a magic method"
+def __${1:name}__(self$2):
+	${0:pass}
+endsnippet
+
+snippet deffm "Creates a magic function"
+def __${1:name}__($2):
+	${0:pass}
+endsnippet
+
+snippet init "Creates an init method"
+def __init__(self$1):
+	${0:pass}
+endsnippet
+
+snippet shab "Creates a script shabeng line"
+#!/usr/bin/env python
+endsnippet
+
+snippet ford "Creates a for loop with key and value in dict"
+for ${1:key}, ${2:value} in ${3:mapping}.items():
+	${0:do_what}
+endsnippet
+
+snippet forl "Creates a for loop"
+for ${1:item} in ${2:items}:
+	${0:do_what}
+endsnippet
+
+snippet compl "Creates a for comprehension"
+[${1:return} for ${2:item} in ${0:items}]
+endsnippet
+
+snippet compd "Creates a dict comprehension"
+{${1:key}: ${2:value} for $3 in $0}
+endsnippet
+
+snippet impf "Creates an import from statement"
+from $1 import $0
+endsnippet
+
+snippet imp "Creates an import statement"
+import $0
+endsnippet
+
+snippet class "Creates a new class"
+class ${1:name}:
+	pass
+endsnippet
+
+snippet tae "Creates an assert equals statement"
+self.assertEqual(${1:actual}, ${0:expected})
+endsnippet
+
+snippet tale "Creates an assert list equals statement"
+self.assertListEqual(${1:actual_list}, ${0:expected_list})
+endsnippet
+
+snippet tsetup "Creates a test setup method"
+def setUp(self):
+	${0:pass}
+endsnippet
+
+snippet tdef "Creates a test method with a failing assertion"
+def test_${1:name}(self):
+	${0:self.assertEqual(1, 2)}
+endsnippet
+
+snippet clsd "Creates a classmethod decorator"
+@classmethod
+endsnippet
+	
+snippet statd "Creates a staticmethod decorator"
+@staticmethod
+endsnippet
+
+snippet defs "Creates a static class method"
+@staticmethod
+def ${1:name}(${2:params}):
+	${0:pass}
+endsnippet
+
+snippet tat "Creates a test assertTrue statement"
+self.assertTrue($1)
+$0
+endsnippet
+
+snippet taf "Creates a test assertFalse statement"
+self.assertFalse($1)
+$0
+endsnippet
+
+snippet log "Creates a log info statement"
+logger.${1:info}($2'$3')
+endsnippet
+
+snippet pr "Create a print statement"
+print($1'${2:print_what}')
+endsnippet
+
+snippet tann "Creates an assert not none assertion"
+self.assertIsNotNone($1)
+endsnippet
+
+snippet tclass "Creates a unittest test class"
+class Test${1:name}(unittest.TestCase):
+	def test_${2:smoke}(self):
+		${0:self.assertEqual(1, 2)}
+endsnippet
+
+snippet tskip "Temporarily skips a test method"
+@unittest.skip('${1:Temporarily disabled}')
+endsnippet
+
+snippet tade "Creates an assertDictEqual statement"
+self.assertDictEqual(${1:actual_dict}, ${2:expected_dict})
+endsnippet
+
+snippet as "Creates an assignment statement"
+${2:name} = ${1:value}
+$0
+endsnippet
+
+snippet asf "Creates a class field assignment statement"
+self.$1 = ${1:value}
+$0
+endsnippet
+
+snippet jpr "Creates a pretty json"
+json.dumps(${1:pretty_me}, indent=4, sort_keys=True)
+endsnippet
+
+snippet mongodev "Creates a new MongoDB dev client"
+${1:db} = MongoClient(${2:'mongodb://gideon:dondemongo@localhost:27018'})[${3:db_name}]
+endsnippet
+
+snippet mongoprod "Creates a new MongoDB prod client"
+${1:db} = MongoClient(${2:'mongodb://dondeGideon:gideon1234@localhost:27019'})[${3:db_name}]
+endsnippet
+
+snippet openf "Open a file with context manager"
+with open(${1:file_name}, '${2:r}') as ${3:file_descriptor}:
+	${0:do_what}
+endsnippet
