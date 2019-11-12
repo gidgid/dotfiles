@@ -4,7 +4,7 @@ alias zshenv="vim ~/.zshenv"
 alias zshrc="vim ~/.zshrc"
 alias aliases="vim ~/.aliases"
 
-alias grep="grep -in --color"
+alias grep="grep -i --color"
 alias g="git"
 alias v="vim"
 alias vbig='f() {vim -u "NONE" $1 };f'
@@ -20,7 +20,9 @@ alias dkr="docker"
 alias dcompose="docker-compose"
 alias copy="xclip -sel clip"
 alias p="python"
-alias ip="ipython"
+alias ipy="python -c 'import IPython; IPython.terminal.ipapp.launch_new_instance()'"
+alias e="exa --long -h --git"
+alias update_tags="ctags -R --fields=+l --languages=python --python-kinds=-iv -f ./tags $(python -c "import os, sys; print(' '.join('{}'.format(d) for d in sys.path if os.path.isdir(d)))") ./"
 
 alias cdf='f() { cd $(ls | fzf); }; f'
 zf() {
@@ -30,5 +32,22 @@ zf() {
 zfc() {
     cd $(z -c | fzf | awk '{print $2}')
 }
-alias venvf='ls -d ~/.virtualenv/*/ | fzf | while read file; do source "$file/bin/activate"; done'
+alias vf='ls -d ~/.virtualenv/*/ | fzf | while read file; do source "$file/bin/activate"; done'
 
+# tunnels shorts start with 't'
+alias tmgdev='gcloud compute --project "donde-896f0" ssh --zone "us-central1-a" "donde-mongodb-dev-1" -- -N -L 27018:127.0.0.1:27017 &'
+alias tmgprod='gcloud compute --project "donde-production" ssh --zone "us-central1-a" "donde-production-mongodb-0" -- -N -L 27019:127.0.0.1:27017 &'
+alias tmgprimary='gcloud compute --project "donde-production" ssh --zone "us-central1-b" "donde-production-mongodb-1" -- -N -L 27020:127.0.0.1:27017 &'
+alias tesd='gcloud compute --project "donde-896f0" ssh --zone "us-central1-a" "donde-elasticsearch-dev-0" -- -N -L 9201:127.0.0.1:9200 &'
+alias tesprod='gcloud compute --project "donde-production" ssh --zone "us-central1-a" "donde-production-elasticsearch-0" -- -N -L 9202:127.0.0.1:9200 &'
+
+alias ccdevbackendtools='gcloud container clusters get-credentials donde-backend-tools --zone us-central1-a --project donde-896f0'
+alias ccprodbackendtools='gcloud container clusters get-credentials donde-backend-tools --zone us-central1-a --project donde-production'
+
+alias ccdevapi='gcloud container clusters get-credentials donde-api-microservices-multizone --zone us-central1-b --project donde-896f0'
+alias ccprodapi='gcloud container clusters get-credentials donde-production-api --zone us-central1-a --project donde-production'
+
+alias ccdevclassifiers='gcloud container clusters get-credentials classifiers-test --zone us-central1-b --project donde-896f0'
+alias ccprodclassifiers='gcloud container clusters get-credentials classifiers --zone us-central1-a --project donde-production'
+
+alias גדעון="echo 'You are a GOD'"

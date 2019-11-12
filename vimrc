@@ -2,31 +2,33 @@ set nocompatible              " be iMproved, required
 filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
+"set rtp+=~/.vim/bundle/Vundle.vim
 call plug#begin('~/.vim/plugged')
 " alternatively, pass a path where Vundle should install plugins
 "call plug#begin('~/some/path/here')
 Plug 'junegunn/vim-plug'
 
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
-Plug 'Yggdroot/indentLine', { 'for': ['python'] }
-Plug 'airblade/vim-gitgutter'
-Plug 'crusoexia/vim-monokai'
-Plug 'ervandew/supertab'
-Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
-Plug 'majutsushi/tagbar'
-Plug 'mbbill/undotree'
-Plug 'nvie/vim-flake8', { 'for': ['python'] }
-Plug 'pbogut/fzf-mru.vim'
-Plug 'scrooloose/nerdtree'
-Plug 'scrooloose/syntastic'
-Plug 'sirver/ultisnips'
-Plug 'tell-k/vim-autopep8', { 'for': ['python'] }
+"Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --system-libclang' }
+"Plug 'Yggdroot/indentLine', { 'for': ['python'] }
+"Plug 'airblade/vim-gitgutter'
+"Plug 'crusoexia/vim-monokai'
+"Plug 'ervandew/supertab'
+"Plug 'junegunn/fzf'
+"Plug 'junegunn/fzf.vim'
+"Plug 'junegunn/vim-peekaboo'
+"Plug 'junegunn/vim-slash'
+"Plug 'majutsushi/tagbar'
+"Plug 'pbogut/fzf-mru.vim'
+"Plug 'scrooloose/nerdtree'
+"Plug 'Xuyuanp/nerdtree-git-plugin'
+"Plug 'scrooloose/syntastic'
+"Plug 'sirver/ultisnips'
+"Plug 'tell-k/vim-autopep8', { 'for': ['python'] }
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-surround'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+"Plug 'tpope/vim-surround'
+"Plug 'vim-airline/vim-airline'
+"Plug 'vim-airline/vim-airline-themes'
+"Plug 'ekalinin/Dockerfile.vim', { 'for': ['dockerfile'] }
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required
@@ -53,6 +55,15 @@ set wildmenu                    " Displays options when using tabs
 set textwidth=160               " Enables wrap line column
 set shiftwidth=4
 syntax on                       " Turn on syntax highlighting
+set tabstop=4                   " Number of visual spaces per tab
+set softtabstop=4               " Number of spaces in tab when editing
+set expandtab		            " When in insert mode pressing TAB will produce the correct amount of spaces
+set lazyredraw                  " redraw the screen only when its actually needed
+set showmatch                   " highlight parenthesis match when cursor on parenthesis
+set foldenable                  " enable folding
+set foldlevelstart=10           " open most folds by default
+" space open/closes folds
+nnoremap <space> za
 
 " Allow spell check toggling for the current file
 nnoremap <F1> :NERDTreeToggle<CR>
@@ -61,7 +72,8 @@ nnoremap <F3> :TagbarToggle<CR>
 nnoremap <F7> :SyntasticToggleMode<cr>
 nnoremap <F9> :setlocal spell! spelllang=en_us<CR>
 
-
+" Focuses screen on the current search (slash-after plugin)
+noremap <plug>(slash-after) zz
 let mapleader=","
 
 " How long it takes vim to decide if I typed a command or not
@@ -98,11 +110,18 @@ vnoremap <c-]> g<c-]>
 nnoremap g<c-]> <c-]>
 vnoremap g<c-]> <c-]>
 
+nnoremap <leader>] :only<bar>vsplit<CR>:execute "tag" . expand('<cword>')<CR>
 
 " enable line numbers
 let NERDTreeShowLineNumbers=1
 " make sure relative line numbers are used
 autocmd FileType nerdtree setlocal relativenumber
+nnoremap <leader>show :NERDTreeFind<CR>
+" delete buffer when you delete the files in nerdtree
+let NERDTreeAutoDeleteBuffer = 1
+" open nerdtree when using vim without any arguments
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 " ========================= disable swap files ======================== 
 set noswapfile
@@ -115,7 +134,7 @@ set sidescrolloff=15
 set sidescroll=1
 
 " Allows us to switch between the last two used files
-noremap <leader><leader><leader> <c-^>
+noremap <leader><leader> <c-^>
 
 " use magenta to indicate a limit violation
 highlight ColorColumn ctermbg=magenta 
@@ -149,8 +168,7 @@ set smartcase	  " Unless we use a captial
 " ======================= Indentation ==================================
 set autoindent		
 set smartindent		" Figures out when it should use indentation and when it should not 
-set smarttab		  " Convert all tabs into whitespaces
-set expandtab		  " When in insert mode pressing TAB will produce the correct amount of spaces
+"set smarttab		  " Convert all tabs into whitespaces
 
 filetype plugin on
 filetype indent on
@@ -193,12 +211,16 @@ nmap <leader>v+ <C-w>5+
 nmap <leader>v- <C-w>5-
 " increase size horizontally by 5
 nmap <leader>h+ :vertical resize +10<cr>
+nmap <leader>hh+ :vertical resize +30<cr>
+nmap <leader>hhh+ :vertical resize +50<cr>
 " decrease size horizontally by 5
 nmap <leader>h- :vertical resize -10<cr>
+nmap <leader>hh- :vertical resize -30<cr>
+nmap <leader>hhh- :vertical resize -50<cr>
 " all panes are in the same size mapping
 nmap <leader>= <C-w>=
 " maximize current pane
-nmap <leader>M <leader>\| <leader>_
+nmap <leader>max <C-w>\| <C-w>_
 
 " ===============  Moving between splits ==================
 nnoremap <C-h> <C-w>h
@@ -215,14 +237,19 @@ map <ScrollWheelDown> <C-E>
 " auto complete window goes away when you're done with it
 let g:ycm_autoclose_preview_window_after_completion=1
 " shortcut for go to definition
-map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+" map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 " ==================== UltiSnips ==============================
 " make YCM compatible with UltiSnips (using supertab)
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 let g:SuperTabDefaultCompletionType = '<C-n>'
-let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/UltiSnips']
+" let g:UltiSnipsSnippetDirectories=['~/.vim/plugged/ultisnips/custom-snippets']
+" let g:UltiSnipsSnippetsDir=['~/.vim/plugged/ultisnips/custom-snippets']
+let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/plugged/ultisnips/custom_snippets']
+let g:UltiSnipsSnippetsDir=$HOME.'/.vim/plugged/ultisnips/custom_snippets'
+
+" let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/UltiSnips']
 
 " Enable youcompleteme to autocomplete from imports
 let g:ycm_semantic_triggers = {'python': ['re!from\s+\S+\s+import\s']}
@@ -250,7 +277,7 @@ autocmd VimEnter * SyntasticToggleMode " disable syntastic by default
 syntax on
 
 " Allows us to easily write Git (with capital)
-cnoremap <leader>g Git
+nnoremap <leader>g :Git<space>
 " Allows us to easily write Ag (with capital)
 cnoremap <leader>a Ag
 " Enables us to more easily type relative commands in command mode
@@ -277,7 +304,7 @@ nnoremap <leader>m :Marks<CR>
 " search through vim help
 nnoremap <leader>H :Helptags!<CR>
 " search through all commands (user or plugins defined)
-nnoremap <leader>C :Commands<CR>
+nnoremap <leader>c :Commands<CR>
 " search through the : history
 nnoremap <Leader>: :History:<CR>
 " search through the / history
@@ -300,6 +327,8 @@ nnoremap <Leader>cb :BCommits<CR>
 nnoremap <Leader>r :FZFMru<CR>
 " Search through sibling files
 nnoremap <leader>R :Files <C-r>=expand("%:h")<CR>/<CR>
+" Searches for word under cursor with FZF
+nnoremap <leader>z :Ag <c-r><c-w><cr>
 
 " the next FZF are useful to do completions with fzf
 " Mapping selecting mappings
@@ -336,5 +365,21 @@ nnoremap <leader>rel :set rnu!<cr>
 nnoremap <leader>asjsonh 0dt{ <bar> :%s/'/"/g<cr>:%s/True/true/g<cr>:%s/False/false/g<cr>:%!python -m json.tool<cr>
 nnoremap <leader>asjson :%s/'/"/g<cr>:%s/True/true/g<cr>:%s/False/false/g<cr>:%!python -m json.tool<cr>
 nnoremap <leader>aspython :%s/true/True/g<cr>:%s/false/False/g<cr>:%s/null/None/g<cr>
+nnoremap <leader>name :echo @%<cr>
 
+" replaces word under cursor in visual mode
+vnoremap <leader>repl :s/<c-r><c-w>//g<left><left>
+" replaces word under cursor in entire file
+nnoremap <leader>repl :%s/<c-r><c-w>//g<left><left>
 
+nmap <leader>tab :tabedit %<CR>
+nmap <leader>tabc :tabclose<CR>
+
+" Triger `autoread` when files changes on disk
+" https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
+" https://vi.stackexchange.com/questions/13692/prevent-focusgained-autocmd-running-in-command-line-editing-mode
+ autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
+" Notification after file change
+" https://vi.stackexchange.com/questions/13091/autocmd-event-for-autoread
+ autocmd FileChangedShellPost *
+   \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None

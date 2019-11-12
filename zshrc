@@ -8,6 +8,7 @@ path+=/home/$USER/bin
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+
 ZSH_THEME="spaceship"
 
 # Uncomment the following line to use case-sensitive completion.
@@ -52,7 +53,7 @@ ZSH_THEME="spaceship"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(z vi-mode zsh-syntax-highlighting zsh-autosuggestions colored-man-pages docker k)
+plugins=(z vi-mode zsh-syntax-highlighting zsh-autosuggestions colored-man-pages docker k python pip)
 
 PATH=$PATH:/usr/local/sbin
 
@@ -77,7 +78,6 @@ source $ZSH/oh-my-zsh.sh
 
 # ssh
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
-
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
@@ -112,26 +112,26 @@ fpath=(/usr/local/share/zsh-completions $fpath)
 fpath+=($ZSH/plugins/docker)
 autoload -U compinit && compinit
 
-function zle-keymap-select zle-line-init
-{
-    # change cursor shape in iTerm2
-    case $KEYMAP in
-        vicmd)      print -n -- "\E]50;CursorShape=0\C-G";;  # block cursor
-        viins|main) print -n -- "\E]50;CursorShape=1\C-G";;  # line cursor
-    esac
-
-    zle reset-prompt
-    zle -R
-}
-
-function zle-line-finish
-{
-    print -n -- "\E]50;CursorShape=0\C-G"  # block cursor
-}
-
-zle -N zle-line-init
-zle -N zle-line-finish
-zle -N zle-keymap-select
+#function zle-keymap-select zle-line-init
+#{
+#    # change cursor shape in iTerm2
+#    case $KEYMAP in
+#        vicmd)      print -n -- "\E]50;CursorShape=0\C-G";;  # block cursor
+#        viins|main) print -n -- "\E]50;CursorShape=1\C-G";;  # line cursor
+#    esac
+#
+#    zle reset-prompt
+#    zle -R
+#}
+#
+#function zle-line-finish
+#{
+#    print -n -- "\E]50;CursorShape=0\C-G"  # block cursor
+#}
+#
+#zle -N zle-line-init
+#zle -N zle-line-finish
+#zle -N zle-keymap-select
 
 # aliases
 
@@ -147,14 +147,6 @@ SPACESHIP_BATTERY_SHOW=false
 export PATH="/home/gideon/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
-
-function add_prefix() {
-  ls | while read file; do mv $file "$1$file"; done;
-}
-
-function add_suffix() {
-  ls | while read file; do mv $file "$file$1"; done;
-}
 
 eval $(thefuck --alias)
 

@@ -1,94 +1,109 @@
 [alias]
-  st = status
+    st = status
 
-  # checkouts
-  co = checkout
-  cob = checkout -b
-  cop = checkout -p # checkout with path
-  ## checkout to branch by regex
-  cor = "!checkout_by_regex() { git checkout $(git branch | grep -e \"$1\" | head -n1); }; checkout_by_regex"
-  cof = "!checkout_fzf() { git branch | fzf | xargs git checkout; }; checkout_fzf"
-  colf = "!checkout_recent_fzf() { git reflog | grep -o \"checkout: moving from .* to \" | sed -e 's/checkout: moving from //' -e 's/ to $//' | head -10 | sort -u | fzf | xargs git checkout; }; checkout_recent_fzf"
+    # checkouts
+    co = checkout
+    cob = checkout -b
+    cop = checkout -p # checkout with path
+    ## checkout to branch by regex
+    cor = "!checkout_by_regex() { git checkout $(git branch | grep -e \"$1\" | head -n1); }; checkout_by_regex"
+    # checkout by regex with fzf
+    corf = "!checkout_by_regex() { git checkout $(git branch | grep -e \"$1\" | fzf); }; checkout_by_regex"
+    cof = "!checkout_fzf() { git branch | fzf | xargs git checkout; }; checkout_fzf"
+    colf = "!checkout_recent_fzf() { git reflog | grep -o \"checkout: moving from .* to \" | sed -e 's/checkout: moving from //' -e 's/ to $//' | head -10 | sort -u | fzf | xargs git checkout; }; checkout_recent_fzf"
 
-  # branches
-  br = branch
-  bra = branch -a
-  brr = branch -r
-  ## prints #<num> last branches
-  lb = "!print_last_branches() { git reflog | grep -o \"checkout: moving from .* to \" | sed -e 's/checkout: moving from //' -e 's/ to $//' | head -$1 | nl; }; print_last_branches"
+    # branches
+    br = branch
+    bra = branch -a
+    brr = branch -r
+    ## prints #<num> last branches
+    lb = "!print_last_branches() { git reflog | grep -o \"checkout: moving from .* to \" | sed -e 's/checkout: moving from //' -e 's/ to $//' | head -$1 | nl; }; print_last_branches"
 
-  # commits
-  ## show all diffs when entering commit
-  ct = commit --verbose
-  ## adds all files and then commits them
-  cta = commit -a --verbose
-  ctm = commit -m
-  amend = commit --verbose --amend
-  # add all and then amend
-  aamend = !git add -A && git amend
+    # commits
+    ## show all diffs when entering commit
+    ct = commit --verbose
+    ## adds all files and then commits them
+    cta = commit -a --verbose
+    ctm = commit -m
 
-  # adds
-  ## stage ALL changes https://stackoverflow.com/questions/572549/difference-between-git-add-a-and-git-add?rq=1
-  aa = add -A
-  ap = add -p
-  ## add without untracked
-  au = add -u
-  aac = !git add -A && git commit --verbose
-  aaf = "!add_fzf() { git status -s | awk '{print $2}' | fzf -m | xargs git add; }; add_fzf"
+    # add all and then amend
+    aamend = !git add -A && git commit --amend --verbose
+    aumend = !git add -u && git commit --amend
+    afmend = "!add_fzf_amend() { git status -s | awk '{print $2}' | fzf -m | xargs git add && git amend; }; add_fzf_amend"
 
-  # diffs
-  df = diff
-  ## df with stage
-  dfws = diff --staged
-  ## df between staged and last commit
-  dfsc = diff --staged HEAD
-  ## df between last commit
-  dflc = diff HEAD^ HEAD
-  dfnames = diff --name-only
+    # adds
+    ## stage ALL changes https://stackoverflow.com/questions/572549/difference-between-git-add-a-and-git-add?rq=1
+    aa = add -A
+    ap = add -p
+    ## add without untracked
+    au = add -u
+    auc = !git add -u && git commit --verbose
+    aac = !git add -A && git commit --verbose
+    ## add some files and commit immediately
+    afc = "!add_files_and_commit() { git status -s | awk '{print $2}' | fzf -m | xargs git add && git commit --verbose; }; add_files_and_commit"
+    aaf = "!add_fzf() { git status -s | awk '{print $2}' | fzf -m | xargs git add; }; add_fzf"
 
-  # rebase
-  rb = rebase
-  rbi = rebase -i
+    # diffs
+    df = diff
+    ## df with stage
+    dfws = diff --staged
+    ## df between staged and last commit
+    dfsc = diff --staged HEAD
+    ## df between last commit
+    dflc = diff HEAD^ HEAD
+    dfnames = diff --name-only
 
-  # visualizing the commit history
-  l = "!source ~/.githelpers && pretty_git_log"
-  lgp = log --oneline --graph --decorate --pretty=format:\"%C(auto)%d%C(reset) %s %C(magenta)(%ar)%C(reset) %C(cyan)%h%C(reset) %C(red)[%cn]%C(reset)\"
+    # rebase
+    rb = rebase
+    rbi = rebase -i
 
-  # stash
-  ss = stash
-  ssl = stash list
-  sss = stash save
+    # visualizing the commit history
+    l = "!source ~/.githelpers && pretty_git_log"
+    lgp = log --oneline --graph --decorate --pretty=format:\"%C(auto)%d%C(reset) %s %C(magenta)(%ar)%C(reset) %C(cyan)%h%C(reset) %C(red)[%cn]%C(reset)\"
 
-  # push
-  ps = push
-  psf = push -f
-  psdry = push --dry-run
-  pom = push origin master
+    # stash
+    s = stash
+    sl = stash list
+    ss = stash save
+    ssu = stash save -u
+    sp = stash pop
 
-  # pull
-  pl = pull
+    # push
+    ps = push
+    psf = push -f
+    psdry = push --dry-run
+    pom = push origin master
 
-  # temporarily ignore files
-  tignore = update-index --assume-unchanged
-  # remove temporarily ignore files
-  tuignore = update-index --no-assume-unchanged
+    # pull
+    pl = pull
 
-  # prints the name of the branch
-  name = "! git rev-parse --abbrev-ref HEAD"
+    # temporarily ignore files
+    tignore = update-index --assume-unchanged
+    # remove temporarily ignore files
+    tuignore = update-index --no-assume-unchanged
 
- # alias = config --get-regexp ^alias
-  alias = "!print_aliases() { git config --get-regexp ^alias | sed s/alias.//g; }; print_aliases"
-#  lb = "!print_last_branches() { git reflog | grep -o \"checkout: moving from .* to \" | sed -e 's/checkout: moving from //' -e 's/ to $//' | head -$1 | nl; }; print_last_branches"
+    # prints the name of the branch
+    name = "! git rev-parse --abbrev-ref HEAD"
 
+    # alias = config --get-regexp ^alias
+    alias = "!print_aliases() { git config --get-regexp ^alias | sed s/alias.//g; }; print_aliases"
+    #  lb = "!print_last_branches() { git reflog | grep -o \"checkout: moving from .* to \" | sed -e 's/checkout: moving from //' -e 's/ to $//' | head -$1 | nl; }; print_last_branches"
 [color]
-  ui = auto
+    ui = auto
+[merge]
+	tool = vimdiff
 [core]
-  editor = vim
-  excludesfile = ~/.gitignore
+    editor = vim
 [user]
-  name = gideondonde
-  email = caller.gideon@gmail.com
+    name = gideondonde
+    email = caller.gideon@gmail.com
 [commit]
-  verbose = true
+    verbose = true
 [credential]
-  helper = cache --timeout 60000
+    helper = cache --timeout 60000
+[diff]
+	tool = vimdiff
+[color "status"]
+    untracked = yellow bold
+[difftool]
+	prompt = false

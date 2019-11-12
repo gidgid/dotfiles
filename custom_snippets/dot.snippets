@@ -1,0 +1,35 @@
+snippet comp "Declare a default new item"
+${1:component} [label="$0"]
+endsnippet
+
+snippet comps "Declare a default new item with shape"
+${1:component} [label="$2", shape="$0"]
+endsnippet
+
+snippet rel "Declare a relation between 2 components"
+${1:from} -> ${0:to}
+endsnippet
+
+snippet rell "Declare a relation between 2 components with label"
+${1:from} -> ${2:to}[label="$0"]
+endsnippet
+
+snippet subgraph "Declare a subgraph"
+subgraph cluster_${1:cluster_name} {
+	label = "${2:label}"
+	graph [style=dotted]
+
+	${0:components_and_relations}
+}
+endsnippet
+
+snippet digraph "Creates a digraph skeleton"
+digraph ${1:digraph_name} {
+    subgraph cluster_${2:cluster_name} {
+        label = "${3:label}"
+        graph [style=dotted]
+
+		${0:components_and_relations}
+    }
+}
+endsnippet
