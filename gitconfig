@@ -106,3 +106,5 @@
     untracked = yellow bold
 [difftool]
 	prompt = false
+[rerere]
+    enabled = true
