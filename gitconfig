@@ -27,6 +27,7 @@
     ctm = commit -m
 
     # add all and then amend
+    amend = commit --verbose --amend
     aamend = !git add -A && git commit --amend --verbose
     aumend = !git add -u && git commit --amend
     afmend = "!add_fzf_amend() { git status -s | awk '{print $2}' | fzf -m | xargs git add && git amend; }; add_fzf_amend"
