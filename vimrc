@@ -17,7 +17,6 @@ Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-peekaboo'
 Plug 'junegunn/vim-slash'
-Plug 'majutsushi/tagbar'
 Plug 'pbogut/fzf-mru.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -161,21 +160,8 @@ nnoremap <Leader>nh :noh<CR>
 
 set clipboard=unnamedplus
 
-" ================ CtrlP Settings ========================
-" in order to tweak these settings you can also use this link: https://github.com/kien/ctrlp.vim/issues/187 - disabled temp
-" let g:ctrlp_follow_symlinks=1
-" let g:ctrlp_max_files=0
-" let g:ctrlp_max_depth=40
-" let g:ctrlp_match_window = 'results:100,min:4,max:45'
-" " use ctrl p to navigate my tags
-" nnoremap <leader>. :CtrlPTag<cr>
-
 " ================ General Navigation Settings ===========
 nnoremap <leader>erc :vsplit $MYVIMRC<CR>
-" Quickly open an horizontal pane with the current dir
-nnoremap <leader>hexp :Sexplore<CR>
-" Quickly open a vertical pane with the current dir
-nnoremap <leader>vexp :Vexplore<CR>
 
 " ================ Pane Settings ===========================
 " maximize pane horizontally
@@ -209,6 +195,13 @@ nnoremap <C-k> <C-w>k
 set mouse=a
 map <ScrollWheelUp> <C-Y>
 map <ScrollWheelDown> <C-E>
+
+
+" vim-fugitive shortcuts
+nnoremap <leader>gs :Gstatus<CR>
+nnoremap <leader>gw :Gwrite<CR>
+nnoremap <leader>gc :Gcommit<CR>
+nnoremap <leader>gr :Gread<CR>
 
 " ==================== YouCompleteMe Plugin ===============
 " auto complete window goes away when you're done with it
@@ -303,7 +296,7 @@ nnoremap <Leader>cb :BCommits<CR>
 " Search through mru files
 nnoremap <Leader>r :FZFMru<CR>
 " Search through sibling files
-nnoremap <leader>R :Files <C-r>=expand("%:h")<CR>/<CR>
+nnoremap <leader>rl :Files <C-r>=expand("%:h")<CR>/<CR>
 " Searches for word under cursor with FZF
 nnoremap <leader>z :Ag <c-r><c-w><cr>
 
@@ -339,9 +332,6 @@ let g:fzf_colors =
 
 
 nnoremap <leader>rel :set rnu!<cr>
-nnoremap <leader>asjsonh 0dt{ <bar> :%s/'/"/g<cr>:%s/True/true/g<cr>:%s/False/false/g<cr>:%!python -m json.tool<cr>
-nnoremap <leader>asjson :%s/'/"/g<cr>:%s/True/true/g<cr>:%s/False/false/g<cr>:%!python -m json.tool<cr>
-nnoremap <leader>aspython :%s/true/True/g<cr>:%s/false/False/g<cr>:%s/null/None/g<cr>
 nnoremap <leader>name :echo @%<cr>
 
 " replaces word under cursor in visual mode

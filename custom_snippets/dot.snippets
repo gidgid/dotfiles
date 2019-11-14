@@ -33,3 +33,27 @@ digraph ${1:digraph_name} {
     }
 }
 endsnippet
+
+snippet coll "Declare a new collection component"
+${1:collection_name} [label="$2", shape="rect"]
+endsnippet
+
+snippet ent "Declare a new code entity"
+${1:name} [label="$2"]
+endsnippet
+
+snippet dbs "Inserts a new DB shape"
+cylinder
+endsnippet
+
+snippet fshape "Fill a new shape"
+shape="$1"
+endsnippet
+
+snippet fcolor "Fill a new color"
+color="$1"
+endsnippet
+
+snippet flabel "Fill a new label"
+label="$1"
+endsnippet
