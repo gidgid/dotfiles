@@ -8,7 +8,6 @@ call plug#begin('~/.vim/plugged')
 "call plug#begin('~/some/path/here')
 Plug 'junegunn/vim-plug'
 
-" Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --system-libclang' }
 Plug 'Yggdroot/indentLine', { 'for': ['python'] }
 Plug 'airblade/vim-gitgutter'
 Plug 'crusoexia/vim-monokai'
@@ -27,6 +26,7 @@ Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ekalinin/Dockerfile.vim', { 'for': ['dockerfile'] }
+Plug 'mgedmin/python-imports.vim'
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required
@@ -202,16 +202,7 @@ nnoremap <leader>gw :Gwrite<CR>
 nnoremap <leader>gc :Gcommit<CR>
 nnoremap <leader>gr :Gread<CR>
 
-" ==================== YouCompleteMe Plugin ===============
-" auto complete window goes away when you're done with it
-" let g:ycm_autoclose_preview_window_after_completion=1
-" shortcut for go to definition
-" map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
-
 " ==================== UltiSnips ==============================
-" make YCM compatible with UltiSnips (using supertab)
-" let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-" let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 let g:SuperTabDefaultCompletionType = '<C-n>'
 " let g:UltiSnipsSnippetDirectories=['~/.vim/plugged/ultisnips/custom-snippets']
 " let g:UltiSnipsSnippetsDir=['~/.vim/plugged/ultisnips/custom-snippets']
@@ -219,9 +210,6 @@ let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/plugged/ultisnips/custom_snippet
 let g:UltiSnipsSnippetsDir=$HOME.'/.vim/plugged/ultisnips/custom_snippets'
 
 " let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/UltiSnips']
-
-" Enable youcompleteme to autocomplete from imports
-let g:ycm_semantic_triggers = {'python': ['re!from\s+\S+\s+import\s']}
 
 " better key bindings for UltiSnipsExpandTrigger
 let g:UltiSnipsExpandTrigger = "<tab>"
@@ -247,6 +235,11 @@ let g:ale_linters = {
 let g:ale_fixers = {
             \ 'python': ['autopep8', 'yapf'],
             \ }
+" Set this. Airline will handle the rest.
+let g:airline#extensions#ale#enabled = 1
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 " =================== syntastic ===========================
 " let python_highlight_all=1
 " let g:syntastic_check_on_open=1
