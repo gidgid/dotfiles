@@ -8,7 +8,7 @@ call plug#begin('~/.vim/plugged')
 "call plug#begin('~/some/path/here')
 Plug 'junegunn/vim-plug'
 
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --system-libclang' }
+" Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --system-libclang' }
 Plug 'Yggdroot/indentLine', { 'for': ['python'] }
 Plug 'airblade/vim-gitgutter'
 Plug 'crusoexia/vim-monokai'
@@ -20,9 +20,8 @@ Plug 'junegunn/vim-slash'
 Plug 'pbogut/fzf-mru.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'scrooloose/syntastic'
+Plug 'dense-analysis/ale'
 Plug 'sirver/ultisnips'
-Plug 'tell-k/vim-autopep8', { 'for': ['python'] }
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
@@ -68,7 +67,7 @@ nnoremap <space> za
 nnoremap <F1> :NERDTreeToggle<CR>
 nnoremap <F2> :UndotreeToggle<cr>
 nnoremap <F3> :TagbarToggle<CR>
-nnoremap <F7> :SyntasticToggleMode<cr>
+" nnoremap <F7> :SyntasticToggleMode<cr>
 nnoremap <F9> :setlocal spell! spelllang=en_us<CR>
 
 " Focuses screen on the current search (slash-after plugin)
@@ -205,14 +204,14 @@ nnoremap <leader>gr :Gread<CR>
 
 " ==================== YouCompleteMe Plugin ===============
 " auto complete window goes away when you're done with it
-let g:ycm_autoclose_preview_window_after_completion=1
+" let g:ycm_autoclose_preview_window_after_completion=1
 " shortcut for go to definition
 " map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 " ==================== UltiSnips ==============================
 " make YCM compatible with UltiSnips (using supertab)
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+" let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+" let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 let g:SuperTabDefaultCompletionType = '<C-n>'
 " let g:UltiSnipsSnippetDirectories=['~/.vim/plugged/ultisnips/custom-snippets']
 " let g:UltiSnipsSnippetsDir=['~/.vim/plugged/ultisnips/custom-snippets']
@@ -238,12 +237,21 @@ let g:UltiSnipsEditSplit="vertical"
 " make vimdiff display diffs vertically
 set diffopt+=vertical
 
+" =============== ale ============================== 
+nnoremap <space>l :lnext<CR>
+nnoremap <space>p :lprevious<CR>
+let g:ale_linters = {
+            \ 'python': ['flake8', 'pylint', 'mypy'],
+            \ }
 
+let g:ale_fixers = {
+            \ 'python': ['autopep8', 'yapf'],
+            \ }
 " =================== syntastic ===========================
-let python_highlight_all=1
-let g:syntastic_check_on_open=1
-let g:syntastic_python_checkers = ['pylint']
-autocmd VimEnter * SyntasticToggleMode " disable syntastic by default
+" let python_highlight_all=1
+" let g:syntastic_check_on_open=1
+" let g:syntastic_python_checkers = ['pylint']
+" autocmd VimEnter * SyntasticToggleMode " disable syntastic by default
 syntax on
 
 " Allows us to easily write Git (with capital)
@@ -350,3 +358,11 @@ autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checkti
 " https://vi.stackexchange.com/questions/13091/autocmd-event-for-autoread
 autocmd FileChangedShellPost *
    \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
+
+let g:ale_completion_enabled = 1
+" Load all plugins now.
+" Plugins need to be added to runtimepath before helptags can be generated.
+packloadall
+" Load all of the helptags now, after plugins have been loaded.
+" All messages and errors will be ignored.
+silent! helptags ALL
