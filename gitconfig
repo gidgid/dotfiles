@@ -4,7 +4,7 @@
     # checkouts
     co = checkout
     cob = checkout -b
-    cop = checkout -p # checkout with path
+    cop = checkout -p
     ## checkout to branch by regex
     cor = "!checkout_by_regex() { git checkout $(git branch | grep -e \"$1\" | head -n1); }; checkout_by_regex"
     # checkout by regex with fzf
@@ -85,9 +85,7 @@
     # prints the name of the branch
     name = "! git rev-parse --abbrev-ref HEAD"
 
-    # alias = config --get-regexp ^alias
     alias = "!print_aliases() { git config --get-regexp ^alias | sed s/alias.//g; }; print_aliases"
-    #  lb = "!print_last_branches() { git reflog | grep -o \"checkout: moving from .* to \" | sed -e 's/checkout: moving from //' -e 's/ to $//' | head -$1 | nl; }; print_last_branches"
 [color]
     ui = auto
 [merge]
