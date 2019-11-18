@@ -150,6 +150,5 @@ eval "$(pyenv virtualenv-init -)"
 
 eval $(thefuck --alias)
 
-alias gr="cd $(git rev-parse --show-toplevel)"
 source <(kubectl completion zsh)
 

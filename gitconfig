@@ -98,6 +98,7 @@
     email = caller.gideon@gmail.com
 [commit]
     verbose = true
+	template = /home/gideon/.gitmessage
 [credential]
     helper = cache --timeout 60000
 [diff]
