@@ -55,7 +55,7 @@ endsnippet
 
 snippet class "Creates a new class"
 class ${1:name}:
-	pass
+	${0:pass}
 endsnippet
 
 snippet tae "Creates an assert equals statement"
@@ -87,6 +87,12 @@ endsnippet
 snippet defs "Creates a static class method"
 @staticmethod
 def ${1:name}(${2:params}):
+	${0:pass}
+endsnippet
+
+snippet defc "Creates a class method"
+@classmethod
+def ${1:name}(cls${2:params}):
 	${0:pass}
 endsnippet
 

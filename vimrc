@@ -27,6 +27,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ekalinin/Dockerfile.vim', { 'for': ['dockerfile'] }
 Plug 'mgedmin/python-imports.vim'
+Plug 'ludovicchabant/vim-gutentags'
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required
@@ -195,6 +196,9 @@ set mouse=a
 map <ScrollWheelUp> <C-Y>
 map <ScrollWheelDown> <C-E>
 
+" guttentags shortcuts
+" show when gutentags generates tags
+set statusline+=%{gutentags#statusline()}
 
 " vim-fugitive shortcuts
 nnoremap <leader>gs :Gstatus<CR>
@@ -226,8 +230,9 @@ let g:UltiSnipsEditSplit="vertical"
 set diffopt+=vertical
 
 " =============== ale ============================== 
-nnoremap <space>l :lnext<CR>
-nnoremap <space>p :lprevious<CR>
+nnoremap <silent> <space>aj :ALENext<cr>
+nnoremap <silent> <space>ak :ALEPrevious<cr>
+
 let g:ale_linters = {
             \ 'python': ['flake8', 'pylint', 'mypy'],
             \ }
@@ -235,6 +240,7 @@ let g:ale_linters = {
 let g:ale_fixers = {
             \ 'python': ['autopep8', 'yapf'],
             \ }
+let g:ale_fix_on_save = 1
 " Set this. Airline will handle the rest.
 let g:airline#extensions#ale#enabled = 1
 let g:ale_echo_msg_error_str = 'E'
