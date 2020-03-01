@@ -1,5 +1,7 @@
 [alias]
     st = status
+    # show only untracked files
+    stu = ls-files --exclude-standard --other
 
     # checkouts
     co = checkout
@@ -11,6 +13,7 @@
     corf = "!checkout_by_regex() { git checkout $(git branch | grep -e \"$1\" | fzf); }; checkout_by_regex"
     cof = "!checkout_fzf() { git branch | fzf | xargs git checkout; }; checkout_fzf"
     colf = "!checkout_recent_fzf() { git reflog | grep -o \"checkout: moving from .* to \" | sed -e 's/checkout: moving from //' -e 's/ to $//' | head -10 | sort -u | fzf | xargs git checkout; }; checkout_recent_fzf"
+    colb = "!checkout_last_branch() { git co @{-$1}; }; checkout_last_branch"
 
     # branches
     br = branch
@@ -78,6 +81,8 @@
     # pull
     pl = pull
 
+    # restores
+    ref =  "!restore_fzf() { git status -s | awk '{print $2}' | fzf -m | xargs git restore; }; restore_fzf"
     # temporarily ignore files
     tignore = update-index --assume-unchanged
     # remove temporarily ignore files
@@ -86,6 +91,9 @@
     # prints the name of the branch
     name = "! git rev-parse --abbrev-ref HEAD"
 
+    # delete multiple untracked files with fzf
+    rmf = "!delete_untracked() { git ls-files --exclude-standard --other | fzf -m | xargs rm; }; delete_untracked"
+
     alias = "!print_aliases() { git config --get-regexp ^alias | sed s/alias.//g; }; print_aliases"
 [color]
     ui = auto
@@ -93,6 +101,9 @@
 	tool = vimdiff
 [core]
     editor = vim
+    # https://devblogs.microsoft.com/devops/updates-to-the-git-commit-graph-feature/
+	commitGraph = true
+	excludesfile = /home/gideon/.gitignore_global
 [user]
     name = gideondonde
     email = caller.gideon@gmail.com
@@ -109,3 +120,5 @@
 	prompt = false
 [rerere]
     enabled = true
+[gc]
+	writeCommitGraph = true

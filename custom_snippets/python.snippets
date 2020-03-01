@@ -71,6 +71,11 @@ def setUp(self):
 	${0:pass}
 endsnippet
 
+snippet ttear "Creates a test teardown method"
+def tearDown(self):
+	${0:pass}
+endsnippet
+
 snippet tdef "Creates a test method with a failing assertion"
 def test_${1:name}(self):
 	${0:self.assertEqual(1, 2)}
@@ -119,6 +124,9 @@ self.assertIsNotNone($1)
 endsnippet
 
 snippet tclass "Creates a unittest test class"
+import unittest
+
+
 class Test${1:name}(unittest.TestCase):
 	def test_${2:smoke}(self):
 		${0:self.assertEqual(1, 2)}
@@ -147,14 +155,32 @@ json.dumps(${1:pretty_me}, indent=4, sort_keys=True)
 endsnippet
 
 snippet mongodev "Creates a new MongoDB dev client"
-${1:db} = MongoClient(${2:'mongodb://gideon:dondemongo@localhost:27018'})[${3:db_name}]
+${1:db} = MongoClient('${2:mongodb://gideon:dondemongo@10.8.0.16:27017}')[${3:db_name}]
 endsnippet
 
 snippet mongoprod "Creates a new MongoDB prod client"
 ${1:db} = MongoClient(${2:'mongodb://dondeGideon:gideon1234@localhost:27019'})[${3:db_name}]
 endsnippet
 
+snippet dev_mongo_template "Creates a new dev mongo template"
+from pymongo import MongoClient
+
+db = MongoClient('${1:mongodb://gideon:dondemongo@10.8.0.16:27017}')['${2:db_name}']
+${3:col} = db['${4:collection_name}']
+
+${0:do_what}
+endsnippet
+
 snippet openf "Open a file with context manager"
 with open(${1:file_name}, '${2:r}') as ${3:file_descriptor}:
 	${0:do_what}
+endsnippet
+
+snippet main "Creates a main template"
+if __name__ == 'main':
+	${1:do_what}
+endsnippet
+
+snippet todo "A TODO template"
+# TODO: ${1:do_what?}
 endsnippet
