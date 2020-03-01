@@ -8,7 +8,6 @@ call plug#begin('~/.vim/plugged')
 "call plug#begin('~/some/path/here')
 Plug 'junegunn/vim-plug'
 
-Plug 'Yggdroot/indentLine', { 'for': ['python'] }
 Plug 'airblade/vim-gitgutter'
 Plug 'crusoexia/vim-monokai'
 Plug 'ervandew/supertab'
@@ -26,7 +25,6 @@ Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ekalinin/Dockerfile.vim', { 'for': ['dockerfile'] }
-Plug 'mgedmin/python-imports.vim'
 Plug 'ludovicchabant/vim-gutentags'
 
 " All of your Plugins must be added before the following line
@@ -206,6 +204,8 @@ nnoremap <leader>gw :Gwrite<CR>
 nnoremap <leader>gc :Gcommit<CR>
 nnoremap <leader>gr :Gread<CR>
 
+nnoremap <leader>ptj :%s/\'/\"/ge \| :%s/False/false/ge \| :%s/True/true/ge \| :%!python -m json.tool<cr>
+
 " ==================== UltiSnips ==============================
 let g:SuperTabDefaultCompletionType = '<C-n>'
 " let g:UltiSnipsSnippetDirectories=['~/.vim/plugged/ultisnips/custom-snippets']
@@ -238,7 +238,7 @@ let g:ale_linters = {
             \ }
 
 let g:ale_fixers = {
-            \ 'python': ['autopep8', 'yapf'],
+            \ 'python': ['autopep8', 'yapf', 'isort'],
             \ }
 let g:ale_fix_on_save = 1
 " Set this. Airline will handle the rest.
@@ -246,6 +246,8 @@ let g:airline#extensions#ale#enabled = 1
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_completion_enabled = 1
+
 " =================== syntastic ===========================
 " let python_highlight_all=1
 " let g:syntastic_check_on_open=1
@@ -358,7 +360,6 @@ autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checkti
 autocmd FileChangedShellPost *
    \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 
-let g:ale_completion_enabled = 1
 " Load all plugins now.
 " Plugins need to be added to runtimepath before helptags can be generated.
 packloadall

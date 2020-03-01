@@ -53,7 +53,7 @@ ZSH_THEME="spaceship"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(z vi-mode zsh-syntax-highlighting zsh-autosuggestions colored-man-pages docker k python pip)
+plugins=(z vi-mode zsh-syntax-highlighting zsh-autosuggestions colored-man-pages docker python pip helm)
 
 PATH=$PATH:/usr/local/sbin
 
@@ -128,14 +128,14 @@ autoload -U compinit && compinit
 #{
 #    print -n -- "\E]50;CursorShape=0\C-G"  # block cursor
 #}
-#
-#zle -N zle-line-init
-#zle -N zle-line-finish
-#zle -N zle-keymap-select
 
-# aliases
+zle -N zle-line-init
+zle -N zle-line-finish
+zle -N zle-keymap-select
 
-source ~/.aliases
+[ -f ~/.aliases ] && source ~/.aliases
+[ -f ~/.funcs ] && source ~/.funcs
+[ -f ~/.work_aliases ] && source ~/.work_aliases
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZE_DEFAULT_OPS="--extended" # enable us to use regex when matching on results like txt$
@@ -150,5 +150,4 @@ eval "$(pyenv virtualenv-init -)"
 
 eval $(thefuck --alias)
 
-source <(kubectl completion zsh)
-
+source <(kubectl completion zsh | sed s/kubectl/kc/g)
