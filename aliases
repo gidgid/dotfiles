@@ -3,6 +3,7 @@ alias vimrc="vim ~/.vimrc"
 alias zshenv="vim ~/.zshenv"
 alias zshrc="vim ~/.zshrc"
 alias aliases="vim ~/.aliases"
+alias waliases="[ -f ~/.work_aliases ] && vim ~/.work_aliases"
 alias funcs="vim ~/.funcs"
 
 alias grep="grep -i --color"
@@ -27,4 +28,4 @@ alias gr="cd $(git rev-parse --show-toplevel)"
 alias wn1="watch -n 1"
 
 alias vf='ls -d ~/.virtualenv/*/ | fzf | while read file; do source "$file/bin/activate"; done'
-
+alias fdf="fzf --preview 'bat --style=numbers --color=always {} | head -500'"
