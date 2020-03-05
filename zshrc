@@ -59,35 +59,6 @@ PATH=$PATH:/usr/local/sbin
 
 source $ZSH/oh-my-zsh.sh
 
-# User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
-fpath=(~/.zsh/Completion $fpath)
 # want your terminal to support 256 color schemes? I do ...
 export TERM="xterm-256color"
 #
@@ -107,27 +78,10 @@ export EDITOR="vim"
 export VISUAL="vim"
 export USE_EDITOR="vim"
 
-fpath=(/usr/local/share/zsh-completions $fpath)
-
+# fpath=(/usr/local/share/zsh-completions $fpath)
 fpath+=($ZSH/plugins/docker)
-autoload -U compinit && compinit
 
-#function zle-keymap-select zle-line-init
-#{
-#    # change cursor shape in iTerm2
-#    case $KEYMAP in
-#        vicmd)      print -n -- "\E]50;CursorShape=0\C-G";;  # block cursor
-#        viins|main) print -n -- "\E]50;CursorShape=1\C-G";;  # line cursor
-#    esac
-#
-#    zle reset-prompt
-#    zle -R
-#}
-#
-#function zle-line-finish
-#{
-#    print -n -- "\E]50;CursorShape=0\C-G"  # block cursor
-#}
+autoload -U compinit && compinit
 
 zle -N zle-line-init
 zle -N zle-line-finish

@@ -15,6 +15,7 @@ Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-peekaboo'
 Plug 'junegunn/vim-slash'
+Plug 'wellle/tmux-complete.vim'
 Plug 'pbogut/fzf-mru.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -22,8 +23,14 @@ Plug 'dense-analysis/ale'
 Plug 'sirver/ultisnips'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
+Plug 'andymass/vim-matchup'
+Plug 'tpope/vim-commentary'
+Plug 'lfv89/vim-interestingwords'
+Plug 'https://github.com/RRethy/vim-illuminate'
+Plug 'https://github.com/tpope/vim-repeat'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'https://github.com/Raimondi/delimitMate'
 Plug 'ekalinin/Dockerfile.vim', { 'for': ['dockerfile'] }
 Plug 'ludovicchabant/vim-gutentags'
 
@@ -86,6 +93,7 @@ vnoremap g<c-]> <c-]>
 
 nnoremap <leader>] :only<bar>vsplit<CR>:execute "tag" . expand('<cword>')<CR>
 
+let g:tmuxcomplete#trigger = 'completefunc'
 " enable line numbers
 let NERDTreeShowLineNumbers=1
 " make sure relative line numbers are used
