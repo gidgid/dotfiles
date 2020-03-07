@@ -11,6 +11,7 @@ Plug 'junegunn/vim-plug'
 Plug 'airblade/vim-gitgutter'
 Plug 'crusoexia/vim-monokai'
 Plug 'ervandew/supertab'
+Plug 'https://github.com/kana/vim-arpeggio'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-peekaboo'
@@ -36,6 +37,8 @@ Plug 'ludovicchabant/vim-gutentags'
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required
+call arpeggio#load()
+
 filetype plugin indent on    " required
 
 set nocompatible              " be iMproved, required
@@ -111,7 +114,7 @@ set nobackup
 set nowb
 
 " ========================  Scrolling =================================
-set scrolloff=8         "Start scrolling when we're 8 lines away from margins
+" set scrolloff=8         "Start scrolling when we're 8 lines away from margins
 set sidescrolloff=15
 set sidescroll=1
 
@@ -122,9 +125,9 @@ noremap <leader><leader> <c-^>
 highlight ColorColumn ctermbg=magenta 
 " only display the violation line if there was an actual violation
 call matchadd('ColorColumn', '\%81v.', 100)
-
 " allow us to exit insert mode faster
 inoremap jk <esc>l
+Arpeggio nnoremap <leader>f :GFiles<CR>
 
 " allow us to source the vimrc file in an easier fashion
 nnoremap <leader>src :source $MYVIMRC<CR>
@@ -164,7 +167,11 @@ set linebreak		" Wrap lines at convient points
 " Quicly remove the search highlight
 nnoremap <Leader>nh :noh<CR>
 
-set clipboard=unnamedplus
+if system('uname -s') == "Darwin\n"
+    set clipboard=unnamed
+else
+    set clipboard=unnamedplus
+endif
 
 " ================ General Navigation Settings ===========
 nnoremap <leader>erc :vsplit $MYVIMRC<CR>
@@ -263,10 +270,10 @@ let g:ale_completion_enabled = 1
 " autocmd VimEnter * SyntasticToggleMode " disable syntastic by default
 syntax on
 
-" Allows us to easily write Git (with capital)
+" Easily write Git (with capital)
 nnoremap <leader>g :Git<space>
-" Allows us to easily write Ag (with capital)
-cnoremap <leader>a Ag
+" Quickly open Ag
+cnoremap <leader>a Ag<space>
 " Enables us to more easily type relative commands in command mode
 cnoremap <leader>p +
 cnoremap <leader>m -
@@ -275,17 +282,19 @@ cnoremap <leader>m -
 " search for git tracked files
 nnoremap <leader>f :GFiles<CR>
 " search for all files
-nnoremap <leader>F :Files<CR>
+Arpeggio nnoremap <leader>f :Files<CR>
 " search between buffers
 nnoremap <leader>b :Buffers<CR>
 " search through tags in the current file
-nnoremap <leader>t :BTags<CR>
 " search through all the tags in the project (slower)
-nnoremap <leader>T :Tags<CR>
+nnoremap <leader>t :BTags<CR>
+"Arpeggio nnoremap <C-t> :Tags<CR>
+Arpeggio nnoremap <leader>t :Tags<CR>
 " search through lines in current buffer only
-nnoremap <leader>l :BLines<CR>
+nnoremap <leader>l :Lines<CR>
 " search through lines in all buffers
-nnoremap <leader>L :Lines<CR>
+" nnoremap <leader>L :Lines<CR>
+Arpeggio nnoremap <leader>l :BLines<CR>
 " search through marked lines
 nnoremap <leader>m :Marks<CR>
 " search through vim help
@@ -305,7 +314,7 @@ nnoremap <Leader>s :Snippets<CR>
 " Quickly switch windows
 nnoremap <Leader>w :Windows<CR>
 " Use with Ag
-nnoremap <Leader>a :Ag<space>
+nnoremap <Leader>a :Ag<CR>
 " Navigate through all git commits
 nnoremap <Leader>ca :Commits<CR>
 " Navigate through git commits in buffer
