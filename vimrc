@@ -278,7 +278,8 @@ cnoremap <leader>a Ag<space>
 cnoremap <leader>p +
 cnoremap <leader>m -
 
-" FZF settings. Mainly inspired from: https://jesseleite.com/posts/2/its-dangerous-to-vim-alone-take-fzf
+command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--color-path "1;36"', fzf#vim#with_preview(), <bang>0)
+" command! -bang -nargs=* Ag
 " search for git tracked files
 nnoremap <leader>f :GFiles<CR>
 " search for all files
@@ -325,7 +326,6 @@ nnoremap <Leader>r :FZFMru<CR>
 nnoremap <leader>rl :Files <C-r>=expand("%:h")<CR>/<CR>
 " Searches for word under cursor with FZF
 nnoremap <leader>z :Ag <c-r><c-w><cr>
-
 " the next FZF are useful to do completions with fzf
 " Mapping selecting mappings
 nmap <leader><tab> <plug>(fzf-maps-n)
