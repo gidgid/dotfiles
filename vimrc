@@ -15,7 +15,7 @@ Plug 'https://github.com/kana/vim-arpeggio'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-peekaboo'
-Plug 'junegunn/vim-slash'
+Plug 'junegunn/limelight.vim'
 Plug 'wellle/tmux-complete.vim'
 Plug 'pbogut/fzf-mru.vim'
 Plug 'scrooloose/nerdtree'
@@ -278,7 +278,12 @@ cnoremap <leader>a Ag<space>
 cnoremap <leader>p +
 cnoremap <leader>m -
 
+nnoremap <leader>e :Limelight!!<CR>
+" Ag! works with preview
 command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--color-path "1;36"', fzf#vim#with_preview(), <bang>0)
+" GFiles works with preview
+command! -bang GFiles call fzf#vim#gitfiles('', fzf#vim#with_preview('right'))
+command! -bang Files call fzf#vim#files('', fzf#vim#with_preview('right'))
 " command! -bang -nargs=* Ag
 " search for git tracked files
 nnoremap <leader>f :GFiles<CR>
