@@ -90,6 +90,7 @@ zle -N zle-keymap-select
 [ -f ~/.aliases ] && source ~/.aliases
 [ -f ~/.funcs ] && source ~/.funcs
 [ -f ~/.work_aliases ] && source ~/.work_aliases
+[ -f ~/.work_funcs ] && source ~/.work_funcs
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZE_DEFAULT_OPS="--extended" # enable us to use regex when matching on results like txt$
