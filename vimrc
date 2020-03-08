@@ -16,6 +16,7 @@ Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-peekaboo'
 Plug 'junegunn/limelight.vim'
+Plug 'rhysd/clever-f.vim'
 Plug 'terryma/vim-expand-region'
 Plug 'airblade/vim-rooter'
 Plug 'wellle/tmux-complete.vim'
@@ -81,6 +82,8 @@ nnoremap <F3> :TagbarToggle<CR>
 " nnoremap <F7> :SyntasticToggleMode<cr>
 nnoremap <F9> :setlocal spell! spelllang=en_us<CR>
 
+map ;k <plug>(expand_region_expand)
+map ;j <plug>(expand_region_shrink)
 " Focuses screen on the current search (slash-after plugin)
 noremap <plug>(slash-after) zz
 let mapleader=","
