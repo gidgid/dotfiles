@@ -3,14 +3,11 @@ rmf() {
     ls | fzf -m | while read filename; do rm -f $filename; done
 }
 
-# print cluster env vars
-pname() {
-    echo "PROJECT_ID=$PROJECT_ID\nCLUSTER_NAME=$CLUSTER_NAME\nNAMESPACE=$NAMESPACE\nZONE=$ZONE\nENV=$ENV\nCLUSTER_ID=$CLUSTER_ID"
-}
-
-# source relevant env files via fzf
-sf() {
-    find ~/.envs -type f | fzf | while read filename; do source $filename; done
+zcf() {
+    cd $(z -c | awk '{print $2}' | fzf)
 }
 
 
+zf() {
+    cd $(z | awk '{print $2}' | fzf)
+}
