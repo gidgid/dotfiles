@@ -318,7 +318,7 @@ nnoremap <Leader>S :Filetypes<CR>
 " Show all shortcuts defined (before creating new shortcuts)
 nnoremap <Leader>M :Maps<CR>
 " Allows us to use fuzzy on ultisnips snippets
-nnoremap <Leader>s :Snippets<CR>
+inoremap <Leader>s <esc>:Snippets<CR>i
 " Quickly switch windows
 nnoremap <Leader>w :Windows<CR>
 " Use with Ag
