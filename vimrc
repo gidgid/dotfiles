@@ -86,6 +86,7 @@ let mapleader=","
 
 " How long it takes vim to decide if I typed a command or not
 set timeout timeoutlen=500
+set complete-=i
 
 " go to a tag if there's only one match, otherwise open a list that you can choose from
 nnoremap <c-]> g<c-]>
