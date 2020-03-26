@@ -15,13 +15,18 @@
     colf = "!checkout_recent_fzf() { git reflog | grep -o \"checkout: moving from .* to \" | sed -e 's/checkout: moving from //' -e 's/ to $//' | head -10 | sort -u | fzf | xargs git checkout; }; checkout_recent_fzf"
     colb = "!checkout_last_branch() { git co @{-$1}; }; checkout_last_branch"
 
+    # cherry-pick
+    cp = cherry-pick
+
     # branches
     br = branch
     bra = branch -a
     brr = branch -r
+    brdf = "!delete_branches_fzf() { git br | grep -v \\* | fzf -m | xargs git branch -d; }; delete_branches_fzf"
+    brDf = "!delete_branches_fzf_unsafe() { git br | grep -v \\* | fzf -m | xargs git branch -D; }; delete_branches_fzf_unsafe"
+
     ## prints #<num> last branches
     lb = "!print_last_branches() { git reflog | grep -o \"checkout: moving from .* to \" | sed -e 's/checkout: moving from //' -e 's/ to $//' | head -$1 | nl; }; print_last_branches"
-
     # commits
     ## show all diffs when entering commit
     ct = commit --verbose
@@ -55,7 +60,7 @@
     dfsc = diff --staged HEAD
     ## df between last commit
     dflc = diff HEAD^ HEAD
-    dfnames = diff --name-only
+    dfn = diff --name-only
 
     # rebase
     rb = rebase

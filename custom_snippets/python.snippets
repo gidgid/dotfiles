@@ -1,3 +1,7 @@
+snippet #! "Creates a Python shabeng statement"
+#!/usr/bin/env python3
+endsnippet
+
 snippet defm "Expands to a Python method"
 def ${1:name}(self$2):
 	${0:pass}
@@ -32,13 +36,18 @@ for ${1:key}, ${2:value} in ${3:mapping}.items():
 	${0:do_what}
 endsnippet
 
+snippet forpl "Creates a plural for loop"
+for ${1:item} in $1s:
+	${0:do_what}
+endsnippet
+
 snippet forl "Creates a for loop"
 for ${1:item} in ${2:items}:
 	${0:do_what}
 endsnippet
 
 snippet compl "Creates a for comprehension"
-[${1:return} for ${2:item} in ${0:items}]
+[${2:return} for ${1:item} in $1s]
 endsnippet
 
 snippet compd "Creates a dict comprehension"
@@ -71,8 +80,20 @@ def setUp(self):
 	${0:pass}
 endsnippet
 
+snippet tcsetup "Creates a setUpClass method"
+@classmethod
+def setUpClass(cls):
+	${0:pass}
+endsnippet
+
 snippet ttear "Creates a test teardown method"
 def tearDown(self):
+	${0:pass}
+endsnippet
+
+snippet tctear "Creates a tearDown class method"
+@classmethod
+def tearDownClass(cls):
 	${0:pass}
 endsnippet
 
@@ -177,7 +198,7 @@ with open(${1:file_name}, '${2:r}') as ${3:file_descriptor}:
 endsnippet
 
 snippet main "Creates a main template"
-if __name__ == 'main':
+if __name__ == '__main__':
 	${1:do_what}
 endsnippet
 

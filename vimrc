@@ -11,11 +11,13 @@ Plug 'junegunn/vim-plug'
 Plug 'airblade/vim-gitgutter'
 Plug 'crusoexia/vim-monokai'
 Plug 'ervandew/supertab'
-Plug 'https://github.com/kana/vim-arpeggio'
+Plug 'kana/vim-arpeggio'
+Plug 'janko/vim-test'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-peekaboo'
 Plug 'junegunn/limelight.vim'
+Plug 'junegunn/vim-slash'
 Plug 'rhysd/clever-f.vim'
 Plug 'terryma/vim-expand-region'
 Plug 'airblade/vim-rooter'
@@ -78,7 +80,6 @@ nnoremap <space> za
 " Allow spell check toggling for the current file
 nnoremap <F1> :NERDTreeToggle<CR>
 nnoremap <F2> :UndotreeToggle<cr>
-nnoremap <F3> :TagbarToggle<CR>
 " nnoremap <F7> :SyntasticToggleMode<cr>
 nnoremap <F9> :setlocal spell! spelllang=en_us<CR>
 
@@ -111,8 +112,8 @@ nnoremap <leader>show :NERDTreeFind<CR>
 " delete buffer when you delete the files in nerdtree
 let NERDTreeAutoDeleteBuffer = 1
 " open nerdtree when using vim without any arguments
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" autocmd StdinReadPre * let s:std_in=1
+" autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 " ========================= disable swap files ======================== 
 set noswapfile
@@ -133,11 +134,17 @@ highlight ColorColumn ctermbg=magenta
 call matchadd('ColorColumn', '\%81v.', 100)
 " allow us to exit insert mode faster
 inoremap jk <esc>l
-Arpeggio nnoremap <leader>f :GFiles<CR>
 
 " allow us to source the vimrc file in an easier fashion
 nnoremap <leader>src :source $MYVIMRC<CR>
 
+nmap <silent> t<C-n> :TestNearest<CR>
+nmap <silent> t<C-f> :TestFile<CR>
+nmap <silent> t<C-s> :TestSuite<CR>
+nmap <silent> t<C-l> :TestLast<CR>
+nmap <silent> t<C-g> :TestVisit<CR>
+
+inoremap <leader>a <ESC>A
 " ======================= Status Line ==================================
 " always display the status line
 set laststatus=2 
@@ -224,6 +231,7 @@ nnoremap <leader>gs :Gstatus<CR>
 nnoremap <leader>gw :Gwrite<CR>
 nnoremap <leader>gc :Gcommit<CR>
 nnoremap <leader>gr :Gread<CR>
+nnoremap <leader>ga :Gwrite \| :Gcommit<CR>
 
 nnoremap <leader>ptj :%s/\'/\"/ge \| :%s/False/false/ge \| :%s/True/true/ge \| :%!python -m json.tool<cr>
 
@@ -293,20 +301,19 @@ command! -bang Files call fzf#vim#files('', fzf#vim#with_preview('right'))
 " command! -bang -nargs=* Ag
 " search for git tracked files
 nnoremap <leader>f :GFiles<CR>
+nnoremap <leader>F :Files<CR>
 " search for all files
-Arpeggio nnoremap <leader>f :Files<CR>
 " search between buffers
 nnoremap <leader>b :Buffers<CR>
 " search through tags in the current file
 " search through all the tags in the project (slower)
-nnoremap <leader>t :BTags<CR>
+nnoremap <leader>t :Tags<CR>
 "Arpeggio nnoremap <C-t> :Tags<CR>
-Arpeggio nnoremap <leader>t :Tags<CR>
+Arpeggio nnoremap tl :BTags<CR>
 " search through lines in current buffer only
 nnoremap <leader>l :Lines<CR>
 " search through lines in all buffers
-" nnoremap <leader>L :Lines<CR>
-Arpeggio nnoremap <leader>l :BLines<CR>
+Arpeggio nnoremap bl :BLines<CR>
 " search through marked lines
 nnoremap <leader>m :Marks<CR>
 " search through vim help
@@ -323,10 +330,11 @@ nnoremap <Leader>S :Filetypes<CR>
 nnoremap <Leader>M :Maps<CR>
 " Allows us to use fuzzy on ultisnips snippets
 inoremap <Leader>s <esc>:Snippets<CR>i
+Arpeggio nnoremap sn :Snippets<CR>
 " Quickly switch windows
 nnoremap <Leader>w :Windows<CR>
 " Use with Ag
-nnoremap <Leader>a :Ag<CR>
+Arpeggio nnoremap ag :Ag<CR>
 " Navigate through all git commits
 nnoremap <Leader>ca :Commits<CR>
 " Navigate through git commits in buffer
@@ -379,15 +387,17 @@ nnoremap <leader>repl :%s/<c-r><c-w>//g<left><left>
 nmap <leader>tab :tabedit %<CR>
 nmap <leader>tabc :tabclose<CR>
 
+" https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
 " Triger `autoread` when files changes on disk
 " https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
 " https://vi.stackexchange.com/questions/13692/prevent-focusgained-autocmd-running-in-command-line-editing-mode
-autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
+autocmd FocusGained,BufEnter,CursorHold,CursorHoldI *
+   \ if mode() !~ '\v(c|r.?|!|t)' && getcmdwintype() == '' | checktime | endif
+
 " Notification after file change
 " https://vi.stackexchange.com/questions/13091/autocmd-event-for-autoread
 autocmd FileChangedShellPost *
-   \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
-
+  \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 " Load all plugins now.
 " Plugins need to be added to runtimepath before helptags can be generated.
 packloadall

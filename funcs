@@ -11,3 +11,8 @@ zcf() {
 zf() {
     cd $(z | awk '{print $2}' | fzf)
 }
+
+fenv() {
+    env | fzf
+}
+
