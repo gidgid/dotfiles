@@ -1,0 +1,187 @@
+snippet defm "Create a method"
+def ${1:name}(self$2):
+	${0:pass}
+endsnippet
+
+snippet deff "Create a function"
+def ${1:name}($2):
+	${0:pass}
+endsnippet
+
+snippet defmm "Create a magic method"
+def __${1:name}__(self$2):
+	${0:pass}
+endsnippet
+
+snippet clsd "Creates a classmethod decorator"
+@classmethod
+endsnippet
+	
+snippet statd "Creates a staticmethod decorator"
+@staticmethod
+endsnippet
+
+snippet defs "Creates a static class method"
+@staticmethod
+def ${1:name}(${2:params}):
+	${0:pass}
+endsnippet
+
+snippet defc "Creates a class method"
+
+@classmethod
+def ${1:name}(cls${2:params}):
+	${0:pass}
+endsnippet
+
+snippet init "Create an init method"
+def __init__(self$1):
+	${0:pass}
+endsnippet
+
+snippet #! "Creates a script shabeng line"
+#!/usr/bin/env python
+endsnippet
+
+snippet ford "Create a for loop with key and value in dict"
+for ${1:key}, ${2:value} in ${3:mapping}.items():
+	${0:do_what}
+endsnippet
+
+snippet fordv "Create a for loop that iterates over a dict values"
+for ${1:item} in ${2:mapping}.values():
+	${0:do_what}
+endsnippet
+
+snippet forl "Create a for loop"
+for ${1:item} in ${2:items}:
+	${0:do_what}
+endsnippet
+
+snippet forlm "Create a mirror for loop"
+for ${1:item} in $1s:
+	${0:do_what}
+endsnippet
+
+snippet compl "Create a for comprehension"
+[${0:return} for ${1:item} in ${2:items}]
+endsnippet
+
+snippet complm "Create a mirror for comprehension"
+[${0:return} for ${1:item} in $1s]
+endsnippet
+
+snippet compd "Create a dict comprehension"
+{${3:key}: ${0:value} for ${1:item} in ${2:mapping}}
+endsnippet
+
+snippet imf "Create an import from statement"
+from ${1:path.from} import $0
+endsnippet
+
+snippet im "Create an import statement"
+import $0
+endsnippet
+
+snippet class "Create a new class"
+class ${1:name}:
+	def ${2:method_name}(self${3:params}):
+		${0:pass}
+endsnippet
+
+snippet classi "Create a new class with init"
+class ${1:name}:
+	def __init__(self${2:params}):
+		${3:assignments}
+
+	def ${4:method_name}(self${5:params}):
+		${0:pass}
+endsnippet
+
+snippet tae "Create an assert equals (ordered comparison)"
+self.assertEqual(${1:actual}, ${0:expected})
+endsnippet
+
+snippet tace "Create an assert count equals (no order required)"
+self.assertEqual(${1:actual}, ${0:expected})
+endsnippet
+
+snippet tade "Create an assertDictEqual"
+self.assertDictEqual(${1:actual_dict}, ${2:expected_dict})
+endsnippet
+
+snippet tale "Create an assert list equals"
+self.assertListEqual(${1:actual_list}, ${0:expected_list})
+endsnippet
+
+snippet tat "Create a test assertTrue"
+self.assertTrue($1)
+$0
+endsnippet
+
+snippet taf "Create a test assertFalse"
+self.assertFalse($1)
+$0
+endsnippet
+
+snippet tann "Creates an assert not none assertion"
+self.assertIsNotNone($1)
+endsnippet
+
+snippet tsetup "Create a test setup method"
+def setUp(self):
+	${0:pass}
+endsnippet
+
+snippet ttear "Create a test teardown method"
+def tearDown(self):
+	${0:pass}
+endsnippet
+
+snippet tdef "Create a test method with a failing assertion"
+def test_${1:name}(self):
+	${0:self.assertEqual(1, 2)}
+endsnippet
+
+snippet log "Create a log info"
+logger.${1:info}($2'$3')
+endsnippet
+
+snippet pr "Create a print"
+print($1'${2:print_what}')
+endsnippet
+
+snippet tclass "Create a full unittest test class"
+import unittest
+
+class Test${1:name}(unittest.TestCase):
+	def test_${2:smoke}(self):
+		${0:self.assertEqual(1, 2)}
+endsnippet
+
+snippet tskip "Temporarily skips a test method"
+@unittest.skip('${1:Temporarily disabled}')
+endsnippet
+
+snippet asf "Create a class field assignment statement"
+self.$1 = ${1:value}
+$0
+endsnippet
+
+snippet jpr "Create a pretty json"
+json.dumps(${1:pretty_me}, indent=4, sort_keys=True)
+endsnippet
+
+snippet openf "Open a file with context manager"
+with open(${1:file_name}, '${2:r}') as ${3:file_descriptor}:
+	${0:do_what}
+endsnippet
+
+snippet main "Creates a main template"
+if __name__ == '__main__':
+	${1:do_what}
+endsnippet
+
+snippet todo "A TODO template"
+# TODO: ${1:do_what?}
+endsnippet
