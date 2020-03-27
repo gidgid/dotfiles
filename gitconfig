@@ -61,8 +61,7 @@
     rb = rebase
     rbi = rebase -i
 
-    # visualizing the commit history
-    l = "!source ~/.githelpers && pretty_git_log"
+    # logs
     lgp = log --oneline --graph --decorate --pretty=format:\"%C(auto)%d%C(reset) %s %C(magenta)(%ar)%C(reset) %C(cyan)%h%C(reset) %C(red)[%cn]%C(reset)\"
 
     # stash
@@ -83,10 +82,6 @@
 
     # restores
     ref =  "!restore_fzf() { git status -s | awk '{print $2}' | fzf -m | xargs git restore; }; restore_fzf"
-    # temporarily ignore files
-    tignore = update-index --assume-unchanged
-    # remove temporarily ignore files
-    tuignore = update-index --no-assume-unchanged
 
     # prints the name of the branch
     name = "! git rev-parse --abbrev-ref HEAD"
@@ -105,8 +100,9 @@
 	commitGraph = true
 	excludesfile = /home/gideon/.gitignore_global
 [user]
-    name = gideondonde
-    email = caller.gideon@gmail.com
+    # these are set in ~/.gitconfig_local
+[include]
+    path = ~/.gitconfig_local
 [commit]
     verbose = true
 [credential]
