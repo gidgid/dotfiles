@@ -8,38 +8,34 @@ call plug#begin('~/.vim/plugged')
 "call plug#begin('~/some/path/here')
 Plug 'junegunn/vim-plug'
 
+Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'airblade/vim-gitgutter'
+Plug 'airblade/vim-rooter'
+Plug 'andymass/vim-matchup'
 Plug 'crusoexia/vim-monokai'
-Plug 'ervandew/supertab'
-Plug 'https://github.com/kana/vim-arpeggio'
+Plug 'dense-analysis/ale'
+Plug 'ekalinin/Dockerfile.vim', { 'for': ['dockerfile'] }
+Plug 'RRethy/vim-illuminate'
+Plug 'Raimondi/delimitMate'
+Plug 'tpope/vim-repeat'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'junegunn/vim-peekaboo'
 Plug 'junegunn/limelight.vim'
-Plug 'terryma/vim-expand-region'
-Plug 'airblade/vim-rooter'
-Plug 'wellle/tmux-complete.vim'
+Plug 'junegunn/vim-peekaboo'
+Plug 'lfv89/vim-interestingwords'
+Plug 'ludovicchabant/vim-gutentags'
 Plug 'pbogut/fzf-mru.vim'
 Plug 'scrooloose/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'dense-analysis/ale'
 Plug 'sirver/ultisnips'
+Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
-Plug 'andymass/vim-matchup'
-Plug 'tpope/vim-commentary'
-Plug 'lfv89/vim-interestingwords'
-Plug 'https://github.com/RRethy/vim-illuminate'
-Plug 'https://github.com/tpope/vim-repeat'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'https://github.com/Raimondi/delimitMate'
-Plug 'ekalinin/Dockerfile.vim', { 'for': ['dockerfile'] }
-Plug 'ludovicchabant/vim-gutentags'
+Plug 'wellle/tmux-complete.vim'
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required
-call arpeggio#load()
 
 filetype plugin indent on    " required
 
@@ -130,7 +126,6 @@ highlight ColorColumn ctermbg=magenta
 call matchadd('ColorColumn', '\%81v.', 100)
 " allow us to exit insert mode faster
 inoremap jk <esc>l
-Arpeggio nnoremap <leader>f :GFiles<CR>
 
 " allow us to source the vimrc file in an easier fashion
 nnoremap <leader>src :source $MYVIMRC<CR>
@@ -291,19 +286,17 @@ command! -bang Files call fzf#vim#files('', fzf#vim#with_preview('right'))
 " search for git tracked files
 nnoremap <leader>f :GFiles<CR>
 " search for all files
-Arpeggio nnoremap <leader>f :Files<CR>
+nnoremap <leader>F :Files<CR>
 " search between buffers
 nnoremap <leader>b :Buffers<CR>
 " search through tags in the current file
-" search through all the tags in the project (slower)
 nnoremap <leader>t :BTags<CR>
-"Arpeggio nnoremap <C-t> :Tags<CR>
-Arpeggio nnoremap <leader>t :Tags<CR>
+" search through all the tags in the project
+nnoremap <leader>T :Tags<CR>
 " search through lines in current buffer only
-nnoremap <leader>l :Lines<CR>
+nnoremap <leader>L :Lines<CR>
 " search through lines in all buffers
-" nnoremap <leader>L :Lines<CR>
-Arpeggio nnoremap <leader>l :BLines<CR>
+nnoremap <leader>l :BLines<CR>
 " search through marked lines
 nnoremap <leader>m :Marks<CR>
 " search through vim help
