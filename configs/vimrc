@@ -221,12 +221,8 @@ nnoremap <leader>ptj :%s/\'/\"/ge \| :%s/False/false/ge \| :%s/True/true/ge \| :
 
 " ==================== UltiSnips ==============================
 let g:SuperTabDefaultCompletionType = '<C-n>'
-" let g:UltiSnipsSnippetDirectories=['~/.vim/plugged/ultisnips/custom-snippets']
-" let g:UltiSnipsSnippetsDir=['~/.vim/plugged/ultisnips/custom-snippets']
 let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/plugged/ultisnips/custom_snippets']
 let g:UltiSnipsSnippetsDir=$HOME.'/.vim/plugged/ultisnips/custom_snippets'
-
-" let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/UltiSnips']
 
 " better key bindings for UltiSnipsExpandTrigger
 let g:UltiSnipsExpandTrigger = "<tab>"
