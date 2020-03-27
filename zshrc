@@ -87,10 +87,10 @@ zle -N zle-line-init
 zle -N zle-line-finish
 zle -N zle-keymap-select
 
-[ -f ~/.aliases ] && source ~/.aliases
-[ -f ~/.funcs ] && source ~/.funcs
-[ -f ~/.work_aliases ] && source ~/.work_aliases
-[ -f ~/.work_funcs ] && source ~/.work_funcs
+for config in "$HOME"/.zshrc.d/* ; do
+    source "$config"
+done
+unset -v config
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZE_DEFAULT_OPS="--extended" # enable us to use regex when matching on results like txt$
