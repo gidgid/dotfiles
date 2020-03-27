@@ -113,7 +113,8 @@
     untracked = yellow bold
 [difftool]
 	prompt = false
-[rerere]
+[rerere] # Reuse Recorded Resolution
+    # https://git-scm.com/book/en/v2/Git-Tools-Rerere
     enabled = true
 [gc]
 	writeCommitGraph = true
