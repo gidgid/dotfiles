@@ -1,22 +1,15 @@
 import os
-from system_ops import symlink_dir
-
-
-def create_and_symlink(src, dst):
-    os.makedirs(dst, exist_ok=True)
-
-    symlink_dir(
-        src_dirname='/Users/gideon/dotfiles/custom_snippets',
-        dst_dirname=dst,
-    )
+from system_ops import create_and_symlink
 
 
 if __name__ == '__main__':
+    home_dir = os.path.expanduser('~')
+
     create_and_symlink(
-        src='/Users/gideon/dotfiles/custom_snippets',
-        dst='/Users/gideon/.vim/plugged/ultisnips/custom_snippets'
+        src=f'{home_dir}/dotfiles/custom_snippets',
+        dst=f'{home_dir}/.vim/plugged/ultisnips/custom_snippets'
     )
     create_and_symlink(
-        src='/Users/gideon/dotfiles/ftplugin',
-        dst='/Users/gideon/.vim/ftplugin'
+        src=f'{home_dir}/dotfiles/ftplugin',
+        dst=f'{home_dir}/.vim/ftplugin'
     )
