@@ -17,6 +17,7 @@ Plug 'dense-analysis/ale'
 Plug 'ekalinin/Dockerfile.vim', { 'for': ['dockerfile'] }
 Plug 'RRethy/vim-illuminate'
 Plug 'Raimondi/delimitMate'
+Plug 'rhysd/clever-f.vim'
 Plug 'tpope/vim-repeat'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
