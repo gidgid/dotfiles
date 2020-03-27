@@ -5,6 +5,15 @@ def join(f1, f2):
     return os.path.join(f1, f2)
 
 
+def create_and_symlink(src, dst):
+    os.makedirs(dst, exist_ok=True)
+
+    symlink_dir(
+        src_dirname=src,
+        dst_dirname=dst,
+    )
+
+
 def srcs_to_dsts(src_dirname, dst_dirname):
     src_fnames = os.listdir(src_dirname)
     return {join(src_dirname, fname): join(dst_dirname, f'.{fname}')
