@@ -102,7 +102,7 @@ SPACESHIP_BATTERY_SHOW=false
 export PATH="/home/gideon/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
-
+eval "$(direnv hook zsh)"
 eval $(thefuck --alias)
 
 source <(kubectl completion zsh | sed s/kubectl/kc/g)
