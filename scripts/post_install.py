@@ -7,7 +7,8 @@ if __name__ == '__main__':
 
     create_and_symlink(
         src=f'{home_dir}/dotfiles/custom_snippets',
-        dst=f'{home_dir}/.vim/plugged/ultisnips/custom_snippets'
+        dst=f'{home_dir}/.vim/plugged/ultisnips/custom_snippets',
+        as_hidden=False
     )
     create_and_symlink(
         src=f'{home_dir}/dotfiles/ftplugin',
