@@ -36,7 +36,7 @@ setopt CORRECT
 
 bindkey 'jk' vi-cmd-mode
 bindkey '^ ' autosuggest-accept
-bindkey '^' autosuggest-execute
+bindkey '^[[[CE' autosuggest-execute
 
 
 export EDITOR="vim"
