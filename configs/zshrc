@@ -35,6 +35,9 @@ setopt interactivecomments
 setopt CORRECT
 
 bindkey 'jk' vi-cmd-mode
+bindkey '^ ' autosuggest-accept
+bindkey '^' autosuggest-execute
+
 
 export EDITOR="vim"
 export VISUAL="vim"
