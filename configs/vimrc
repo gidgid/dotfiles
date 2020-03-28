@@ -33,6 +33,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'lifepillar/vim-mucomplete'
 Plug 'wellle/tmux-complete.vim'
 
 " All of your Plugins must be added before the following line
@@ -84,7 +85,14 @@ let mapleader=","
 
 " How long it takes vim to decide if I typed a command or not
 set timeout timeoutlen=500
+
+" Autocomplete seetings 
 set complete-=i
+" Insert the longest common text and open the suggestion box
+set completeopt=longest,menuone,noselect,noinsert
+let g:mucomplete#enable_auto_at_startup = 1
+" This is done since tab is already mapped in UltiSnips
+imap <c-u> <plug>(MUcompleteFwd)
 
 " go to a tag if there's only one match, otherwise open a list that you can choose from
 nnoremap <c-]> g<c-]>
@@ -221,7 +229,6 @@ nnoremap <leader>gr :Gread<CR>
 nnoremap <leader>ptj :%s/\'/\"/ge \| :%s/False/false/ge \| :%s/True/true/ge \| :%!python -m json.tool<cr>
 
 " ==================== UltiSnips ==============================
-let g:SuperTabDefaultCompletionType = '<C-n>'
 let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/plugged/ultisnips/custom_snippets']
 let g:UltiSnipsSnippetsDir=$HOME.'/.vim/plugged/ultisnips/custom_snippets'
 
