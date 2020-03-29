@@ -31,6 +31,11 @@ Plug 'sirver/ultisnips'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
+Plug 'andymass/vim-matchup'
+Plug 'tpope/vim-commentary'
+Plug 'lfv89/vim-interestingwords'
+Plug 'https://github.com/RRethy/vim-illuminate'
+Plug 'https://github.com/tpope/vim-repeat'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'lifepillar/vim-mucomplete'
@@ -139,6 +144,13 @@ inoremap jk <esc>l
 " allow us to source the vimrc file in an easier fashion
 nnoremap <leader>src :source $MYVIMRC<CR>
 
+nmap <silent> t<C-n> :TestNearest<CR>
+nmap <silent> t<C-f> :TestFile<CR>
+nmap <silent> t<C-s> :TestSuite<CR>
+nmap <silent> t<C-l> :TestLast<CR>
+nmap <silent> t<C-g> :TestVisit<CR>
+
+inoremap <leader>a <ESC>A
 " ======================= Status Line ==================================
 " always display the status line
 set laststatus=2 
@@ -291,8 +303,8 @@ command! -bang Files call fzf#vim#files('', fzf#vim#with_preview('right'))
 " command! -bang -nargs=* Ag
 " search for git tracked files
 nnoremap <leader>f :GFiles<CR>
-" search for all files
 nnoremap <leader>F :Files<CR>
+" search for all files
 " search between buffers
 nnoremap <leader>b :Buffers<CR>
 " search through tags in the current file
