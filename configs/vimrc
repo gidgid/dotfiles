@@ -8,25 +8,27 @@ call plug#begin('~/.vim/plugged')
 "call plug#begin('~/some/path/here')
 Plug 'junegunn/vim-plug'
 
+Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'airblade/vim-gitgutter'
+Plug 'airblade/vim-rooter'
+Plug 'andymass/vim-matchup'
 Plug 'crusoexia/vim-monokai'
-Plug 'ervandew/supertab'
-Plug 'kana/vim-arpeggio'
-Plug 'janko/vim-test'
+Plug 'dense-analysis/ale'
+Plug 'ekalinin/Dockerfile.vim', { 'for': ['dockerfile'] }
+Plug 'RRethy/vim-illuminate'
+Plug 'Raimondi/delimitMate'
+Plug 'rhysd/clever-f.vim'
+Plug 'tpope/vim-repeat'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'junegunn/vim-peekaboo'
 Plug 'junegunn/limelight.vim'
-Plug 'junegunn/vim-slash'
-Plug 'rhysd/clever-f.vim'
-Plug 'terryma/vim-expand-region'
-Plug 'airblade/vim-rooter'
-Plug 'wellle/tmux-complete.vim'
+Plug 'junegunn/vim-peekaboo'
+Plug 'lfv89/vim-interestingwords'
+Plug 'ludovicchabant/vim-gutentags'
 Plug 'pbogut/fzf-mru.vim'
 Plug 'scrooloose/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'dense-analysis/ale'
 Plug 'sirver/ultisnips'
+Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'andymass/vim-matchup'
@@ -36,13 +38,11 @@ Plug 'https://github.com/RRethy/vim-illuminate'
 Plug 'https://github.com/tpope/vim-repeat'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'https://github.com/Raimondi/delimitMate'
-Plug 'ekalinin/Dockerfile.vim', { 'for': ['dockerfile'] }
-Plug 'ludovicchabant/vim-gutentags'
+Plug 'lifepillar/vim-mucomplete'
+Plug 'wellle/tmux-complete.vim'
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required
-call arpeggio#load()
 
 filetype plugin indent on    " required
 
@@ -80,18 +80,24 @@ nnoremap <space> za
 " Allow spell check toggling for the current file
 nnoremap <F1> :NERDTreeToggle<CR>
 nnoremap <F2> :UndotreeToggle<cr>
+nnoremap <F3> :TagbarToggle<CR>
 " nnoremap <F7> :SyntasticToggleMode<cr>
 nnoremap <F9> :setlocal spell! spelllang=en_us<CR>
 
-map ;k <plug>(expand_region_expand)
-map ;j <plug>(expand_region_shrink)
 " Focuses screen on the current search (slash-after plugin)
 noremap <plug>(slash-after) zz
 let mapleader=","
 
 " How long it takes vim to decide if I typed a command or not
 set timeout timeoutlen=500
+
+" Autocomplete seetings 
 set complete-=i
+" Insert the longest common text and open the suggestion box
+set completeopt=longest,menuone,noselect,noinsert
+let g:mucomplete#enable_auto_at_startup = 1
+" This is done since tab is already mapped in UltiSnips
+imap <c-u> <plug>(MUcompleteFwd)
 
 " go to a tag if there's only one match, otherwise open a list that you can choose from
 nnoremap <c-]> g<c-]>
@@ -112,8 +118,8 @@ nnoremap <leader>show :NERDTreeFind<CR>
 " delete buffer when you delete the files in nerdtree
 let NERDTreeAutoDeleteBuffer = 1
 " open nerdtree when using vim without any arguments
-" autocmd StdinReadPre * let s:std_in=1
-" autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 " ========================= disable swap files ======================== 
 set noswapfile
@@ -231,18 +237,12 @@ nnoremap <leader>gs :Gstatus<CR>
 nnoremap <leader>gw :Gwrite<CR>
 nnoremap <leader>gc :Gcommit<CR>
 nnoremap <leader>gr :Gread<CR>
-nnoremap <leader>ga :Gwrite \| :Gcommit<CR>
 
 nnoremap <leader>ptj :%s/\'/\"/ge \| :%s/False/false/ge \| :%s/True/true/ge \| :%!python -m json.tool<cr>
 
 " ==================== UltiSnips ==============================
-let g:SuperTabDefaultCompletionType = '<C-n>'
-" let g:UltiSnipsSnippetDirectories=['~/.vim/plugged/ultisnips/custom-snippets']
-" let g:UltiSnipsSnippetsDir=['~/.vim/plugged/ultisnips/custom-snippets']
 let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/plugged/ultisnips/custom_snippets']
 let g:UltiSnipsSnippetsDir=$HOME.'/.vim/plugged/ultisnips/custom_snippets'
-
-" let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/UltiSnips']
 
 " better key bindings for UltiSnipsExpandTrigger
 let g:UltiSnipsExpandTrigger = "<tab>"
@@ -306,14 +306,13 @@ nnoremap <leader>F :Files<CR>
 " search between buffers
 nnoremap <leader>b :Buffers<CR>
 " search through tags in the current file
-" search through all the tags in the project (slower)
-nnoremap <leader>t :Tags<CR>
-"Arpeggio nnoremap <C-t> :Tags<CR>
-Arpeggio nnoremap tl :BTags<CR>
+nnoremap <leader>t :BTags<CR>
+" search through all the tags in the project
+nnoremap <leader>T :Tags<CR>
 " search through lines in current buffer only
-nnoremap <leader>l :Lines<CR>
+nnoremap <leader>L :Lines<CR>
 " search through lines in all buffers
-Arpeggio nnoremap bl :BLines<CR>
+nnoremap <leader>l :BLines<CR>
 " search through marked lines
 nnoremap <leader>m :Marks<CR>
 " search through vim help
@@ -330,11 +329,10 @@ nnoremap <Leader>S :Filetypes<CR>
 nnoremap <Leader>M :Maps<CR>
 " Allows us to use fuzzy on ultisnips snippets
 inoremap <Leader>s <esc>:Snippets<CR>i
-Arpeggio nnoremap sn :Snippets<CR>
 " Quickly switch windows
 nnoremap <Leader>w :Windows<CR>
 " Use with Ag
-Arpeggio nnoremap ag :Ag<CR>
+nnoremap <Leader>a :Ag<CR>
 " Navigate through all git commits
 nnoremap <Leader>ca :Commits<CR>
 " Navigate through git commits in buffer
@@ -387,17 +385,15 @@ nnoremap <leader>repl :%s/<c-r><c-w>//g<left><left>
 nmap <leader>tab :tabedit %<CR>
 nmap <leader>tabc :tabclose<CR>
 
-" https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
 " Triger `autoread` when files changes on disk
 " https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
 " https://vi.stackexchange.com/questions/13692/prevent-focusgained-autocmd-running-in-command-line-editing-mode
-autocmd FocusGained,BufEnter,CursorHold,CursorHoldI *
-   \ if mode() !~ '\v(c|r.?|!|t)' && getcmdwintype() == '' | checktime | endif
-
+autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
 " Notification after file change
 " https://vi.stackexchange.com/questions/13091/autocmd-event-for-autoread
 autocmd FileChangedShellPost *
-  \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
+   \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
+
 " Load all plugins now.
 " Plugins need to be added to runtimepath before helptags can be generated.
 packloadall

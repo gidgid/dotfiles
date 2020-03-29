@@ -12,7 +12,6 @@ zf() {
     cd $(z | awk '{print $2}' | fzf)
 }
 
-fenv() {
-    env | fzf
+vftf() {
+    vim $(ls -d ~/.vim/ftplugin/* | fzf)
 }
-
