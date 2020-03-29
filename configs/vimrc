@@ -225,6 +225,8 @@ nnoremap <leader>gs :Gstatus<CR>
 nnoremap <leader>gw :Gwrite<CR>
 nnoremap <leader>gc :Gcommit<CR>
 nnoremap <leader>gr :Gread<CR>
+nnoremap <leader>gcc :Gwrite \| :Gcommit<CR>
+nnoremap <leader>gca :Gwrite \| :Gcommit --amend<CR>
 
 nnoremap <leader>ptj :%s/\'/\"/ge \| :%s/False/false/ge \| :%s/True/true/ge \| :%!python -m json.tool<cr>
 
