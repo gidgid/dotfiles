@@ -68,6 +68,7 @@ set lazyredraw                  " redraw the screen only when its actually neede
 set showmatch                   " highlight parenthesis match when cursor on parenthesis
 set foldenable                  " enable folding
 set foldlevelstart=10           " open most folds by default
+set hidden                      " allow us to switch buffers without saving
 " space open/closes folds
 nnoremap <space> za
 
