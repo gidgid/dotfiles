@@ -14,9 +14,9 @@ Plug 'andymass/vim-matchup'
 Plug 'crusoexia/vim-monokai'
 Plug 'dense-analysis/ale'
 Plug 'ekalinin/Dockerfile.vim', { 'for': ['dockerfile'] }
+Plug 'janko/vim-test'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'junegunn/limelight.vim'
 Plug 'junegunn/vim-peekaboo'
 Plug 'lfv89/vim-interestingwords'
 Plug 'lifepillar/vim-mucomplete'
@@ -242,9 +242,9 @@ let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/plugged/ultisnips/custom_snippet
 let g:UltiSnipsSnippetsDir=$HOME.'/.vim/plugged/ultisnips/custom_snippets'
 
 " better key bindings for UltiSnipsExpandTrigger
-let g:UltiSnipsExpandTrigger = "<tab>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
@@ -260,11 +260,11 @@ nnoremap <silent> <space>aj :ALENext<cr>
 nnoremap <silent> <space>ak :ALEPrevious<cr>
 
 let g:ale_linters = {
-            \ 'python': ['flake8', 'pylint', 'mypy'],
+            \ 'python': ['pylint', 'mypy'],
             \ }
 
 let g:ale_fixers = {
-            \ 'python': ['autopep8', 'yapf', 'isort'],
+            \ 'python': ['black', 'isort'],
             \ }
 let g:ale_fix_on_save = 1
 " Set this. Airline will handle the rest.
@@ -272,6 +272,7 @@ let g:airline#extensions#ale#enabled = 1
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_python_pylint_options = '--rcfile ~/.pylintrc'
 let g:ale_completion_enabled = 1
 
 " =================== syntastic ===========================
@@ -289,7 +290,6 @@ cnoremap <leader>a Ag<space>
 cnoremap <leader>p +
 cnoremap <leader>m -
 
-nnoremap <leader>e :Limelight!!<CR>
 " Ag! works with preview
 command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--color-path "1;36"', fzf#vim#with_preview(), <bang>0)
 " GFiles works with preview
