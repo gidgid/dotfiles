@@ -24,3 +24,4 @@ let g:ale_fixers = {
             \ }
 
 nmap ,p :w<CR>:!python3 %<CR>
+imap ,p <ESC>:w<CR>:!python3 %<CR>
