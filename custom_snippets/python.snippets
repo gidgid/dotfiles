@@ -165,7 +165,6 @@ endsnippet
 
 snippet asf "Create a class field assignment statement"
 self.$1 = ${1:value}
-$0
 endsnippet
 
 snippet jpr "Create a pretty json"
@@ -184,4 +183,8 @@ endsnippet
 
 snippet todo "A TODO template"
 # TODO: ${1:do_what?}
+endsnippet
+
+snippet debug "Add an ipython debug statement"
+from IPython import embed; embed()
 endsnippet
