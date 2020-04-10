@@ -36,14 +36,12 @@ setopt CORRECT
 
 bindkey 'jk' vi-cmd-mode
 bindkey '^ ' autosuggest-accept
-bindkey '^[[[CE' autosuggest-execute
 
 
 export EDITOR="vim"
 export VISUAL="vim"
 export USE_EDITOR="vim"
 
-# fpath=(/usr/local/share/zsh-completions $fpath)
 fpath+=($ZSH/plugins/docker)
 
 autoload -U compinit && compinit
@@ -56,6 +54,8 @@ for config in "$HOME"/.zshrc.d/* ; do
     source "$config"
 done
 unset -v config
+[ -f ~/.work_aliases ] && source ~/.work_aliases
+[ -f ~/.work_funcs ] && source ~/.work_funcs
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZE_DEFAULT_OPS="--extended" # enable us to use regex when matching on results like txt$

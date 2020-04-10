@@ -1,45 +1,44 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-" set the runtime path to include Vundle and initialize
+" https://github.com/junegunn/vim-plug/wiki/tips#automatic-installation
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 "set rtp+=~/.vim/bundle/Vundle.vim
 call plug#begin('~/.vim/plugged')
 " alternatively, pass a path where Vundle should install plugins
 "call plug#begin('~/some/path/here')
 Plug 'junegunn/vim-plug'
 
-Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'airblade/vim-gitgutter'
 Plug 'airblade/vim-rooter'
 Plug 'andymass/vim-matchup'
 Plug 'crusoexia/vim-monokai'
 Plug 'dense-analysis/ale'
 Plug 'ekalinin/Dockerfile.vim', { 'for': ['dockerfile'] }
-Plug 'RRethy/vim-illuminate'
-Plug 'Raimondi/delimitMate'
-Plug 'rhysd/clever-f.vim'
-Plug 'tpope/vim-repeat'
+Plug 'janko/vim-test'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'junegunn/limelight.vim'
 Plug 'junegunn/vim-peekaboo'
 Plug 'lfv89/vim-interestingwords'
+Plug 'lifepillar/vim-mucomplete'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'pbogut/fzf-mru.vim'
+Plug 'rhysd/clever-f.vim'
+Plug 'RRethy/vim-illuminate'
 Plug 'scrooloose/nerdtree'
 Plug 'sirver/ultisnips'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
-Plug 'andymass/vim-matchup'
-Plug 'tpope/vim-commentary'
-Plug 'lfv89/vim-interestingwords'
-Plug 'https://github.com/RRethy/vim-illuminate'
-Plug 'https://github.com/tpope/vim-repeat'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'lifepillar/vim-mucomplete'
 Plug 'wellle/tmux-complete.vim'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required
@@ -74,6 +73,7 @@ set lazyredraw                  " redraw the screen only when its actually neede
 set showmatch                   " highlight parenthesis match when cursor on parenthesis
 set foldenable                  " enable folding
 set foldlevelstart=10           " open most folds by default
+set hidden                      " allow us to switch buffers without saving
 " space open/closes folds
 nnoremap <space> za
 
@@ -247,9 +247,9 @@ let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/plugged/ultisnips/custom_snippet
 let g:UltiSnipsSnippetsDir=$HOME.'/.vim/plugged/ultisnips/custom_snippets'
 
 " better key bindings for UltiSnipsExpandTrigger
-let g:UltiSnipsExpandTrigger = "<tab>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
@@ -265,11 +265,11 @@ nnoremap <silent> <space>aj :ALENext<cr>
 nnoremap <silent> <space>ak :ALEPrevious<cr>
 
 let g:ale_linters = {
-            \ 'python': ['flake8', 'pylint', 'mypy'],
+            \ 'python': ['pylint', 'mypy'],
             \ }
 
 let g:ale_fixers = {
-            \ 'python': ['autopep8', 'yapf', 'isort'],
+            \ 'python': ['black', 'isort'],
             \ }
 let g:ale_fix_on_save = 1
 " Set this. Airline will handle the rest.
@@ -277,6 +277,7 @@ let g:airline#extensions#ale#enabled = 1
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_python_pylint_options = '--rcfile ~/.pylintrc'
 let g:ale_completion_enabled = 1
 
 " =================== syntastic ===========================
@@ -294,7 +295,6 @@ cnoremap <leader>a Ag<space>
 cnoremap <leader>p +
 cnoremap <leader>m -
 
-nnoremap <leader>e :Limelight!!<CR>
 " Ag! works with preview
 command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--color-path "1;36"', fzf#vim#with_preview(), <bang>0)
 " GFiles works with preview
