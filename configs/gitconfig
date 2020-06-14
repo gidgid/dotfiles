@@ -60,6 +60,7 @@
     # rebase
     rb = rebase
     rbi = rebase -i
+    rbc = rebase --continue
 
     # logs
     lgp = log --oneline --graph --decorate --pretty=format:\"%C(auto)%d%C(reset) %s %C(magenta)(%ar)%C(reset) %C(cyan)%h%C(reset) %C(red)[%cn]%C(reset)\"
@@ -118,3 +119,5 @@
     enabled = true
 [gc]
 	writeCommitGraph = true
+[pull]
+	rebase = false
