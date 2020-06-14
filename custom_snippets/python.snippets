@@ -163,6 +163,13 @@ snippet tskip "Temporarily skips a test method"
 @unittest.skip('${1:Temporarily disabled}')
 endsnippet
 
+snippet tdefs "Creates a skipped method"
+@unittest.skip('${1:To be implemented}')
+def test_${2:name}(self):
+	${0:self.assertEqual(1, 2)}
+endsnippet
+
+
 snippet asf "Create a class field assignment statement"
 self.$1 = ${1:value}
 endsnippet
