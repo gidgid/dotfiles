@@ -50,8 +50,7 @@ set nocompatible              " be iMproved, required
 colorscheme monokai
 
 " ========================= global config ============================
-set relativenumber
-set number                      " show the absolute line number as well
+set number relativenumber       " set hybrid line numbers
 set history=1000                " store lots of :cmdline history
 set showcmd                     " show partial command while they're being typed
 set visualbell                  " Please don't make sounds when trying to delete something with backspace
@@ -74,6 +73,14 @@ set showmatch                   " highlight parenthesis match when cursor on par
 set foldenable                  " enable folding
 set foldlevelstart=10           " open most folds by default
 set hidden                      " allow us to switch buffers without saving
+
+" https://jeffkreeftmeijer.com/vim-number/
+augroup numbertoggle
+  autocmd!
+  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+augroup END
+
 " space open/closes folds
 nnoremap <space> za
 
@@ -81,7 +88,6 @@ nnoremap <space> za
 nnoremap <F1> :NERDTreeToggle<CR>
 nnoremap <F2> :UndotreeToggle<cr>
 nnoremap <F3> :TagbarToggle<CR>
-" nnoremap <F7> :SyntasticToggleMode<cr>
 nnoremap <F9> :setlocal spell! spelllang=en_us<CR>
 
 " Focuses screen on the current search (slash-after plugin)
@@ -94,7 +100,7 @@ set timeout timeoutlen=500
 " Autocomplete seetings 
 set complete-=i
 " Insert the longest common text and open the suggestion box
-set completeopt=longest,menuone,noselect,noinsert
+set completeopt=menuone,noselect,noinsert
 let g:mucomplete#enable_auto_at_startup = 1
 " This is done since tab is already mapped in UltiSnips
 imap <c-u> <plug>(MUcompleteFwd)
@@ -117,9 +123,6 @@ autocmd FileType nerdtree setlocal relativenumber
 nnoremap <leader>show :NERDTreeFind<CR>
 " delete buffer when you delete the files in nerdtree
 let NERDTreeAutoDeleteBuffer = 1
-" open nerdtree when using vim without any arguments
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 " ========================= disable swap files ======================== 
 set noswapfile
@@ -232,6 +235,66 @@ map <ScrollWheelDown> <C-E>
 " show when gutentags generates tags
 set statusline+=%{gutentags#statusline()}
 
+" https://www.reddit.com/r/vim/comments/d77t6j/guide_how_to_setup_ctags_with_gutentags_properly/
+let g:gutentags_project_root = ['.git']
+let g:gutentags_cache_dir = expand('~/.cache/vim/ctags/')
+command! -nargs=0 GutentagsClearCache call system('rm ' . g:gutentags_cache_dir . '/*')
+let g:gutentags_generate_on_new = 1
+let g:gutentags_generate_on_missing = 1
+let g:gutentags_generate_on_write = 1
+let g:gutentags_generate_on_empty_buffer = 0
+let g:gutentags_ctags_extra_args = [
+      \ '--tag-relative=yes',
+      \ '--fields=+ailmnS',
+      \ ]
+let g:gutentags_ctags_exclude = [
+      \ '*.git', '*.svg', '*.hg',
+      \ '*/tests/*',
+      \ 'build',
+      \ 'dist',
+      \ '*sites/*/files/*',
+      \ 'bin',
+      \ 'node_modules',
+      \ 'bower_components',
+      \ 'cache',
+      \ 'compiled',
+      \ 'docs',
+      \ 'example',
+      \ 'bundle',
+      \ 'vendor',
+      \ '*.md',
+      \ '*-lock.json',
+      \ '*.lock',
+      \ '*bundle*.js',
+      \ '*build*.js',
+      \ '.*rc*',
+      \ '*.json',
+      \ '*.min.*',
+      \ '*.map',
+      \ '*.bak',
+      \ '*.zip',
+      \ '*.pyc',
+      \ '*.class',
+      \ '*.sln',
+      \ '*.Master',
+      \ '*.csproj',
+      \ '*.tmp',
+      \ '*.csproj.user',
+      \ '*.cache',
+      \ '*.pdb',
+      \ 'tags*',
+      \ 'cscope.*',
+      \ '*.css',
+      \ '*.less',
+      \ '*.scss',
+      \ '*.exe', '*.dll',
+      \ '*.mp3', '*.ogg', '*.flac',
+      \ '*.swp', '*.swo',
+      \ '*.bmp', '*.gif', '*.ico', '*.jpg', '*.png',
+      \ '*.rar', '*.zip', '*.tar', '*.tar.gz', '*.tar.xz', '*.tar.bz2',
+      \ '*.pdf', '*.doc', '*.docx', '*.ppt', '*.pptx',
+      \ ]
+
 " vim-fugitive shortcuts
 nnoremap <leader>gs :Gstatus<CR>
 nnoremap <leader>gw :Gwrite<CR>
@@ -259,13 +322,14 @@ let g:UltiSnipsEditSplit="vertical"
 
 " make vimdiff display diffs vertically
 set diffopt+=vertical
+nmap <silent> <buffer> gK <Plug>(kite-docs)
 
 " =============== ale ============================== 
 nnoremap <silent> <space>aj :ALENext<cr>
 nnoremap <silent> <space>ak :ALEPrevious<cr>
 
 let g:ale_linters = {
-            \ 'python': ['pylint', 'mypy'],
+            \ 'python': ['pylint', 'mypy', 'flake8'],
             \ }
 
 let g:ale_fixers = {
@@ -273,12 +337,16 @@ let g:ale_fixers = {
             \ }
 let g:ale_fix_on_save = 1
 " Set this. Airline will handle the rest.
+set statusline+=%=
+set statusline+=\ %{LinterStatus()}
 let g:airline#extensions#ale#enabled = 1
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_python_pylint_options = '--rcfile ~/.pylintrc'
 let g:ale_completion_enabled = 1
+let g:ale_sign_error = '✘'
+let g:ale_sign_warning = '⚠'
 
 " =================== syntastic ===========================
 " let python_highlight_all=1
