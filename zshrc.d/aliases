@@ -9,6 +9,7 @@ alias funcs="vim ~/.funcs"
 alias grep="grep -i --color"
 alias g="git"
 alias v="vim"
+alias nv="nvim"
 alias vbig='f() {vim -u "NONE" $1 };f'
 alias s="sbt"
 alias br="brew"

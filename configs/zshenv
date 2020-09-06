@@ -10,3 +10,5 @@ fi
 # Editors
 VISUAL="vim"
 EDITOR="vim"
+
+skip_global_compinit=1

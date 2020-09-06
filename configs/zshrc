@@ -15,7 +15,7 @@ ZSH_THEME="spaceship"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(z vi-mode zsh-syntax-highlighting zsh-autosuggestions colored-man-pages docker python pip helm)
+plugins=(z vi-mode zsh-syntax-highlighting zsh-autosuggestions docker python pip)
 
 PATH=$PATH:/usr/local/sbin
 
@@ -35,14 +35,11 @@ setopt interactivecomments
 setopt CORRECT
 
 bindkey 'jk' vi-cmd-mode
-bindkey '^ ' autosuggest-accept
 
 
 export EDITOR="vim"
 export VISUAL="vim"
 export USE_EDITOR="vim"
-
-fpath+=($ZSH/plugins/docker)
 
 autoload -U compinit && compinit
 
@@ -65,9 +62,13 @@ export FZF_DEFAULT_COMMAND='ag -g ""'
 SPACESHIP_BATTERY_SHOW=false
 
 export PATH="/home/gideon/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+eval "$(pyenv init - --no-rehash)"
 eval "$(direnv hook zsh)"
 eval $(thefuck --alias)
 
-source <(kubectl completion zsh | sed s/kubectl/kc/g)
+autoload -Uz compinit
+for dump in ~/.zcompdump(N.mh+24); do
+  compinit
+done
+compinit -C
