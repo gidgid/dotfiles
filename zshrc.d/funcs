@@ -15,3 +15,7 @@ zf() {
 vftf() {
     vim $(ls -d ~/.vim/ftplugin/* | fzf)
 }
+
+pt() {
+    find . -type f -name 'test_*' -not -name '*.pyc' | fzf -m | xargs pytest
+}

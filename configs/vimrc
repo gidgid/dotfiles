@@ -11,24 +11,23 @@ endif
 call plug#begin('~/.vim/plugged')
 " alternatively, pass a path where Vundle should install plugins
 "call plug#begin('~/some/path/here')
-Plug 'junegunn/vim-plug'
-
+Plug 'RRethy/vim-illuminate'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'airblade/vim-gitgutter'
 Plug 'airblade/vim-rooter'
 Plug 'andymass/vim-matchup'
 Plug 'crusoexia/vim-monokai'
 Plug 'dense-analysis/ale'
 Plug 'ekalinin/Dockerfile.vim', { 'for': ['dockerfile'] }
-Plug 'janko/vim-test'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-peekaboo'
+Plug 'junegunn/vim-plug'
 Plug 'lfv89/vim-interestingwords'
-Plug 'lifepillar/vim-mucomplete'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'pbogut/fzf-mru.vim'
+Plug 'psf/black', { 'for': ['python'], 'tag': '19.10b0' }
 Plug 'rhysd/clever-f.vim'
-Plug 'RRethy/vim-illuminate'
 Plug 'scrooloose/nerdtree'
 Plug 'sirver/ultisnips'
 Plug 'tpope/vim-commentary'
@@ -38,7 +37,8 @@ Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'wellle/tmux-complete.vim'
-Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'numirias/semshi', {'for': ['python'], 'do': ':UpdateRemotePlugins'}
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required
@@ -48,6 +48,7 @@ filetype plugin indent on    " required
 set nocompatible              " be iMproved, required
 
 colorscheme monokai
+
 
 " ========================= global config ============================
 set number relativenumber       " set hybrid line numbers
@@ -197,6 +198,7 @@ endif
 
 " ================ General Navigation Settings ===========
 nnoremap <leader>erc :vsplit $MYVIMRC<CR>
+nnoremap <leader>eerc :vsplit ~/.vimrc<CR>
 
 " ================ Pane Settings ===========================
 " maximize pane horizontally
@@ -303,7 +305,7 @@ nnoremap <leader>gr :Gread<CR>
 nnoremap <leader>gcc :Gwrite \| :Gcommit<CR>
 nnoremap <leader>gca :Gwrite \| :Gcommit --amend<CR>
 
-nnoremap <leader>ptj :%s/\'/\"/ge \| :%s/False/false/ge \| :%s/True/true/ge \| :%!python -m json.tool<cr>
+nnoremap <leader>ptj :%s/\'/\"/ge \| :%s/False/false/ge \| :%s/True/true/ge \| :%s/None/null/ge \| :%!python -m json.tool<cr>
 
 " ==================== UltiSnips ==============================
 let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/plugged/ultisnips/custom_snippets']
@@ -320,8 +322,6 @@ let g:UltiSnipsEditSplit="vertical"
 " Allows us to see the possible snippets
 " let g:UltiSnipsListSnippets="<c-o>"
 
-" make vimdiff display diffs vertically
-set diffopt+=vertical
 nmap <silent> <buffer> gK <Plug>(kite-docs)
 
 " =============== ale ============================== 
@@ -333,7 +333,7 @@ let g:ale_linters = {
             \ }
 
 let g:ale_fixers = {
-            \ 'python': ['black', 'isort'],
+            \ 'python': ['yapf', 'isort'],
             \ }
 let g:ale_fix_on_save = 1
 " Set this. Airline will handle the rest.
@@ -343,7 +343,8 @@ let g:airline#extensions#ale#enabled = 1
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-let g:ale_python_pylint_options = '--rcfile ~/.pylintrc'
+" let g:ale_python_pylint_options = '--rcfile ~/.pylintrc'
+let g:ale_python_pylint_change_directory = 0
 let g:ale_completion_enabled = 1
 let g:ale_sign_error = '✘'
 let g:ale_sign_warning = '⚠'
@@ -454,6 +455,32 @@ nnoremap <leader>repl :%s/<c-r><c-w>//g<left><left>
 
 nmap <leader>tab :tabedit %<CR>
 nmap <leader>tabc :tabclose<CR>
+
+" nvim mappings
+if has('nvim')
+  tnoremap <Esc> <C-\><C-n>
+  tnoremap <C-v><Esc> <Esc>
+  " Terminal mode:
+  tnoremap <M-h> <c-\><c-n><c-w>h
+  tnoremap <M-j> <c-\><c-n><c-w>j
+  tnoremap <M-k> <c-\><c-n><c-w>k
+  tnoremap <M-l> <c-\><c-n><c-w>l
+  " Insert mode:
+  inoremap <M-h> <Esc><c-w>h
+  inoremap <M-j> <Esc><c-w>j
+  inoremap <M-k> <Esc><c-w>k
+  inoremap <M-l> <Esc><c-w>l
+  " Visual mode:
+  vnoremap <M-h> <Esc><c-w>h
+  vnoremap <M-j> <Esc><c-w>j
+  vnoremap <M-k> <Esc><c-w>k
+  vnoremap <M-l> <Esc><c-w>l
+  " Normal mode:
+  nnoremap <M-h> <c-w>h
+  nnoremap <M-j> <c-w>j
+  nnoremap <M-k> <c-w>k
+  nnoremap <M-l> <c-w>l
+endif
 
 " Triger `autoread` when files changes on disk
 " https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044

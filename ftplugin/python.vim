@@ -25,3 +25,7 @@ let g:ale_fixers = {
 
 nmap ,p :w<CR>:!python3 %<CR>
 imap ,p <ESC>:w<CR>:!python3 %<CR>
+nmap ,pt :w<CR>:!pytest %<CR>
+
+let g:black_linelength = 79
+nnoremap <leader>bl :Black<CR>
