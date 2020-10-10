@@ -99,7 +99,7 @@ class ${1:name}:
 endsnippet
 
 snippet tae "Create an assert equals (ordered comparison)"
-self.assertEqual(${1:actual}, ${0:expected})
+self.assertEqual(${1:expected}, ${0:actual})
 endsnippet
 
 snippet tace "Create an assert count equals (no order required)"
@@ -138,11 +138,6 @@ def tearDown(self):
 	${0:pass}
 endsnippet
 
-snippet tdef "Create a test method with a failing assertion"
-def test_${1:name}(self):
-	${0:self.assertEqual(1, 2)}
-endsnippet
-
 snippet log "Create a log info"
 logger.${1:info}($2'$3')
 endsnippet
@@ -159,9 +154,12 @@ class Test${1:name}(unittest.TestCase):
 		${0:self.assertEqual(1, 2)}
 endsnippet
 
-snippet tskip "Temporarily skips a test method"
-@unittest.skip('${1:Temporarily disabled}')
+snippet tdefs "Creates a skipped method"
+@unittest.skip('${1:To be implemented}')
+def test_${2:name}(self):
+	${0:self.assertEqual(1, 2)}
 endsnippet
+
 
 snippet asf "Create a class field assignment statement"
 self.$1 = ${1:value}
@@ -187,4 +185,48 @@ endsnippet
 
 snippet debug "Add an ipython debug statement"
 from IPython import embed; embed()
+endsnippet
+
+snippet txf "Add xfail to test"
+@pytest.mark.xfail()
+endsnippet
+
+snippet tskip "Add a skip to test"
+@pytest.mark.skip('${1:reason}'):
+endsnippet
+
+snippet tmulti "Add a parametrized decorator"
+@pytest.mark.parametrize(
+	'${1:params_names}',
+	[
+		(${2:arguments}),
+	]
+)$0
+endsnippet
+
+snippet tfix "Decorate as fixture"
+@pytest.fixture
+endsnippet
+
+snippet tm "Decorate with a pytest marker"
+@pytest.mark.${1:marker_name}
+endsnippet
+
+snippet tnew "Create a new pytest file"
+import pytest
+
+
+def test_smoke():
+	assert 1 == 2
+endsnippet
+
+snippet tdef "Create a test method with a failing assertion"
+def test_${1:name}():
+	assert 1 == 2
+endsnippet
+
+snippet dc "Create a dataclass"
+@dataclass(frozen=True, eq=True)
+class ${1:Name}:
+	${2:field_name}: ${3:field_type}
 endsnippet

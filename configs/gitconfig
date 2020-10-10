@@ -20,7 +20,10 @@
     bra = branch -a
     brr = branch -r
     ## prints #<num> last branches
-    lb = "!print_last_branches() { git reflog | grep -o \"checkout: moving from .* to \" | sed -e 's/checkout: moving from //' -e 's/ to $//' | head -$1 | nl; }; print_last_branches"
+    lb = "!print_last_branches() { git reflog | grep -o \"checkout: moving from .* to \" | awk '{print $(NF - 1)}' | head -${1:-10} | nl; }; print_last_branches"
+
+    # fetch
+    f = fetch
 
     # commits
     ## show all diffs when entering commit
@@ -60,6 +63,8 @@
     # rebase
     rb = rebase
     rbi = rebase -i
+    rbc = rebase --continue
+    rbif = "!rebase_fzf() { git log --oneline --decorate | fzf | awk '{print $1}' | xargs git rebase -i; }; rebase_fzf"
 
     # logs
     lgp = log --oneline --graph --decorate --pretty=format:\"%C(auto)%d%C(reset) %s %C(magenta)(%ar)%C(reset) %C(cyan)%h%C(reset) %C(red)[%cn]%C(reset)\"
@@ -98,9 +103,8 @@
     editor = vim
     # https://devblogs.microsoft.com/devops/updates-to-the-git-commit-graph-feature/
 	commitGraph = true
-	excludesfile = /home/gideon/.gitignore_global
-[user]
-    # these are set in ~/.gitconfig_local
+	excludesfile = ~/.gitignore_global
+	pager = delta
 [include]
     path = ~/.gitconfig_local
 [commit]
@@ -118,3 +122,14 @@
     enabled = true
 [gc]
 	writeCommitGraph = true
+[pull]
+	rebase = false
+[delta]
+    features = decorations
+    whitespace-error-style = 22 reverse
+    line-numbers = true
+    side-by-side = true
+[delta "decorations"]
+    commit-decoration-style = bold yellow box ul
+    file-style = bold yellow ul
+    file-decoration-style = none
