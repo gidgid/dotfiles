@@ -18,14 +18,13 @@ Plug 'airblade/vim-rooter'
 Plug 'crusoexia/vim-monokai'
 Plug 'dense-analysis/ale'
 Plug 'ekalinin/Dockerfile.vim', { 'for': ['dockerfile'] }
+Plug 'https://github.com/preservim/tagbar'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'junegunn/vim-peekaboo'
 Plug 'junegunn/vim-plug'
 Plug 'lfv89/vim-interestingwords'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'pbogut/fzf-mru.vim'
-Plug 'psf/black', { 'for': ['python'], 'tag': '19.10b0' }
 Plug 'rhysd/clever-f.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'sirver/ultisnips'
@@ -35,23 +34,10 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'wellle/tmux-complete.vim'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'numirias/semshi', {'for': ['python'], 'do': ':UpdateRemotePlugins'}
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required
 
-let g:coc_global_extensions = [
-  \ 'coc-tsserver'
-  \ ]
-if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
-  let g:coc_global_extensions += ['coc-prettier']
-endif
-
-if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
-  let g:coc_global_extensions += ['coc-eslint']
-endif
 
 filetype plugin indent on    " required
 
