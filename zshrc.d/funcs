@@ -19,3 +19,20 @@ vftf() {
 pt() {
     find . -type f -name 'test_*' -not -name '*.pyc' | fzf -m | xargs pytest
 }
+
+git() {
+    if [ "$1" = root ]; then
+        shift # remove root from prefix
+        # either get the root of the dir or current directory if failed
+        local ROOT="$(command git rev-parse --show-toplevel 2> /dev/null || echo -n .)"
+        if [ $# -eq 0 ]; then
+            cd "$ROOT"
+        else
+            echo "$@"
+            # run git command from root in a subshell (wrapping in brackets for subshell)
+            (cd "$ROOT" && git "$@")
+        fi
+    else
+        command git "$@"
+    fi
+}

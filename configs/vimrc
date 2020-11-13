@@ -12,8 +12,11 @@ call plug#begin('~/.vim/plugged')
 " alternatively, pass a path where Vundle should install plugins
 "call plug#begin('~/some/path/here')
 Plug 'RRethy/vim-illuminate'
+Plug 'wincent/loupe'
 Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'jiangmiao/auto-pairs'
 Plug 'airblade/vim-gitgutter'
+Plug 'machakann/vim-highlightedyank'
 Plug 'airblade/vim-rooter'
 Plug 'crusoexia/vim-monokai'
 Plug 'dense-analysis/ale'
@@ -81,7 +84,6 @@ augroup END
 " space open/closes folds
 nnoremap <space> za
 
-let g:kite_tab_complete=1
 " Allow spell check toggling for the current file
 nnoremap <F1> :NERDTreeToggle<CR>
 nnoremap <F2> :UndotreeToggle<cr>
@@ -323,8 +325,6 @@ let g:UltiSnipsEditSplit="vertical"
 
 " Allows us to see the possible snippets
 " let g:UltiSnipsListSnippets="<c-o>"
-
-nmap <silent> <buffer> gK <Plug>(kite-docs)
 
 " =============== ale ============================== 
 nnoremap <silent> <space>aj :ALENext<cr>

@@ -32,7 +32,6 @@ plugins=(
     docker 
     python 
     pip 
-    up
 )
 
 PATH=$PATH:/usr/local/sbin
@@ -64,8 +63,6 @@ for config in "$HOME"/.zshrc.d/* ; do
     source "$config"
 done
 # unset -v config
-[ -f ~/.work_aliases ] && source ~/.work_aliases
-[ -f ~/.work_funcs ] && source ~/.work_funcs
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 export FZE_DEFAULT_OPS="--extended" # enable us to use regex when matching on results like txt$
