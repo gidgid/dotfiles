@@ -13,6 +13,7 @@ call plug#begin('~/.vim/plugged')
 "call plug#begin('~/some/path/here')
 Plug 'RRethy/vim-illuminate'
 Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'preservim/tagbar'
 Plug 'airblade/vim-gitgutter'
 Plug 'airblade/vim-rooter'
 Plug 'andymass/vim-matchup'
@@ -38,7 +39,6 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'wellle/tmux-complete.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'numirias/semshi', {'for': ['python'], 'do': ':UpdateRemotePlugins'}
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required
@@ -458,6 +458,7 @@ nmap <leader>tabc :tabclose<CR>
 
 " nvim mappings
 if has('nvim')
+  set inccommand=nosplit
   tnoremap <Esc> <C-\><C-n>
   tnoremap <C-v><Esc> <Esc>
   " Terminal mode:
