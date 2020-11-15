@@ -97,11 +97,6 @@ nnoremap <F9> :setlocal spell! spelllang=en_us<CR>
 noremap <plug>(slash-after) zz
 let mapleader=","
 
-" Enable vim calendar
-source ~/.cache/calendar.vim/credentials.vim
-let g:calendar_google_calendar = 1
-let g:calendar_google_task = 1
-
 " How long it takes vim to decide if I typed a command or not
 set timeout timeoutlen=500
 
