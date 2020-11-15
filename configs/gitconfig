@@ -88,11 +88,12 @@
     # restores
     ref =  "!restore_fzf() { git status -s | awk '{print $2}' | fzf -m | xargs git restore; }; restore_fzf"
 
-    # prints the name of the branch
-    name = "! git rev-parse --abbrev-ref HEAD"
 
     # delete multiple untracked files with fzf
     rmf = "!delete_untracked() { git ls-files --exclude-standard --other | fzf -m | xargs rm; }; delete_untracked"
+
+    # prints the hash of the input branch (HEAD default)
+    abbrev = !sh -c 'git rev-parse --short "${1-`echo HEAD`}"' -
 
     alias = "!print_aliases() { git config --get-regexp ^alias | sed s/alias.//g; }; print_aliases"
 [color]

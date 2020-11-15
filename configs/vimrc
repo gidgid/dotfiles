@@ -12,22 +12,23 @@ call plug#begin('~/.vim/plugged')
 " alternatively, pass a path where Vundle should install plugins
 "call plug#begin('~/some/path/here')
 Plug 'RRethy/vim-illuminate'
+Plug 'wincent/loupe'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'preservim/tagbar'
+Plug 'jiangmiao/auto-pairs'
 Plug 'airblade/vim-gitgutter'
+Plug 'machakann/vim-highlightedyank'
 Plug 'airblade/vim-rooter'
-Plug 'andymass/vim-matchup'
 Plug 'crusoexia/vim-monokai'
 Plug 'dense-analysis/ale'
 Plug 'ekalinin/Dockerfile.vim', { 'for': ['dockerfile'] }
+Plug 'https://github.com/preservim/tagbar'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'junegunn/vim-peekaboo'
 Plug 'junegunn/vim-plug'
 Plug 'lfv89/vim-interestingwords'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'pbogut/fzf-mru.vim'
-Plug 'psf/black', { 'for': ['python'], 'tag': '19.10b0' }
 Plug 'rhysd/clever-f.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'sirver/ultisnips'
@@ -42,6 +43,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required
+
 
 filetype plugin indent on    " required
 
@@ -94,6 +96,11 @@ nnoremap <F9> :setlocal spell! spelllang=en_us<CR>
 " Focuses screen on the current search (slash-after plugin)
 noremap <plug>(slash-after) zz
 let mapleader=","
+
+" Enable vim calendar
+source ~/.cache/calendar.vim/credentials.vim
+let g:calendar_google_calendar = 1
+let g:calendar_google_task = 1
 
 " How long it takes vim to decide if I typed a command or not
 set timeout timeoutlen=500
@@ -321,8 +328,6 @@ let g:UltiSnipsEditSplit="vertical"
 
 " Allows us to see the possible snippets
 " let g:UltiSnipsListSnippets="<c-o>"
-
-nmap <silent> <buffer> gK <Plug>(kite-docs)
 
 " =============== ale ============================== 
 nnoremap <silent> <space>aj :ALENext<cr>
