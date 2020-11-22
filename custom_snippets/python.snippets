@@ -83,6 +83,10 @@ snippet im "Create an import statement"
 import $0
 endsnippet
 
+snippet ima "Create an import statement from as statement"
+from ${1:path.from} import ${2:what} as ${0:imported_name}
+endsnippet
+
 snippet class "Create a new class"
 class ${1:name}:
 	def ${2:method_name}(self${3:params}):
@@ -188,7 +192,8 @@ from IPython import embed; embed()
 endsnippet
 
 snippet txf "Add xfail to test"
-@pytest.mark.xfail()
+@pytest.mark.xfail(reason='${1:to be implemented}')
+$0
 endsnippet
 
 snippet tskip "Add a skip to test"
@@ -229,4 +234,10 @@ snippet dc "Create a dataclass"
 @dataclass(frozen=True, eq=True)
 class ${1:Name}:
 	${2:field_name}: ${3:field_type}
+endsnippet
+
+snippet prop "Create a property method"
+@property 
+def ${1:name}(self)${2: ->}:
+	$0
 endsnippet
