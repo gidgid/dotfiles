@@ -14,7 +14,6 @@ Plug 'RRethy/vim-illuminate'
 Plug 'wincent/loupe'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'preservim/tagbar'
-Plug 'jiangmiao/auto-pairs'
 Plug 'airblade/vim-gitgutter'
 Plug 'machakann/vim-highlightedyank'
 Plug 'airblade/vim-rooter'
@@ -157,6 +156,8 @@ nmap <silent> t<C-l> :TestLast<CR>
 nmap <silent> t<C-g> :TestVisit<CR>
 
 inoremap <leader>a <ESC>A
+" allows us to run current line as command
+nnoremap <leader>exe :exe getline('.')<CR>
 " ======================= Status Line ==================================
 " always display the status line
 set laststatus=2 
